@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import "GSDetailViewController.h"
+#import "GSTerminalViewController.h"
 
-@interface GSDetailViewController ()
+@interface GSTerminalViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
 - (void)configureView;
 @end
 
-@implementation GSDetailViewController
+@implementation GSTerminalViewController
 
 #pragma mark - Managing the detail item
 

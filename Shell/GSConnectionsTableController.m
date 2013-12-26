@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import "GSMasterViewController.h"
+#import "GSConnectionsTableController.h"
 
-#import "GSDetailViewController.h"
+#import "GSTerminalViewController.h"
 
-@interface GSMasterViewController () {
+@interface GSConnectionsTableController () {
     NSMutableArray *_objects;
 }
 @end
 
-@implementation GSMasterViewController
+@implementation GSConnectionsTableController
 
 - (void)awakeFromNib
 {
@@ -34,7 +34,7 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (GSDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning

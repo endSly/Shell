@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class GSDetailViewController;
+@class GSTerminalViewController;
 
-@interface GSMasterViewController : UITableViewController
+@interface GSConnectionsTableController : UITableViewController
 
-@property (strong, nonatomic) GSDetailViewController *detailViewController;
+@property (strong, nonatomic) GSTerminalViewController *detailViewController;
 
 @end

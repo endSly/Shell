@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GSDetailViewController : UIViewController <UISplitViewControllerDelegate>
+@interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) id detailItem;
 
