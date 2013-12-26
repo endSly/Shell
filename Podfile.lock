@@ -1,0 +1,17 @@
+PODS:
+  - NanoStore (2.7.7)
+  - NMSSH (1.1.0)
+
+DEPENDENCIES:
+  - NanoStore (~> 2.7.7)
+  - NMSSH (from `https://github.com/endSly/NMSSH.git`)
+
+EXTERNAL SOURCES:
+  NMSSH:
+    :git: https://github.com/endSly/NMSSH.git
+
+SPEC CHECKSUMS:
+  NanoStore: 879a131b4f9b968f936187bb927cd5f8887cb202
+  NMSSH: b73479559e56c5756437a955c343116717e20b9b
+
+COCOAPODS: 0.29.0
