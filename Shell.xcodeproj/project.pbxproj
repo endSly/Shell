@@ -23,6 +23,8 @@
 		0D58EC4B186C5265008893E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC27186C5265008893E5 /* UIKit.framework */; };
 		0D58EC53186C5265008893E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC51186C5265008893E5 /* InfoPlist.strings */; };
 		0D58EC55186C5265008893E5 /* ShellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC54186C5265008893E5 /* ShellTests.m */; };
+		0D58EC63186C5631008893E5 /* GSConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC62186C5631008893E5 /* GSConnection.m */; };
+		0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC66186C59EF008893E5 /* GSTerminalView.m */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,10 @@
 		0D58EC50186C5265008893E5 /* ShellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ShellTests-Info.plist"; sourceTree = "<group>"; };
 		0D58EC52186C5265008893E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0D58EC54186C5265008893E5 /* ShellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShellTests.m; sourceTree = "<group>"; };
+		0D58EC61186C5631008893E5 /* GSConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConnection.h; sourceTree = "<group>"; };
+		0D58EC62186C5631008893E5 /* GSConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnection.m; sourceTree = "<group>"; };
+		0D58EC65186C59EF008893E5 /* GSTerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSTerminalView.h; sourceTree = "<group>"; };
+		0D58EC66186C59EF008893E5 /* GSTerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTerminalView.m; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +129,7 @@
 		0D58EC29186C5265008893E5 /* Shell */ = {
 			isa = PBXGroup;
 			children = (
+				0D58EC64186C5636008893E5 /* Models */,
 				0D58EC5F186C5516008893E5 /* Views */,
 				0D58EC5E186C5507008893E5 /* Controllers */,
 				0D58EC32186C5265008893E5 /* GSAppDelegate.h */,
@@ -178,8 +185,19 @@
 			children = (
 				0D58EC35186C5265008893E5 /* Main_iPhone.storyboard */,
 				0D58EC38186C5265008893E5 /* Main_iPad.storyboard */,
+				0D58EC65186C59EF008893E5 /* GSTerminalView.h */,
+				0D58EC66186C59EF008893E5 /* GSTerminalView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		0D58EC64186C5636008893E5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D58EC61186C5631008893E5 /* GSConnection.h */,
+				0D58EC62186C5631008893E5 /* GSConnection.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +337,8 @@
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
+				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
+				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

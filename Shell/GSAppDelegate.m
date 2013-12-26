@@ -12,6 +12,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Instantiate and open a NanoStore
+    NSError *error;
+    NSString *dbPath = [[self documentsPath] stringByAppendingString:@"/data.database"];
+    _nanoStore = [NSFNanoStore createAndOpenStoreWithType:NSFPersistentStoreType path:dbPath error:&error];
+
+    if (error) {
+        NSLog(@"NSFNanoStore error: %@", error);
+        exit(1);
+    }
+
+    // Set the synchronous mode setting
+    [_nanoStore nanoStoreEngine].synchronousMode = SynchronousModeOff;
+
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
@@ -46,6 +59,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Utils
+
+- (NSString *)documentsPath
+{
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 @end

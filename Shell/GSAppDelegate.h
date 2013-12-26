@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <NanoStore/NanoStore.h>
 
-@interface GSAppDelegate : UIResponder <UIApplicationDelegate>
+@interface GSAppDelegate : UIResponder <UIApplicationDelegate> {
+    NSFNanoStore *_nanoStore;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
