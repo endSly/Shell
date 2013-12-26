@@ -25,6 +25,11 @@
 		0D58EC55186C5265008893E5 /* ShellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC54186C5265008893E5 /* ShellTests.m */; };
 		0D58EC63186C5631008893E5 /* GSConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC62186C5631008893E5 /* GSConnection.m */; };
 		0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC66186C59EF008893E5 /* GSTerminalView.m */; };
+		0D58EC85186C6425008893E5 /* jquery.terminal.css in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC7F186C6425008893E5 /* jquery.terminal.css */; };
+		0D58EC86186C6425008893E5 /* terminal.html in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC80186C6425008893E5 /* terminal.html */; };
+		0D58EC87186C642F008893E5 /* jquery-1.7.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC7C186C6425008893E5 /* jquery-1.7.1.min.js */; };
+		0D58EC88186C642F008893E5 /* jquery.mousewheel-min.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC7D186C6425008893E5 /* jquery.mousewheel-min.js */; };
+		0D58EC89186C642F008893E5 /* jquery.terminal-0.7.12.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC7E186C6425008893E5 /* jquery.terminal-0.7.12.min.js */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +70,11 @@
 		0D58EC62186C5631008893E5 /* GSConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnection.m; sourceTree = "<group>"; };
 		0D58EC65186C59EF008893E5 /* GSTerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSTerminalView.h; sourceTree = "<group>"; };
 		0D58EC66186C59EF008893E5 /* GSTerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTerminalView.m; sourceTree = "<group>"; };
+		0D58EC7C186C6425008893E5 /* jquery-1.7.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.7.1.min.js"; sourceTree = "<group>"; };
+		0D58EC7D186C6425008893E5 /* jquery.mousewheel-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.mousewheel-min.js"; sourceTree = "<group>"; };
+		0D58EC7E186C6425008893E5 /* jquery.terminal-0.7.12.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery.terminal-0.7.12.min.js"; sourceTree = "<group>"; };
+		0D58EC7F186C6425008893E5 /* jquery.terminal.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = jquery.terminal.css; sourceTree = "<group>"; };
+		0D58EC80186C6425008893E5 /* terminal.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terminal.html; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +195,7 @@
 			children = (
 				0D58EC35186C5265008893E5 /* Main_iPhone.storyboard */,
 				0D58EC38186C5265008893E5 /* Main_iPad.storyboard */,
+				0D58EC7A186C6425008893E5 /* terminal-html */,
 				0D58EC65186C59EF008893E5 /* GSTerminalView.h */,
 				0D58EC66186C59EF008893E5 /* GSTerminalView.m */,
 			);
@@ -198,6 +209,18 @@
 				0D58EC62186C5631008893E5 /* GSConnection.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		0D58EC7A186C6425008893E5 /* terminal-html */ = {
+			isa = PBXGroup;
+			children = (
+				0D58EC7C186C6425008893E5 /* jquery-1.7.1.min.js */,
+				0D58EC7D186C6425008893E5 /* jquery.mousewheel-min.js */,
+				0D58EC7E186C6425008893E5 /* jquery.terminal-0.7.12.min.js */,
+				0D58EC7F186C6425008893E5 /* jquery.terminal.css */,
+				0D58EC80186C6425008893E5 /* terminal.html */,
+			);
+			path = "terminal-html";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +273,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Endika Gutiérrez Salas";
 				TargetAttributes = {
+					0D58EC1F186C5265008893E5 = {
+						DevelopmentTeam = 2MPHS8UZ9U;
+					};
 					0D58EC46186C5265008893E5 = {
 						TestTargetID = 0D58EC1F186C5265008893E5;
 					};
@@ -279,10 +305,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D58EC87186C642F008893E5 /* jquery-1.7.1.min.js in Resources */,
+				0D58EC88186C642F008893E5 /* jquery.mousewheel-min.js in Resources */,
+				0D58EC89186C642F008893E5 /* jquery.terminal-0.7.12.min.js in Resources */,
 				0D58EC3A186C5265008893E5 /* Main_iPad.storyboard in Resources */,
 				0D58EC42186C5265008893E5 /* Images.xcassets in Resources */,
 				0D58EC37186C5265008893E5 /* Main_iPhone.storyboard in Resources */,
 				0D58EC2E186C5265008893E5 /* InfoPlist.strings in Resources */,
+				0D58EC85186C6425008893E5 /* jquery.terminal.css in Resources */,
+				0D58EC86186C6425008893E5 /* terminal.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,10 +508,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shell/Shell-Prefix.pch";
 				INFOPLIST_FILE = "Shell/Shell-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -491,10 +525,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shell/Shell-Prefix.pch";
 				INFOPLIST_FILE = "Shell/Shell-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shell</title>
+    <script src="./jquery-1.7.1.min.js"></script>
+    <script src="./jquery.mousewheel-min.js"></script>
+    <script src="./jquery.terminal-0.7.12.min.js"></script>
+    <link href="./jquery.terminal.css" rel="stylesheet"/>
+    <style>
+      /* FULL SCREEN FIXES */
+      .terminal a.ui-slider-handle:focus {
+        outline: none;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        background-color: #000;
+      }
+      .clear {
+        clear: both;
+      }
+      /* This works only in Safari and Google Chrome */
+      @media screen and (-webkit-min-device-pixel-ratio:0) {
+        .terminal, .terminal .terminal-output, .terminal .terminal-output div,
+        .terminal .terminal-output div div, .cmd, .terminal .cmd span, .terminal .cmd div {
+          font-weight: bold;
+        }
+      }
+      /* ANDORID FIXES */
+      .terminal {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-transition: none !important;
+        -webkit-transform: none !important;
+        overflow-y: visible !important;
+      }
+      
+      .terminal textarea {
+        position: fixed !important;
+        top: 0;
+        margin-left: -9999px;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      
+      jQuery(function($) {
+        term = $('#shell').terminal(function(command, term) {
+          if (command.match(/scroll/)) {
+            term.echo('scrollHeight: ' + term.prop('scrollHeight'));
+            term.scrollTop(term.prop('scrollHeight'));
+          }
+          else if (command.match(/down/)) {
+            term.scroll(-40);
+          }
+          else if (command.match(/up/)) {
+            term.scroll(40);
+          }
+          term.echo($(window).height());
+          term.echo($(document).height());
+          term.echo($('body').height());
+          term.echo($('html').height());
+          term.echo(term.height());
+        },
+        {
+          greetings: "Android Test",
+          prompt: '$ ',
+          name: 'test',
+          onInit: function(term) {
+            /*
+$('textarea').focus(function() {
+$(window).scrollTop(10);
+var keyboard_shown = $(window).scrollTop() > 0;
+$(window).scrollTop(0);
+term.echo(keyboard_shown?'keyboard ':'nokeyboard');
+}
+).focus();
+*/
+              //term.touchScroll();
+
+              $('#shell textarea').focus();
+              term.click(function() {
+                if (!$('#shell textarea').is(':focus'))
+                  $('#shell textarea').focus();
+              });
+            }
+          }
+         ).css({overflow: 'auto'});
+          /*
+$(window).resize(function() {
+term.css('height', $(window).height()-20);
+}
+).resize();
+*/
+          
+      });
+    </script>
+    <body>
+      <div id="shell"></div>
+    </body>
+  </html>
+  
