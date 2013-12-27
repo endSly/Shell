@@ -74,15 +74,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EL2-bP-9Dg" customClass="GSTerminalView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EL2-bP-9Dg" customClass="GSTerminalView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EL2-bP-9Dg" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leading" id="OQP-g9-cf6"/>
+                            <constraint firstItem="EL2-bP-9Dg" firstAttribute="top" secondItem="MMQ-IT-qOo" secondAttribute="top" id="PS7-Vj-vQx"/>
+                            <constraint firstAttribute="trailing" secondItem="EL2-bP-9Dg" secondAttribute="trailing" id="Snf-IG-UU0"/>
+                            <constraint firstAttribute="bottom" secondItem="EL2-bP-9Dg" secondAttribute="bottom" id="cSa-BC-RkQ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
+                    <connections>
+                        <outlet property="terminalView" destination="EL2-bP-9Dg" id="yki-2J-zbS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>

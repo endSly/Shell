@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol GSTerminalViewDelegate;
+
 @interface GSTerminalView : UIView <UIWebViewDelegate>
+
+@property (nonatomic, strong) id <GSTerminalViewDelegate> delegate;
+
+- (void)terminalWrite:(NSString *)string;
+- (void)setCols:(NSUInteger)cols rows:(NSUInteger)rows;
+- (void)getScreenCols:(NSUInteger *)cols rows:(NSUInteger *)rows;
+- (void)adjustSizeToScreen;
+
+@end
+
+@protocol GSTerminalViewDelegate <NSObject>
+
+- (void)terminalViewDidLoad:(GSTerminalView *)terminalView;
+- (void)terminalView:(GSTerminalView *)terminalView didWrite:(NSString *)data;
 
 @end

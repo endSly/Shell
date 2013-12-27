@@ -23,6 +23,7 @@
     if (self) {
         UIWebView *webView = [[UIWebView alloc] initWithFrame:self.frame];
         webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        webView.scrollView.bounces = NO;
         webView.delegate = self;
         [self addSubview:webView];
         self.webView = webView;
@@ -39,16 +40,74 @@
 - (void)layoutSubviews
 {
     self.webView.frame = self.frame;
+    NSURL *htmlURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"terminal" ofType:@"html"] isDirectory:NO];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:htmlURL]];
+}
 
-    NSURLRequest *terminalLoadRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"terminal" ofType:@"html"] isDirectory:NO]];
-    [self.webView loadRequest:terminalLoadRequest];
+- (void)terminalWrite:(NSString *)data
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *string = data;
+        string = [string stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+        string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+        string = [string stringByReplacingOccurrencesOfString:@"\'" withString:@"\\\'"];
+        string = [string stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+        string = [string stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
+        string = [string stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"];
+
+        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.term.write(\"%@\");", string]];
+    });
+
+}
+
+- (void)setCols:(NSUInteger)cols rows:(NSUInteger)rows
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.term.resize(%lu, %lu);", cols, rows]];
+}
+
+- (void)getScreenCols:(NSUInteger *)cols rows:(NSUInteger *)rows
+{
+    NSString *sizeJSON = [self.webView stringByEvaluatingJavaScriptFromString:@"JSON.stringify(getSize());"];
+    NSDictionary *size = [NSJSONSerialization JSONObjectWithData:[sizeJSON dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+
+    *cols = [size[@"cols"] integerValue];
+    *rows = [size[@"rows"] integerValue];
+}
+
+- (void)adjustSizeToScreen
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"adjustToWindow();"];
 }
 
 #pragma mark - Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([request.URL.scheme isEqualToString:@"objc-callback"]) {
+    if ([request.URL.scheme isEqualToString:@"term-write"]) {
+        NSString *data = [request.URL.fragment stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [self.delegate terminalView:self didWrite:data];
+        return NO;
+    }
+
+    if ([request.URL.scheme isEqualToString:@"term-title"]) {
+        NSString *data = [request.URL.fragment stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [self.delegate terminalView:self didWrite:data];
+        return NO;
+    }
+
+    if ([request.URL.scheme isEqualToString:@"term-resize"]) {
+        //[self adjustSizeToScreen];
+
+        return NO;
+    }
+
+    if ([request.URL.scheme isEqualToString:@"term-will-appear"]) {
+
+        return NO;
+    }
+
+    if ([request.URL.scheme isEqualToString:@"term-did-appear"]) {
+        [self.delegate terminalViewDidLoad:self];
         return NO;
     }
 
@@ -57,10 +116,12 @@
 
 #pragma mark - Remove keyboard
 
-- (void)keyboardWillShow:(NSNotification *)note {
+- (void)keyboardWillShow:(NSNotification *)note
+{
     [self performSelector:@selector(removeBar) withObject:nil afterDelay:0];
 }
-- (void)removeBar {
+- (void)removeBar
+{
     // Locate non-UIWindow.
     UIWindow *keyboardWindow = nil;
     for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
@@ -86,7 +147,10 @@
     }
 
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, keyboardWindow.frame.size.width, 44.0f)];
-    toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"Tab" style:UIBarButtonItemStylePlain target:self action:@selector(test)]];
+    toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"tab" style:UIBarButtonItemStylePlain target:self action:@selector(test)],
+                      [[UIBarButtonItem alloc] initWithTitle:@"esc" style:UIBarButtonItemStylePlain target:self action:@selector(test)],
+                      [[UIBarButtonItem alloc] initWithTitle:@"ctrl" style:UIBarButtonItemStylePlain target:self action:@selector(test)],
+                      ];
     [keyboardView addSubview:toolbar];
 }
 

@@ -6,11 +6,16 @@
 //  Copyright (c) 2013 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+#import <NMSSH/NMSSH.h>
 
-@interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate>
+#import "GSTerminalView.h"
 
-@property (strong, nonatomic) id detailItem;
+@class GSConnection;
 
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate, GSTerminalViewDelegate, NMSSHSessionDelegate, NMSSHChannelDelegate>
+
+@property (strong, nonatomic) GSConnection * connection;
+
+@property (weak, nonatomic) IBOutlet GSTerminalView * terminalView;
 @end
