@@ -24,6 +24,7 @@
         UIWebView *webView = [[UIWebView alloc] initWithFrame:self.frame];
         webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         webView.scrollView.bounces = NO;
+        webView.dataDetectorTypes = UIDataDetectorTypeNone;
         webView.delegate = self;
         [self addSubview:webView];
         self.webView = webView;
@@ -114,6 +115,21 @@
     return YES;
 }
 
+- (void)writeTab:(id)sender
+{
+    [self.delegate terminalView:self didWrite:@"\t"];
+}
+
+- (void)writeEsc:(id)sender
+{
+    [self.delegate terminalView:self didWrite:@"^]"];
+}
+
+- (void)ctrlTapAction:(id)sender
+{
+
+}
+
 #pragma mark - Remove keyboard
 
 - (void)keyboardWillShow:(NSNotification *)note
@@ -147,9 +163,9 @@
     }
 
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, keyboardWindow.frame.size.width, 44.0f)];
-    toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"tab" style:UIBarButtonItemStylePlain target:self action:@selector(test)],
-                      [[UIBarButtonItem alloc] initWithTitle:@"esc" style:UIBarButtonItemStylePlain target:self action:@selector(test)],
-                      [[UIBarButtonItem alloc] initWithTitle:@"ctrl" style:UIBarButtonItemStylePlain target:self action:@selector(test)],
+    toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"tab" style:UIBarButtonItemStylePlain target:self action:@selector(writeTab:)],
+                      [[UIBarButtonItem alloc] initWithTitle:@"esc" style:UIBarButtonItemStylePlain target:self action:@selector(writeEsc:)],
+                      [[UIBarButtonItem alloc] initWithTitle:@"ctrl" style:UIBarButtonItemStylePlain target:self action:@selector(ctrlTapAction:)],
                       ];
     [keyboardView addSubview:toolbar];
 }
