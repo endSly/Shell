@@ -57,6 +57,8 @@
         string = [string stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"];
 
         [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.term.write(\"%@\");", string]];
+
+        NSLog(@"--------------\n%@", string);
     });
 
 }
@@ -97,7 +99,7 @@
     }
 
     if ([request.URL.scheme isEqualToString:@"term-resize"]) {
-        //[self adjustSizeToScreen];
+        [self.delegate terminalViewDidResize:self];
 
         return NO;
     }
@@ -125,9 +127,10 @@
     [self.delegate terminalView:self didWrite:@"^]"];
 }
 
-- (void)ctrlTapAction:(id)sender
+- (void)ctrlTapAction:(UIBarButtonItem *)button
 {
-
+    [button setTitleTextAttributes:@{NSForegroundColorAttributeName:[[[[UIApplication sharedApplication] delegate] window] tintColor]}
+                          forState:UIControlStateNormal];
 }
 
 #pragma mark - Remove keyboard

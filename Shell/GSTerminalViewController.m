@@ -27,41 +27,30 @@
 
     self.terminalView.delegate = self;
 
-    double delayInSeconds = 2.0;
+    double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        NMSSHSession *session = [NMSSHSession connectToHost:@"" port:22 withUsername:@"root"];
+
+        NMSSHSession *session = [NMSSHSession connectToHost:@"fry.ekaidepd.com" port:22 withUsername:@"root"];
         session.delegate = self;
-        self.session = session;
+        session.channel.delegate = self;
 
-        [session authenticateByPassword:@""];
+        session.channel.environmentVariables = @{@"TERM": @"xterm"};
 
-        //[session authenticateByKeyboardInteractive];
+        [session authenticateByPassword:@"dC3RbSF4s"];
 
         NSError *error = nil;
-        //NSString *response = [session.channel execute:@"ls -l /var/www/" error:&error];
-        //NSLog(@"List of my sites: %@", response);
 
         session.channel.ptyTerminalType = NMSSHChannelPtyTerminalXterm;
 
-        session.channel.delegate = self;
         session.channel.requestPty = YES;
 
-        BOOL shell = [session.channel startShell:&error];
+        [session.channel startShell:&error];
         NSLog(@"Error %@", error);
 
-
-        [session.channel write:@"stty columns 50\n" error:&error];
-        [session.channel write:@"stty rows 30\n" error:&error];
-        //[session.channel write:@"ls -l /var/www/ --color=yes\n" error:&error];
-
-
-        //[session.channel write:@"nano\n" error:&error];
-        //NSLog(@"Error %@", error);
-        
-        //BOOL success = [session.channel uploadFile:@"~/index.html" to:@"/var/www/9muses.se/"];
-        
         //[session disconnect];
+
+        self.session = session;
     });
 
 }
@@ -70,6 +59,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)adjustSizeToTerminalView
+{
+    NSUInteger cols, rows;
+    [self.terminalView getScreenCols:&cols rows:&rows];
+
+    rows = MAX(rows, 24);
+
+    [self.terminalView setCols:cols rows:rows];
+    [self.session.channel requestSizeRows:rows cols:cols];
 }
 
 #pragma mark - Split view
@@ -92,10 +92,12 @@
 
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView
 {
-    NSUInteger cols, rows;
-    [terminalView getScreenCols:&cols rows:&rows];
+    [self adjustSizeToTerminalView];
+}
 
-    [terminalView adjustSizeToScreen];
+- (void)terminalViewDidResize:(GSTerminalView *)terminalView
+{
+    [self adjustSizeToTerminalView];
 }
 
 - (void)terminalView:(GSTerminalView *)terminalView didWrite:(NSString *)data

@@ -25,5 +25,6 @@
 
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView;
 - (void)terminalView:(GSTerminalView *)terminalView didWrite:(NSString *)data;
+- (void)terminalViewDidResize:(GSTerminalView *)terminalView;
 
 @end
