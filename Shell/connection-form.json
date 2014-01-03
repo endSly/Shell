@@ -1,0 +1,22 @@
+{
+  "grouped":true,
+  "title":"New connection",
+  "controllerName":"GSConnectionFormController",
+  "sections": [
+    { "title":"SSH", "elements": [
+        { "type":"QEntryElement",   "bind":"textValue:host", "title":"Host\t\t\t", "placeholder": "localhost", "autocorrectionType": 1, "autocapitalizationType": 0, "keyboardType": 3},
+        { "type":"QDecimalElement", "bind":"numberValue:port", "title":"Port\t\t\t", "numberValue": 22},
+      ]
+    },
+    { "title":"Credentials", "elements": [
+        { "type":"QEntryElement", "bind":"textValue:username", "title":"Username\t\t", "placeholder": "root", "autocorrectionType": 1, "autocapitalizationType": 0},
+        { "type":"QEntryElement", "bind":"textValue:password", "title":"Password\t\t", "placeholder": "password", "secureTextEntry": true},
+        { "type":"QBooleanElement", "bind":"value:savePassword", "title":"Save password"},
+      ]
+    },
+    { "elements": [
+        { "type":"QButtonElement", "title":"Save & Connect", "controllerAction":"connectAction:" }
+      ]
+    }
+  ]
+}

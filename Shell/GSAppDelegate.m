@@ -8,6 +8,8 @@
 
 #import "GSAppDelegate.h"
 
+#import "GSConnectionsTableController.h"
+
 @implementation GSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -25,12 +27,20 @@
     // Set the synchronous mode setting
     [_nanoStore nanoStoreEngine].synchronousMode = SynchronousModeOff;
 
+    GSConnectionsTableController *connectionsController;
+
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
+        UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
+        connectionsController = (GSConnectionsTableController *) navigationController.topViewController;
+    } else {
+        UINavigationController *navigationController = (UINavigationController *) self.window.rootViewController;
+        connectionsController = (GSConnectionsTableController *) navigationController.topViewController;
     }
+    connectionsController.nanoStore = _nanoStore;
+    
     return YES;
 }
 							

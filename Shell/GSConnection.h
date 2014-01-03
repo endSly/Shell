@@ -13,8 +13,10 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *host;
 @property (nonatomic, strong) NSNumber *port;
-@property (nonatomic, strong) NSString *user;
+@property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSDate *lastConnected;
+
+@property (nonatomic, strong) NSNumber *savePassword;
 
 @end

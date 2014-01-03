@@ -8,7 +8,12 @@
 
 #import "GSConnectionsTableController.h"
 
+#import <QuickDialog/QuickDialog.h>
+
 #import "GSTerminalViewController.h"
+#import "GSConnectionFormController.h"
+
+#import "GSConnection.h"
 
 @interface GSConnectionsTableController () {
     NSMutableArray *_objects;
@@ -32,9 +37,12 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newConnectionAction:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+
+    NSFNanoSearch *search = [NSFNanoSearch searchWithStore:self.nanoStore];
+    _objects = ((NSDictionary *) [search searchObjectsWithReturnType:NSFReturnObjects error:nil]).allValues;
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,14 +51,28 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
+- (void)newConnectionAction:(id)sender
 {
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    GSConnection *newConnection = (GSConnection *) [GSConnection nanoObject];
+
+    newConnection.port = @22;
+
+    QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"connection-form" andData:newConnection];
+
+    UINavigationController *navigation = [QuickDialogController controllerWithNavigationForRoot:root];
+
+    GSConnectionFormController *formController = (GSConnectionFormController *) navigation.topViewController;
+    formController.delegate = self;
+    formController.connection = newConnection;
+
+    [self presentViewController:navigation animated:YES completion:nil];
+}
+
+#pragma mark - Connection Form Delegate
+
+- (void)connectionForm:(GSConnectionFormController *)controller didSave:(GSConnection *)connection
+{
+    [self.nanoStore addObject:connection error:nil];
 }
 
 #pragma mark - Table View
@@ -69,8 +91,8 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    GSConnection *connection = _objects[indexPath.row];
+    cell.textLabel.text = [connection objectForKey:@"host"];
     return cell;
 }
 

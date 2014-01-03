@@ -12,6 +12,8 @@
 
 #import "GSTerminalView.h"
 
+#import <OpenSSL/rsa.h>
+
 @interface GSTerminalViewController ()
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -53,6 +55,8 @@
         self.session = session;
     });
 
+    RSA *keypair = RSA_generate_key(2048, 3, NULL, NULL);
+    NSLog(@"%u", keypair);
 }
 
 - (void)didReceiveMemoryWarning
