@@ -10,6 +10,8 @@
 
 #import "GSConnection.h"
 
+#import "UIBarButtonItem+IonIcons.h"
+
 @interface GSConnectionFormController ()
 
 @end
@@ -20,7 +22,9 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
+
+    ((QEntryElement *) [self.root elementWithKey:@"name"]).delegate = self;
 }
 
 - (void)connectAction:(id)sender
@@ -46,6 +50,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)QEntryEditingChangedForElement:(QEntryElement *)element andCell:(QEntryTableViewCell *)cell
+{
+    if ([element.key isEqualToString:@"name"]) {
+        self.title = element.textValue.length > 0 ? element.textValue : @"New connection";
+    }
 }
 
 @end

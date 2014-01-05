@@ -12,8 +12,6 @@
 
 #import "GSTerminalView.h"
 
-#import <OpenSSL/rsa.h>
-
 @interface GSTerminalViewController ()
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -21,42 +19,80 @@
 
 @end
 
-@implementation GSTerminalViewController
+@implementation GSTerminalViewController {
+    NSOperationQueue *_queue;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    _queue = [[NSOperationQueue mainQueue] init];
+
     self.terminalView.delegate = self;
+}
 
-    double delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+- (void)connect
+{
+    [_queue addOperationWithBlock:^{
+        NMSSHSession *session = [NMSSHSession connectToHost:[self.connection objectForKey:@"host"]
+                                                       port:[[self.connection objectForKey:@"port"] integerValue]
+                                               withUsername:[self.connection objectForKey:@"username"]];
 
-        NMSSHSession *session = [NMSSHSession connectToHost:@"fry.ekaidepd.com" port:22 withUsername:@"root"];
+        if (!session.rawSession) {
+            [self closeWithError:@"Unable to connect to host."];
+            return;
+        }
+
         session.delegate = self;
         session.channel.delegate = self;
 
         session.channel.environmentVariables = @{@"TERM": @"xterm"};
 
-        [session authenticateByPassword:@"dC3RbSF4s"];
-
-        NSError *error = nil;
+        [session authenticateByPassword:[self.connection objectForKey:@"password"]];
 
         session.channel.ptyTerminalType = NMSSHChannelPtyTerminalXterm;
 
         session.channel.requestPty = YES;
-
-        [session.channel startShell:&error];
-        NSLog(@"Error %@", error);
-
-        //[session disconnect];
-
         self.session = session;
-    });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSError *error = nil;
 
-    RSA *keypair = RSA_generate_key(2048, 3, NULL, NULL);
-    NSLog(@"%u", keypair);
+            [session.channel startShell:&error];
+
+            if (error) {
+                [self closeWithError:error.description];
+                return;
+            }
+        });
+
+        
+
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [_queue addOperationWithBlock:^{
+        [self.session disconnect];
+    }];
+}
+
+- (void)closeWithError:(NSString *)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:error
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+    });
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,7 +109,7 @@
     rows = MAX(rows, 24);
 
     [self.terminalView setCols:cols rows:rows];
-    [self.session.channel requestSizeRows:rows cols:cols];
+    [self.session.channel requestSizeWidth:cols height:rows];
 }
 
 #pragma mark - Split view
@@ -97,6 +133,8 @@
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView
 {
     [self adjustSizeToTerminalView];
+
+    [self connect];
 }
 
 - (void)terminalViewDidResize:(GSTerminalView *)terminalView

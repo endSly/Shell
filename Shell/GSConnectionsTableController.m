@@ -15,8 +15,10 @@
 
 #import "GSConnection.h"
 
+#import "UIBarButtonItem+IonIcons.h"
+
 @interface GSConnectionsTableController () {
-    NSMutableArray *_objects;
+    NSArray *_connections;
 }
 @end
 
@@ -34,15 +36,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline
+                                                                 color:[UIColor whiteColor]
+                                                                target:self
+                                                                action:@selector(newConnectionAction:)];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newConnectionAction:)];
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_gear_outline
+                                                                      color:[UIColor whiteColor]
+                                                                     target:self
+                                                                     action:@selector(settingsAction:)];
+
     self.navigationItem.rightBarButtonItem = addButton;
+    self.navigationItem.leftBarButtonItem = settingsButton;
+
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
+    self.navigationController.navigationBar.titleTextAttributes =  @{NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                                     NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]};
+
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:85.0/255.0 green:143.0/255.0 blue:220.0/255.0 alpha:1.0];
+    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:18.0/255.0 green:60.0/255.0 blue:132.0/255.0 alpha:1.0];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:52.0/255.0 green:102.0/255.0 blue:176.0/255.0 alpha:1.0];
+
+    [self reloadConnections];
+}
+
+- (void)reloadConnections
+{
     NSFNanoSearch *search = [NSFNanoSearch searchWithStore:self.nanoStore];
-    _objects = ((NSDictionary *) [search searchObjectsWithReturnType:NSFReturnObjects error:nil]).allValues;
+    _connections = ((NSDictionary *) [search searchObjectsWithReturnType:NSFReturnObjects error:nil]).allValues;
+
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,7 +86,17 @@
 
     QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"connection-form" andData:newConnection];
 
+    QAppearance *defaultAppearance = [[QAppearance alloc] init];
+    defaultAppearance.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
+    root.appearance = defaultAppearance;
+
     UINavigationController *navigation = [QuickDialogController controllerWithNavigationForRoot:root];
+
+    navigation.navigationBar.titleTextAttributes =  @{NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                      NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0]};
+
+    navigation.navigationBar.tintColor = [UIColor whiteColor];
+    navigation.navigationBar.barTintColor = [UIColor grayColor];
 
     GSConnectionFormController *formController = (GSConnectionFormController *) navigation.topViewController;
     formController.delegate = self;
@@ -68,11 +105,18 @@
     [self presentViewController:navigation animated:YES completion:nil];
 }
 
+- (void)settingsAction:(id)sender
+{
+
+}
+
 #pragma mark - Connection Form Delegate
 
 - (void)connectionForm:(GSConnectionFormController *)controller didSave:(GSConnection *)connection
 {
     [self.nanoStore addObject:connection error:nil];
+
+    [self reloadConnections];
 }
 
 #pragma mark - Table View
@@ -84,15 +128,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return _connections.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    GSConnection *connection = _objects[indexPath.row];
-    cell.textLabel.text = [connection objectForKey:@"host"];
+    GSConnection *connection = _connections[indexPath.row];
+    cell.textLabel.text = [connection objectForKey:@"name"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@:%@", [connection objectForKey:@"host"], [connection objectForKey:@"port"]];
+
     return cell;
 }
 
@@ -105,33 +151,25 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        GSConnection *connection = _connections[indexPath.row];
+        [self.nanoStore removeObject:connection error:nil];
+
+        _connections = [_connections mutableCopy];
+        [(NSMutableArray *) _connections removeObjectAtIndex:indexPath.row];
+
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    return 64.0f;
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *object = _objects[indexPath.row];
+        GSConnection *object = _connections[indexPath.row];
         self.detailViewController.connection = object;
     }
 }
@@ -140,7 +178,7 @@
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
+        GSConnection *object = _connections[indexPath.row];
         [[segue destinationViewController] setConnection:object];
     }
 }

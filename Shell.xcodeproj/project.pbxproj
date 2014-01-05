@@ -29,6 +29,9 @@
 		0D58EC8C186CEE64008893E5 /* term.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC8A186CEE5B008893E5 /* term.js */; };
 		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
 		0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */; };
+		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
+		0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */; };
+		0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3388F18796F6800A5F50C /* ionicons.ttf */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,11 @@
 		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConnectionFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnectionFormController.m; sourceTree = "<group>"; };
+		0DE3388718796F3900A5F50C /* UIFont+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+IonIcons.h"; sourceTree = "<group>"; };
+		0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+IonIcons.m"; sourceTree = "<group>"; };
+		0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+IonIcons.h"; sourceTree = "<group>"; };
+		0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+IonIcons.m"; sourceTree = "<group>"; };
+		0DE3388F18796F6800A5F50C /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +146,8 @@
 		0D58EC29186C5265008893E5 /* Shell */ = {
 			isa = PBXGroup;
 			children = (
-				0D58EC7A186C6425008893E5 /* terminal-html */,
+				0DE3388E18796F5300A5F50C /* Resources */,
+				0DE3388D18796F4700A5F50C /* Categories */,
 				0D58EC64186C5636008893E5 /* Models */,
 				0D58EC5F186C5516008893E5 /* Views */,
 				0D58EC5E186C5507008893E5 /* Controllers */,
@@ -220,6 +229,26 @@
 				0D58EC80186C6425008893E5 /* terminal.html */,
 			);
 			path = "terminal-html";
+			sourceTree = "<group>";
+		};
+		0DE3388D18796F4700A5F50C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0DE3388718796F3900A5F50C /* UIFont+IonIcons.h */,
+				0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */,
+				0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */,
+				0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		0DE3388E18796F5300A5F50C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0DE3388F18796F6800A5F50C /* ionicons.ttf */,
+				0D58EC7A186C6425008893E5 /* terminal-html */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +335,7 @@
 			files = (
 				0D58EC8C186CEE64008893E5 /* term.js in Resources */,
 				0D58EC3A186C5265008893E5 /* Main_iPad.storyboard in Resources */,
+				0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */,
 				0D58EC42186C5265008893E5 /* Images.xcassets in Resources */,
 				0D58EC37186C5265008893E5 /* Main_iPhone.storyboard in Resources */,
 				0D58EC2E186C5265008893E5 /* InfoPlist.strings in Resources */,
@@ -364,10 +394,12 @@
 			files = (
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
 				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
+				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
+				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

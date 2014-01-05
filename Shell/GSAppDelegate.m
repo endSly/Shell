@@ -14,6 +14,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     // Instantiate and open a NanoStore
     NSError *error;
     NSString *dbPath = [[self documentsPath] stringByAppendingString:@"/data.database"];

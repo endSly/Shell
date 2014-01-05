@@ -10,13 +10,13 @@
 
 @interface GSConnection : NSFNanoObject
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *host;
-@property (nonatomic, strong) NSNumber *port;
-@property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) NSString *password;
-@property (nonatomic, strong) NSDate *lastConnected;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *host;
+@property (nonatomic, copy) NSNumber *port;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSDate *lastConnected;
 
-@property (nonatomic, strong) NSNumber *savePassword;
+@property (nonatomic, copy) NSNumber *savePassword;
 
 @end

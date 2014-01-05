@@ -12,7 +12,7 @@
 
 @protocol GSConnectionFormDelegate;
 
-@interface GSConnectionFormController : QuickDialogController
+@interface GSConnectionFormController : QuickDialogController <QuickDialogEntryElementDelegate>
 
 @property (nonatomic, strong) GSConnection * connection;
 @property (nonatomic, weak) id <GSConnectionFormDelegate> delegate;

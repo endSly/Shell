@@ -3,6 +3,10 @@
   "title":"New connection",
   "controllerName":"GSConnectionFormController",
   "sections": [
+    { "elements": [
+        { "type":"QEntryElement", "key": "name", "bind":"textValue:name", "title":"Name\t\t\t", "placeholder": "Connection", "autocorrectionType": 1},
+      ]
+    },
     { "title":"SSH", "elements": [
         { "type":"QEntryElement",   "bind":"textValue:host", "title":"Host\t\t\t", "placeholder": "localhost", "autocorrectionType": 1, "autocapitalizationType": 0, "keyboardType": 3},
         { "type":"QDecimalElement", "bind":"numberValue:port", "title":"Port\t\t\t", "numberValue": 22},

@@ -1,11 +1,6 @@
 PODS:
   - NanoStore (2.7.7)
   - NMSSH (1.1.0)
-  - OpenSSL (1.0.1):
-    - OpenSSL/ssl
-  - OpenSSL/crypto (1.0.1)
-  - OpenSSL/ssl (1.0.1):
-    - OpenSSL/crypto
   - QuickDialog (0.9.1)
   - TenzingCore (0.2.1):
     - TenzingCore/Core
@@ -15,20 +10,14 @@ PODS:
 
 DEPENDENCIES:
   - NanoStore (~> 2.7.7)
-  - NMSSH (from `https://github.com/endSly/NMSSH.git`)
-  - OpenSSL (~> 1.0.1)
+  - NMSSH (~> 1.1.0)
   - QuickDialog (~> 0.9.1)
   - TenzingCore (~> 0.2.1)
   - TenzingCore/RESTService (~> 0.2.1)
 
-EXTERNAL SOURCES:
-  NMSSH:
-    :git: https://github.com/endSly/NMSSH.git
-
 SPEC CHECKSUMS:
   NanoStore: 879a131b4f9b968f936187bb927cd5f8887cb202
-  NMSSH: b73479559e56c5756437a955c343116717e20b9b
-  OpenSSL: 72cccf15e5d2c0b9b8a1160f5f3ec7a3d2761310
+  NMSSH: b3443e42954363e47be66267239dc799dba131f4
   QuickDialog: fa9f2641b1c2028667e115add0005530c77193a3
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999
 
