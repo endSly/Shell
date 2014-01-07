@@ -8,6 +8,8 @@
 
 #import "GSTerminalView.h"
 
+#import "UIBarButtonItem+IonIcons.h"
+
 @interface GSTerminalView ()
 
 @property (nonatomic, weak) UIWebView *webView;
@@ -32,6 +34,11 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
+                                                   object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
                                                    object:nil];
     }
     
@@ -124,13 +131,34 @@
 
 - (void)writeEsc:(id)sender
 {
-    [self.delegate terminalView:self didWrite:@"^]"];
+    [self.delegate terminalView:self didWrite:@"\e"];
 }
 
-- (void)ctrlTapAction:(UIBarButtonItem *)button
+- (void)ctrlTapAction:(UIButton *)button
 {
-    [button setTitleTextAttributes:@{NSForegroundColorAttributeName:[[[[UIApplication sharedApplication] delegate] window] tintColor]}
-                          forState:UIControlStateNormal];
+    button.backgroundColor = [[UIApplication sharedApplication].delegate window].tintColor;
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.layer.cornerRadius = 3;
+}
+
+- (void)upArrowAction:(id)sender
+{
+    [self.delegate terminalView:self didWrite:@"\e[A"];
+}
+
+- (void)downArrowAction:(id)sender
+{
+    [self.delegate terminalView:self didWrite:@"\e[B"];
+}
+
+- (void)rightArrowAction:(id)sender
+{
+    [self.delegate terminalView:self didWrite:@"\e[C"];
+}
+
+- (void)leftArrowAction:(id)sender
+{
+    [self.delegate terminalView:self didWrite:@"\e[D"];
 }
 
 #pragma mark - Remove keyboard
@@ -139,6 +167,12 @@
 {
     [self performSelector:@selector(removeBar) withObject:nil afterDelay:0];
 }
+
+- (void)keyboardWillHide:(NSNotification *)note
+{
+
+}
+
 - (void)removeBar
 {
     // Locate non-UIWindow.
@@ -159,17 +193,30 @@
             for (UIView *subView in [formView subviews]) {
                 if ([subView.description rangeOfString:@"UIWebFormAccessory"].location != NSNotFound) {
                     // remove the input accessory view
-                    [subView removeFromSuperview];
+                    subView.hidden = YES;
                 }
             }
         }
     }
 
+    UIButton *ctrlButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [ctrlButton addTarget:self action:@selector(ctrlTapAction:) forControlEvents:UIControlEventTouchUpInside];
+    [ctrlButton sizeToFit];
+    [ctrlButton setTitle:@"ctrl" forState:UIControlStateNormal];
+    [ctrlButton setTitleColor:[[UIApplication sharedApplication].delegate window].tintColor forState:UIControlStateNormal];
+
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, keyboardWindow.frame.size.width, 44.0f)];
     toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"tab" style:UIBarButtonItemStylePlain target:self action:@selector(writeTab:)],
                       [[UIBarButtonItem alloc] initWithTitle:@"esc" style:UIBarButtonItemStylePlain target:self action:@selector(writeEsc:)],
-                      [[UIBarButtonItem alloc] initWithTitle:@"ctrl" style:UIBarButtonItemStylePlain target:self action:@selector(ctrlTapAction:)],
+                      [[UIBarButtonItem alloc] initWithCustomView:ctrlButton],
+                      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                      [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_left  target:self action:@selector(leftArrowAction:)],
+                      [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_down  target:self action:@selector(downArrowAction:)],
+                      [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_up    target:self action:@selector(upArrowAction:)],
+                      [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_right target:self action:@selector(rightArrowAction:)],
                       ];
+    toolbar.backgroundColor = [UIColor clearColor];
+
     [keyboardView addSubview:toolbar];
 }
 

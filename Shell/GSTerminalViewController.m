@@ -30,6 +30,8 @@
     _queue = [[NSOperationQueue mainQueue] init];
 
     self.terminalView.delegate = self;
+
+    self.title = [self.connection objectForKey:@"name"];
 }
 
 - (void)connect
