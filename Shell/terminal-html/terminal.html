@@ -9,6 +9,7 @@
   body {
     margin: 0;
     padding: 0;
+    background-color: black;
   }
 
   .terminal {
@@ -58,7 +59,9 @@ function adjustToWindow() {
 
 ;(function() {
   window.onload = function() {
-    var term = window.term = new Terminal();
+    var term = window.term = new Terminal({
+      colors: Terminal.xtermColors
+    });
 
     term.on('data', function(data) {
       window.location = "term-write://app/data#"+escape(data);

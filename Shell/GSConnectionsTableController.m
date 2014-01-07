@@ -93,7 +93,7 @@
     UINavigationController *navigation = [QuickDialogController controllerWithNavigationForRoot:root];
 
     navigation.navigationBar.titleTextAttributes =  @{NSForegroundColorAttributeName: [UIColor whiteColor],
-                                                      NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:24.0]};
+                                                      NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]};
 
     navigation.navigationBar.tintColor = [UIColor whiteColor];
     navigation.navigationBar.barTintColor = [UIColor grayColor];
@@ -146,6 +146,15 @@
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return @"SSH CONNECTIONS";
+    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
