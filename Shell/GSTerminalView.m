@@ -106,19 +106,12 @@
 
 - (void)writeCtrlSequence:(NSString *)value
 {
-    switch ([value.lowercaseString characterAtIndex:0]) {
-        case 'd':
-            [self.delegate terminalView:self didWrite:@"\x04"];
-            break;
-        case 'z':
-            [self.delegate terminalView:self didWrite:@"\x1a"];
-            break;
-        case 'c':
-            [self.delegate terminalView:self didWrite:@"\x03"];
-            break;
-        default:
-            [self.delegate terminalView:self didWrite:value];
-            break;
+    // See http://en.wikipedia.org/wiki/C0_and_C1_control_codes
+    unsigned char controlChar = [value.uppercaseString characterAtIndex:0];
+    if (controlChar >= 64 && controlChar < 96) {
+        [self.delegate terminalView:self didWrite:[NSString stringWithFormat:@"%c", controlChar - 64]];
+    } else {
+        [self.delegate terminalView:self didWrite:value];
     }
 
 }
