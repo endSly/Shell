@@ -14,6 +14,10 @@
 
 @property (nonatomic, weak) UIWebView *webView;
 
+@property (nonatomic, strong) UIButton *ctrlButton;
+
+@property (nonatomic) BOOL isCtrlPressed;
+
 @end
 
 @implementation GSTerminalView
@@ -89,6 +93,19 @@
     [self.webView stringByEvaluatingJavaScriptFromString:@"adjustToWindow();"];
 }
 
+- (void)toggleCtrl
+{
+    self.isCtrlPressed = !self.isCtrlPressed;
+
+    if (self.isCtrlPressed) {
+        self.ctrlButton.backgroundColor = [[UIApplication sharedApplication].delegate window].tintColor;
+        [self.ctrlButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    } else {
+        self.ctrlButton.backgroundColor = [UIColor clearColor];
+        [self.ctrlButton setTitleColor:[[UIApplication sharedApplication].delegate window].tintColor forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -136,9 +153,7 @@
 
 - (void)ctrlTapAction:(UIButton *)button
 {
-    button.backgroundColor = [[UIApplication sharedApplication].delegate window].tintColor;
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    button.layer.cornerRadius = 3;
+    [self toggleCtrl];
 }
 
 - (void)upArrowAction:(id)sender
@@ -204,6 +219,9 @@
     [ctrlButton sizeToFit];
     [ctrlButton setTitle:@"ctrl" forState:UIControlStateNormal];
     [ctrlButton setTitleColor:[[UIApplication sharedApplication].delegate window].tintColor forState:UIControlStateNormal];
+    ctrlButton.layer.cornerRadius = 3;
+
+    self.ctrlButton = ctrlButton;
 
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, keyboardWindow.frame.size.width, 44.0f)];
     toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"tab" style:UIBarButtonItemStylePlain target:self action:@selector(writeTab:)],
