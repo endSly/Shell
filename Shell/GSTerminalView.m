@@ -68,8 +68,6 @@
         string = [string stringByReplacingOccurrencesOfString:@"\f" withString:@"\\f"];
 
         [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.term.write(\"%@\");", string]];
-
-        NSLog(@"--------------\n%@", string);
     });
 
 }
@@ -106,13 +104,37 @@
     }
 }
 
+- (void)writeCtrlSequence:(NSString *)value
+{
+    switch ([value.lowercaseString characterAtIndex:0]) {
+        case 'd':
+            [self.delegate terminalView:self didWrite:@"\x04"];
+            break;
+        case 'z':
+            [self.delegate terminalView:self didWrite:@"\x1a"];
+            break;
+        case 'c':
+            [self.delegate terminalView:self didWrite:@"\x03"];
+            break;
+        default:
+            [self.delegate terminalView:self didWrite:value];
+            break;
+    }
+
+}
+
 #pragma mark - Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if ([request.URL.scheme isEqualToString:@"term-write"]) {
         NSString *data = [request.URL.fragment stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [self.delegate terminalView:self didWrite:data];
+        if (self.isCtrlPressed) {
+            [self toggleCtrl];
+            [self writeCtrlSequence:data];
+        } else {
+            [self.delegate terminalView:self didWrite:data];
+        }
         return NO;
     }
 
