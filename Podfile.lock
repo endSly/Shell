@@ -1,4 +1,5 @@
 PODS:
+  - FrameAccessor (1.3.2)
   - NanoStore (2.7.7)
   - NMSSH (1.1.0)
   - QuickDialog (0.9.1)
@@ -9,6 +10,7 @@ PODS:
     - TenzingCore/Core
 
 DEPENDENCIES:
+  - FrameAccessor
   - NanoStore (~> 2.7.7)
   - NMSSH (~> 1.1.0)
   - QuickDialog (~> 0.9.1)
@@ -16,6 +18,7 @@ DEPENDENCIES:
   - TenzingCore/RESTService (~> 0.2.1)
 
 SPEC CHECKSUMS:
+  FrameAccessor: 1c383c4dc298925749fb2a6b9c05cd45be0d8857
   NanoStore: 879a131b4f9b968f936187bb927cd5f8887cb202
   NMSSH: b3443e42954363e47be66267239dc799dba131f4
   QuickDialog: fa9f2641b1c2028667e115add0005530c77193a3

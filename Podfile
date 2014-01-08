@@ -8,3 +8,5 @@ pod 'TenzingCore', '~> 0.2.1'
 pod 'TenzingCore/RESTService', '~> 0.2.1'
 
 pod 'QuickDialog', '~> 0.9.1'
+
+pod 'FrameAccessor'
