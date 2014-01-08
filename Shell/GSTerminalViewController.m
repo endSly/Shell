@@ -48,6 +48,8 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+
+    [self.view addGestureRecognizer:[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGestureRecognized:)]];
 }
 
 - (void)connect
@@ -128,6 +130,20 @@
 
     [self.terminalView setCols:cols rows:rows];
     [self.session.channel requestSizeWidth:cols height:rows];
+}
+
+- (void)swipeGestureRecognized:(UISwipeGestureRecognizer *)recognizer
+{
+    switch (recognizer.direction) {
+        case UISwipeGestureRecognizerDirectionDown:
+            [self.terminalView resignFirstResponder];
+            break;
+        case UISwipeGestureRecognizerDirectionRight:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)keyboardWillShow:(NSNotification *)note

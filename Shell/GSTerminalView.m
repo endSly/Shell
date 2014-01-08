@@ -120,6 +120,12 @@
     return self.webView.scrollView;
 }
 
+- (BOOL)resignFirstResponder
+{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.activeElement.blur()"];
+    return YES;
+}
+
 #pragma mark - Web view delegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
