@@ -113,7 +113,11 @@
     } else {
         [self.delegate terminalView:self didWrite:value];
     }
+}
 
+- (UIScrollView *)scrollView
+{
+    return self.webView.scrollView;
 }
 
 #pragma mark - Web view delegate

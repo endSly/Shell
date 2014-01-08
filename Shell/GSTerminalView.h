@@ -12,6 +12,8 @@
 
 @interface GSTerminalView : UIView <UIWebViewDelegate>
 
+@property (nonatomic, readonly) UIScrollView * scrollView;
+
 @property (nonatomic, strong) id <GSTerminalViewDelegate> delegate;
 
 - (void)terminalWrite:(NSString *)string;
