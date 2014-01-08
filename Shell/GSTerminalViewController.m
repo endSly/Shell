@@ -8,6 +8,8 @@
 
 #import "GSTerminalViewController.h"
 
+#import <FrameAccessor/FrameAccessor.h>
+
 #import "GSConnection.h"
 
 #import "GSTerminalView.h"
@@ -21,6 +23,10 @@
 
 @implementation GSTerminalViewController {
     NSOperationQueue *_queue;
+
+    BOOL hidden;
+    CGFloat startContentOffset;
+    CGFloat lastContentOffset;
 }
 
 - (void)viewDidLoad
@@ -32,6 +38,16 @@
     self.terminalView.delegate = self;
 
     self.title = [self.connection objectForKey:@"name"];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)connect
@@ -108,10 +124,24 @@
     NSUInteger cols, rows;
     [self.terminalView getScreenCols:&cols rows:&rows];
 
-    rows = MAX(rows, 24);
+    rows = MAX(rows, 20);
 
     [self.terminalView setCols:cols rows:rows];
     [self.session.channel requestSizeWidth:cols height:rows];
+}
+
+- (void)keyboardWillShow:(NSNotification *)note
+{
+    self.terminalView.scrollView.contentInsetTop = 64.0f;
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)keyboardWillHide:(NSNotification *)note
+{
+    self.terminalView.scrollView.contentInsetTop = 0.f;
+
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - Split view
