@@ -15,7 +15,7 @@
 
 @interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate, GSTerminalViewDelegate, NMSSHSessionDelegate, NMSSHChannelDelegate>
 
-@property (strong, nonatomic) GSConnection * connection;
+@property (nonatomic, strong) GSConnection * connection;
 
-@property (weak, nonatomic) IBOutlet GSTerminalView * terminalView;
+@property (nonatomic, weak) IBOutlet GSTerminalView * terminalView;
 @end

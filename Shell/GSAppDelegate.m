@@ -20,17 +20,13 @@
 
     [CoreDataManager sharedManager].modelName = @"DataModel";
 
-    GSConnectionsTableController *connectionsController;
-
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *) self.window.rootViewController;
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
-        connectionsController = (GSConnectionsTableController *) navigationController.topViewController;
     } else {
-        UINavigationController *navigationController = (UINavigationController *) self.window.rootViewController;
-        connectionsController = (GSConnectionsTableController *) navigationController.topViewController;
+
     }
     
     return YES;

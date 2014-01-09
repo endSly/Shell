@@ -61,8 +61,6 @@
                                                                      NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]};
 
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:85.0/255.0 green:143.0/255.0 blue:220.0/255.0 alpha:1.0];
-    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:18.0/255.0 green:60.0/255.0 blue:132.0/255.0 alpha:1.0];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:52.0/255.0 green:102.0/255.0 blue:176.0/255.0 alpha:1.0];
 
     RSA *rsa = RSA_new();

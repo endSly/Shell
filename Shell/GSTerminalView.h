@@ -14,7 +14,7 @@
 
 @property (nonatomic, readonly) UIScrollView * scrollView;
 
-@property (nonatomic, strong) id <GSTerminalViewDelegate> delegate;
+@property (nonatomic, weak) id <GSTerminalViewDelegate> delegate;
 
 - (void)terminalWrite:(NSString *)string;
 - (void)setCols:(NSUInteger)cols rows:(NSUInteger)rows;
