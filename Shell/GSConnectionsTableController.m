@@ -62,7 +62,7 @@
 
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:52.0/255.0 green:102.0/255.0 blue:176.0/255.0 alpha:1.0];
-
+/*
     RSA *rsa = RSA_new();
     BIGNUM *e = BN_new();
     BN_set_word(e, 65537);
@@ -87,7 +87,7 @@
     BN_free(e);
 
     RSA_free(rsa);
-
+*/
     [self reloadConnections];
 }
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D55912E187F3F9D004ECB99 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D55912D187F3F9D004ECB99 /* CoreData.framework */; };
 		0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */; };
+		0D559134187F51F4004ECB99 /* GSKeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D559133187F51F4004ECB99 /* GSKeyPair.m */; };
 		0D58EC24186C5265008893E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC23186C5265008893E5 /* Foundation.framework */; };
 		0D58EC26186C5265008893E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC25186C5265008893E5 /* CoreGraphics.framework */; };
 		0D58EC28186C5265008893E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC27186C5265008893E5 /* UIKit.framework */; };
@@ -50,6 +51,8 @@
 /* Begin PBXFileReference section */
 		0D55912D187F3F9D004ECB99 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0D559130187F403C004ECB99 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		0D559132187F51F4004ECB99 /* GSKeyPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyPair.h; sourceTree = "<group>"; };
+		0D559133187F51F4004ECB99 /* GSKeyPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPair.m; sourceTree = "<group>"; };
 		0D58EC20186C5265008893E5 /* Shell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D58EC23186C5265008893E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0D58EC25186C5265008893E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -224,6 +227,8 @@
 			children = (
 				0D58EC61186C5631008893E5 /* GSConnection.h */,
 				0D58EC62186C5631008893E5 /* GSConnection.m */,
+				0D559132187F51F4004ECB99 /* GSKeyPair.h */,
+				0D559133187F51F4004ECB99 /* GSKeyPair.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -409,6 +414,7 @@
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
+				0D559134187F51F4004ECB99 /* GSKeyPair.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

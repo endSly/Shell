@@ -10,4 +10,12 @@
 
 @implementation GSConnection
 
+@dynamic name;
+@dynamic host;
+@dynamic port;
+@dynamic username;
+@dynamic password;
+@dynamic lastConnected;
+
+
 @end

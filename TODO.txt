@@ -1,0 +1,2 @@
+* TerminalView is not deallocated.
+* Add support for connections with ssh keys
