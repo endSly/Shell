@@ -10,6 +10,8 @@
 
 #import <FrameAccessor/FrameAccessor.h>
 
+#import "UIBarButtonItem+IonIcons.h"
+
 #import "GSConnection.h"
 
 #import "GSTerminalView.h"
@@ -37,7 +39,7 @@
 
     self.terminalView.delegate = self;
 
-    self.title = [self.connection objectForKey:@"name"];
+    self.title = self.connection.name;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -49,15 +51,24 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 
-    [self.view addGestureRecognizer:[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGestureRecognized:)]];
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backGestureRecognized:)];
+    recognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:recognizer];
+
+    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self.terminalView action:@selector(resignFirstResponder)];
+    recognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:recognizer];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_eject target:self action:@selector(disconnect)];
+
 }
 
 - (void)connect
 {
     [_queue addOperationWithBlock:^{
-        NMSSHSession *session = [NMSSHSession connectToHost:[self.connection objectForKey:@"host"]
-                                                       port:[[self.connection objectForKey:@"port"] integerValue]
-                                               withUsername:[self.connection objectForKey:@"username"]];
+        NMSSHSession *session = [NMSSHSession connectToHost:self.connection.host
+                                                       port:[self.connection.port integerValue]
+                                               withUsername:self.connection.username];
 
         if (!session.rawSession) {
             [self closeWithError:@"Unable to connect to host."];
@@ -69,7 +80,7 @@
 
         session.channel.environmentVariables = @{@"TERM": @"xterm"};
 
-        [session authenticateByPassword:[self.connection objectForKey:@"password"]];
+        [session authenticateByPassword:self.connection.password];
 
         session.channel.ptyTerminalType = NMSSHChannelPtyTerminalXterm;
 
@@ -85,9 +96,16 @@
                 return;
             }
         });
+    }];
+}
 
-        
-
+- (void)disconnect
+{
+    [_queue addOperationWithBlock:^{
+        [self.session disconnect];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }];
 }
 
@@ -132,31 +150,18 @@
     [self.session.channel requestSizeWidth:cols height:rows];
 }
 
-- (void)swipeGestureRecognized:(UISwipeGestureRecognizer *)recognizer
+- (void)backGestureRecognized:(UISwipeGestureRecognizer *)recognizer
 {
-    switch (recognizer.direction) {
-        case UISwipeGestureRecognizerDirectionDown:
-            [self.terminalView resignFirstResponder];
-            break;
-        case UISwipeGestureRecognizerDirectionRight:
-            [self.navigationController popViewControllerAnimated:YES];
-            break;
-        default:
-            break;
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)keyboardWillShow:(NSNotification *)note
 {
-    self.terminalView.scrollView.contentInsetTop = 64.0f;
-
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)keyboardWillHide:(NSNotification *)note
 {
-    self.terminalView.scrollView.contentInsetTop = 0.f;
-
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

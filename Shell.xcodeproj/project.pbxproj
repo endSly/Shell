@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D55912E187F3F9D004ECB99 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D55912D187F3F9D004ECB99 /* CoreData.framework */; };
+		0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */; };
 		0D58EC24186C5265008893E5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC23186C5265008893E5 /* Foundation.framework */; };
 		0D58EC26186C5265008893E5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC25186C5265008893E5 /* CoreGraphics.framework */; };
 		0D58EC28186C5265008893E5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D58EC27186C5265008893E5 /* UIKit.framework */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D55912D187F3F9D004ECB99 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0D559130187F403C004ECB99 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		0D58EC20186C5265008893E5 /* Shell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D58EC23186C5265008893E5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0D58EC25186C5265008893E5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -91,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D55912E187F3F9D004ECB99 /* CoreData.framework in Frameworks */,
 				0D58EC26186C5265008893E5 /* CoreGraphics.framework in Frameworks */,
 				0D58EC28186C5265008893E5 /* UIKit.framework in Frameworks */,
 				0D58EC24186C5265008893E5 /* Foundation.framework in Frameworks */,
@@ -134,6 +139,7 @@
 		0D58EC22186C5265008893E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D55912D187F3F9D004ECB99 /* CoreData.framework */,
 				0D58EC23186C5265008893E5 /* Foundation.framework */,
 				0D58EC25186C5265008893E5 /* CoreGraphics.framework */,
 				0D58EC27186C5265008893E5 /* UIKit.framework */,
@@ -247,6 +253,7 @@
 			children = (
 				0DE3388F18796F6800A5F50C /* ionicons.ttf */,
 				0D58EC7A186C6425008893E5 /* terminal-html */,
+				0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -393,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
+				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
 				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
@@ -639,6 +647,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0D559130187F403C004ECB99 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 0D559130187F403C004ECB99 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0D58EC18186C5265008893E5 /* Project object */;
 }

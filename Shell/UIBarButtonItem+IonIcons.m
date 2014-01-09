@@ -15,7 +15,7 @@
     self = [self initWithTitle:icon style:UIBarButtonItemStylePlain target:target action:action];
     
     if (self) {
-        [self setTitleTextAttributes:@{NSFontAttributeName: [UIFont iconicFontOfSize:30]}
+        [self setTitleTextAttributes:@{NSFontAttributeName: [UIFont iconicFontOfSize:28]}
                             forState:UIControlStateNormal];
     }
 
@@ -30,7 +30,7 @@
     self = [self initWithTitle:icon style:UIBarButtonItemStylePlain target:target action:action];
     
     if (self) {
-        [self setTitleTextAttributes:@{NSFontAttributeName: [UIFont iconicFontOfSize:30],
+        [self setTitleTextAttributes:@{NSFontAttributeName: [UIFont iconicFontOfSize:28],
                                        NSForegroundColorAttributeName : color}
                             forState:UIControlStateNormal];
     }

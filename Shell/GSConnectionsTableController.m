@@ -9,6 +9,10 @@
 #import "GSConnectionsTableController.h"
 
 #import <QuickDialog/QuickDialog.h>
+#import <ObjectiveRecord/ObjectiveRecord.h>
+
+#import <OpenSSL/rsa.h>
+#import <OpenSSL/pem.h>
 
 #import "GSTerminalViewController.h"
 #import "GSConnectionFormController.h"
@@ -61,13 +65,37 @@
     //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:18.0/255.0 green:60.0/255.0 blue:132.0/255.0 alpha:1.0];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:52.0/255.0 green:102.0/255.0 blue:176.0/255.0 alpha:1.0];
 
+    RSA *rsa = RSA_new();
+    BIGNUM *e = BN_new();
+    BN_set_word(e, 65537);
+    int ret;
+
+    ret = RSA_generate_key_ex(rsa, 2048, e, NULL);
+
+    FILE *publicFile = fopen("/Users/endika/Desktop/rsa.pub", "w+");
+    ret = PEM_write_RSAPublicKey(publicFile, rsa);
+    fclose(publicFile);
+
+    FILE *privateFile = fopen("/Users/endika/Desktop/rsa.pem", "w+");
+    unsigned char *password = NULL;
+
+    if (password != NULL)
+        ret = PEM_write_RSAPrivateKey(privateFile, rsa, EVP_aes_256_cbc(), password, (int) strlen((char *) password), NULL, NULL);//use given password
+    else
+        ret = PEM_write_RSAPrivateKey(privateFile, rsa, NULL, NULL, 0, NULL, NULL);//use default passwd callback
+
+    fclose(privateFile);
+
+    BN_free(e);
+
+    RSA_free(rsa);
+
     [self reloadConnections];
 }
 
 - (void)reloadConnections
 {
-    NSFNanoSearch *search = [NSFNanoSearch searchWithStore:self.nanoStore];
-    _connections = ((NSDictionary *) [search searchObjectsWithReturnType:NSFReturnObjects error:nil]).allValues;
+    _connections = [GSConnection all];
 
     [self.tableView reloadData];
 }
@@ -80,7 +108,7 @@
 
 - (void)newConnectionAction:(id)sender
 {
-    GSConnection *newConnection = (GSConnection *) [GSConnection nanoObject];
+    GSConnection *newConnection = (GSConnection *) [GSConnection create];
 
     newConnection.port = @22;
 
@@ -114,7 +142,7 @@
 
 - (void)connectionForm:(GSConnectionFormController *)controller didSave:(GSConnection *)connection
 {
-    [self.nanoStore addObject:connection error:nil];
+    [connection save];
 
     [self reloadConnections];
 }
@@ -136,8 +164,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     GSConnection *connection = _connections[indexPath.row];
-    cell.textLabel.text = [connection objectForKey:@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@:%@", [connection objectForKey:@"host"], [connection objectForKey:@"port"]];
+    cell.textLabel.text = connection.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@:%@", connection.host, connection.port];
 
     return cell;
 }
@@ -161,7 +189,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         GSConnection *connection = _connections[indexPath.row];
-        [self.nanoStore removeObject:connection error:nil];
+        [connection delete];
 
         _connections = [_connections mutableCopy];
         [(NSMutableArray *) _connections removeObjectAtIndex:indexPath.row];

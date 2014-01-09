@@ -122,8 +122,7 @@
 
 - (BOOL)resignFirstResponder
 {
-    [self.webView stringByEvaluatingJavaScriptFromString:@"document.activeElement.blur()"];
-    return YES;
+    return [self.webView endEditing:YES];
 }
 
 #pragma mark - Web view delegate

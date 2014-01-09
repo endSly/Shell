@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <NanoStore/NanoStore.h>
 
 #import "GSConnectionFormController.h"
 
@@ -16,6 +15,5 @@
 @interface GSConnectionsTableController : UITableViewController <GSConnectionFormDelegate>
 
 @property (strong, nonatomic) GSTerminalViewController *detailViewController;
-@property (nonatomic, weak) NSFNanoStore * nanoStore;
 
 @end

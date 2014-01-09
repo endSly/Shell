@@ -1,7 +1,13 @@
 PODS:
   - FrameAccessor (1.3.2)
-  - NanoStore (2.7.7)
-  - NMSSH (1.1.0)
+  - libssh2 (1.4.3):
+    - OpenSSL
+  - NMSSH (1.1.0):
+    - libssh2
+  - ObjectiveRecord (1.4.0):
+    - ObjectiveSugar
+  - ObjectiveSugar (1.1.0)
+  - OpenSSL (1.0.1e)
   - QuickDialog (0.9.1)
   - TenzingCore (0.2.1):
     - TenzingCore/Core
@@ -11,16 +17,29 @@ PODS:
 
 DEPENDENCIES:
   - FrameAccessor
-  - NanoStore (~> 2.7.7)
-  - NMSSH (~> 1.1.0)
+  - libssh2 (from `https://github.com/endSly/libssh2-pod.git`)
+  - NMSSH (from `https://github.com/endSly/NMSSH.git`)
+  - ObjectiveRecord (~> 1.4.0)
+  - OpenSSL (from `https://github.com/endSly/OpenSSL-pod.git`)
   - QuickDialog (~> 0.9.1)
   - TenzingCore (~> 0.2.1)
   - TenzingCore/RESTService (~> 0.2.1)
 
+EXTERNAL SOURCES:
+  libssh2:
+    :git: https://github.com/endSly/libssh2-pod.git
+  NMSSH:
+    :git: https://github.com/endSly/NMSSH.git
+  OpenSSL:
+    :git: https://github.com/endSly/OpenSSL-pod.git
+
 SPEC CHECKSUMS:
   FrameAccessor: 1c383c4dc298925749fb2a6b9c05cd45be0d8857
-  NanoStore: 879a131b4f9b968f936187bb927cd5f8887cb202
-  NMSSH: b3443e42954363e47be66267239dc799dba131f4
+  libssh2: 5b5dd5358289b45816bae212e7f2e9689d777603
+  NMSSH: db9f1cd823abf18341f9638d4ead0dc5fd7f0f86
+  ObjectiveRecord: 109a6c583284c2c9af1dc0d6ccc1dfc84e826c45
+  ObjectiveSugar: e90d09b348ec0d1739d6d93bdcee385cf0a96036
+  OpenSSL: 0e5fbc63225652731ab0088e071a1d3260ce6015
   QuickDialog: fa9f2641b1c2028667e115add0005530c77193a3
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999
 

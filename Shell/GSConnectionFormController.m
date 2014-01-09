@@ -33,7 +33,7 @@
     [self.root fetchValueUsingBindingsIntoObject:data];
 
     for (NSString *key in data) {
-        [self.connection setObject:data[key] forKey:key];
+        [self.connection setValue:data[key] forKey:key];
     }
 
     [self.delegate connectionForm:self didSave:self.connection];
