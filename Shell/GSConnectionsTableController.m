@@ -190,9 +190,11 @@
         cell.detailLabel.text = [NSString stringWithFormat:@"%@:%@", connection.host, connection.port];
 
         UIButton *deleteButton = [UIButton buttonWithIcon:icon_ios7_trash_outline size:32];
+        [deleteButton setTitle:icon_ios7_trash forState:UIControlStateHighlighted];
         deleteButton.backgroundColor = [UIColor redColor];
 
-        UIButton *editButton = [UIButton buttonWithIcon:icon_edit size:32];
+        UIButton *editButton = [UIButton buttonWithIcon:icon_ios7_compose_outline size:32];
+        [editButton setTitle:icon_ios7_compose forState:UIControlStateHighlighted];
         editButton.backgroundColor = [UIColor lightGrayColor];
 
         cell.rightUtilityButtons = @[editButton, deleteButton];
