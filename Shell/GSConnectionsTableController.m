@@ -10,19 +10,26 @@
 
 #import <QuickDialog/QuickDialog.h>
 #import <ObjectiveRecord/ObjectiveRecord.h>
-
 #import <OpenSSL/rsa.h>
 #import <OpenSSL/pem.h>
+
+#import "UIButton+IonIcons.h"
+
+#import "GSTableViewCell.h"
 
 #import "GSTerminalViewController.h"
 #import "GSConnectionFormController.h"
 
 #import "GSConnection.h"
+#import "GSApplication.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 
+#import "GSHerokuService.h"
+
 @interface GSConnectionsTableController () {
     NSArray *_connections;
+    NSArray *_herokuApps;
 }
 @end
 
@@ -40,7 +47,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
 	// Do any additional setup after loading the view, typically from a nib.
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline
                                                                  color:[UIColor whiteColor]
@@ -62,6 +69,8 @@
 
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:52.0/255.0 green:102.0/255.0 blue:176.0/255.0 alpha:1.0];
+
+    [self reloadConnections];
 /*
     RSA *rsa = RSA_new();
     BIGNUM *e = BN_new();
@@ -88,7 +97,12 @@
 
     RSA_free(rsa);
 */
-    [self reloadConnections];
+    GSHerokuService *service = [GSHerokuService sharedService];
+    service.authKey = @"";
+    [service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
+        _herokuApps = apps;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)reloadConnections
@@ -149,29 +163,52 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _connections.count;
+    switch (section) {
+        case 0:
+            return _connections.count;
+        case 1:
+            return _herokuApps.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    GSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GSTableViewCell" forIndexPath:indexPath];
+    [cell setCellHeight:64.0f];
+    cell.containingTableView = tableView;
+    cell.delegate = self;
 
-    GSConnection *connection = _connections[indexPath.row];
-    cell.textLabel.text = connection.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@:%@", connection.host, connection.port];
+    if (indexPath.section == 0) {
+        GSConnection *connection = _connections[indexPath.row];
+        cell.nameLabel.text = connection.name;
+        cell.detailLabel.text = [NSString stringWithFormat:@"%@:%@", connection.host, connection.port];
+
+        UIButton *deleteButton = [UIButton buttonWithIcon:icon_ios7_trash_outline size:32];
+        deleteButton.backgroundColor = [UIColor redColor];
+
+        UIButton *editButton = [UIButton buttonWithIcon:icon_edit size:32];
+        editButton.backgroundColor = [UIColor lightGrayColor];
+
+        cell.rightUtilityButtons = @[editButton, deleteButton];
+
+    } else if (indexPath.section == 1) {
+        GSApplication *app = _herokuApps[indexPath.row];
+        cell.nameLabel.text = app.name;
+        cell.detailLabel.text = app.buildpack_provided_description;
+    }
 
     return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -179,21 +216,10 @@
     switch (section) {
         case 0:
             return @"SSH CONNECTIONS";
+        case 1:
+            return @"HEROKU APPS";
     }
     return nil;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        GSConnection *connection = _connections[indexPath.row];
-        [connection delete];
-
-        _connections = [_connections mutableCopy];
-        [(NSMutableArray *) _connections removeObjectAtIndex:indexPath.row];
-
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -206,6 +232,21 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         GSConnection *object = _connections[indexPath.row];
         self.detailViewController.connection = object;
+    }
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    if (0 == UITableViewCellEditingStyleDelete) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        
+        GSConnection *connection = _connections[indexPath.row];
+        [connection delete];
+
+        _connections = [_connections mutableCopy];
+        [(NSMutableArray *) _connections removeObjectAtIndex:indexPath.row];
+
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
 

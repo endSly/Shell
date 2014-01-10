@@ -6,13 +6,15 @@
 //  Copyright (c) 2013 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
+#import <SWTableViewCell/SWTableViewCell.h>
 
 #import "GSConnectionFormController.h"
 
 @class GSTerminalViewController;
 
-@interface GSConnectionsTableController : UITableViewController <GSConnectionFormDelegate>
+@interface GSConnectionsTableController : UITableViewController <GSConnectionFormDelegate, SWTableViewCellDelegate>
 
 @property (weak, nonatomic) GSTerminalViewController *detailViewController;
 

@@ -32,6 +32,8 @@
 		0D58EC8C186CEE64008893E5 /* term.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC8A186CEE5B008893E5 /* term.js */; };
 		0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE0188040F300737407 /* GSHerokuService.m */; };
 		0D89EAE5188049AD00737407 /* GSApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE4188049AD00737407 /* GSApplication.m */; };
+		0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE7188058AA00737407 /* GSTableViewCell.m */; };
+		0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */; };
 		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
 		0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */; };
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
@@ -87,6 +89,10 @@
 		0D89EAE0188040F300737407 /* GSHerokuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuService.m; sourceTree = "<group>"; };
 		0D89EAE3188049AD00737407 /* GSApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSApplication.h; sourceTree = "<group>"; };
 		0D89EAE4188049AD00737407 /* GSApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSApplication.m; sourceTree = "<group>"; };
+		0D89EAE6188058AA00737407 /* GSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSTableViewCell.h; sourceTree = "<group>"; };
+		0D89EAE7188058AA00737407 /* GSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTableViewCell.m; sourceTree = "<group>"; };
+		0D89EAEB18806C7500737407 /* UIButton+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+IonIcons.h"; sourceTree = "<group>"; };
+		0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+IonIcons.m"; sourceTree = "<group>"; };
 		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConnectionFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnectionFormController.m; sourceTree = "<group>"; };
@@ -225,6 +231,8 @@
 				0D58EC38186C5265008893E5 /* Main_iPad.storyboard */,
 				0D58EC65186C59EF008893E5 /* GSTerminalView.h */,
 				0D58EC66186C59EF008893E5 /* GSTerminalView.m */,
+				0D89EAE6188058AA00737407 /* GSTableViewCell.h */,
+				0D89EAE7188058AA00737407 /* GSTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -275,6 +283,8 @@
 				0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */,
 				0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */,
 				0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */,
+				0D89EAEB18806C7500737407 /* UIButton+IonIcons.h */,
+				0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -435,10 +445,12 @@
 				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
+				0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */,
 				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
+				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
