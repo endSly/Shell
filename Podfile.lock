@@ -7,8 +7,9 @@ PODS:
   - ObjectiveRecord (1.4.0):
     - ObjectiveSugar
   - ObjectiveSugar (1.1.0)
-  - OpenSSL (1.0.1e)
+  - OpenSSL (1.0.1)
   - QuickDialog (0.9.1)
+  - SWTableViewCell (0.2.2)
   - TenzingCore (0.2.1):
     - TenzingCore/Core
   - TenzingCore/Core (0.2.1)
@@ -17,21 +18,18 @@ PODS:
 
 DEPENDENCIES:
   - FrameAccessor
-  - libssh2 (from `https://github.com/endSly/libssh2-pod.git`)
+  - libssh2 (~> 1.4.3)
   - NMSSH (from `https://github.com/endSly/NMSSH.git`)
   - ObjectiveRecord (~> 1.4.0)
-  - OpenSSL (from `https://github.com/endSly/OpenSSL-pod.git`)
+  - OpenSSL (~> 1.0.1)
   - QuickDialog (~> 0.9.1)
+  - SWTableViewCell (~> 0.2.2)
   - TenzingCore (~> 0.2.1)
   - TenzingCore/RESTService (~> 0.2.1)
 
 EXTERNAL SOURCES:
-  libssh2:
-    :git: https://github.com/endSly/libssh2-pod.git
   NMSSH:
     :git: https://github.com/endSly/NMSSH.git
-  OpenSSL:
-    :git: https://github.com/endSly/OpenSSL-pod.git
 
 SPEC CHECKSUMS:
   FrameAccessor: 1c383c4dc298925749fb2a6b9c05cd45be0d8857
@@ -39,8 +37,9 @@ SPEC CHECKSUMS:
   NMSSH: db9f1cd823abf18341f9638d4ead0dc5fd7f0f86
   ObjectiveRecord: 109a6c583284c2c9af1dc0d6ccc1dfc84e826c45
   ObjectiveSugar: e90d09b348ec0d1739d6d93bdcee385cf0a96036
-  OpenSSL: 0e5fbc63225652731ab0088e071a1d3260ce6015
+  OpenSSL: 9b85178853701b1e9bbf70df695a4c149799e772
   QuickDialog: fa9f2641b1c2028667e115add0005530c77193a3
+  SWTableViewCell: b20432962d410c45c25b69e7c519a1296ecce70b
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999
 
 COCOAPODS: 0.29.0

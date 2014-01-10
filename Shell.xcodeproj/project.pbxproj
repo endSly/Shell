@@ -30,6 +30,8 @@
 		0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D58EC66186C59EF008893E5 /* GSTerminalView.m */; };
 		0D58EC86186C6425008893E5 /* terminal.html in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC80186C6425008893E5 /* terminal.html */; };
 		0D58EC8C186CEE64008893E5 /* term.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D58EC8A186CEE5B008893E5 /* term.js */; };
+		0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE0188040F300737407 /* GSHerokuService.m */; };
+		0D89EAE5188049AD00737407 /* GSApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE4188049AD00737407 /* GSApplication.m */; };
 		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
 		0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */; };
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
@@ -81,6 +83,10 @@
 		0D58EC66186C59EF008893E5 /* GSTerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTerminalView.m; sourceTree = "<group>"; };
 		0D58EC80186C6425008893E5 /* terminal.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terminal.html; sourceTree = "<group>"; };
 		0D58EC8A186CEE5B008893E5 /* term.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = term.js; sourceTree = "<group>"; };
+		0D89EADF188040F300737407 /* GSHerokuService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuService.h; sourceTree = "<group>"; };
+		0D89EAE0188040F300737407 /* GSHerokuService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuService.m; sourceTree = "<group>"; };
+		0D89EAE3188049AD00737407 /* GSApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSApplication.h; sourceTree = "<group>"; };
+		0D89EAE4188049AD00737407 /* GSApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSApplication.m; sourceTree = "<group>"; };
 		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConnectionFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnectionFormController.m; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				0DE3388E18796F5300A5F50C /* Resources */,
+				0D89EADE1880405600737407 /* Service */,
 				0DE3388D18796F4700A5F50C /* Categories */,
 				0D58EC64186C5636008893E5 /* Models */,
 				0D58EC5F186C5516008893E5 /* Views */,
@@ -240,6 +247,25 @@
 				0D58EC80186C6425008893E5 /* terminal.html */,
 			);
 			path = "terminal-html";
+			sourceTree = "<group>";
+		};
+		0D89EADE1880405600737407 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0D89EAE21880498700737407 /* Models */,
+				0D89EADF188040F300737407 /* GSHerokuService.h */,
+				0D89EAE0188040F300737407 /* GSHerokuService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		0D89EAE21880498700737407 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D89EAE3188049AD00737407 /* GSApplication.h */,
+				0D89EAE4188049AD00737407 /* GSApplication.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		0DE3388D18796F4700A5F50C /* Categories */ = {
@@ -409,8 +435,10 @@
 				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
+				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
+				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
