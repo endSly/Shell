@@ -93,6 +93,7 @@
 #define icon_document_text @"\uf12e"
 #define icon_drag @"\uf130"
 #define icon_earth @"\uf276"
+#define icon_edit @"\uf2bf"
 #define icon_egg @"\uf277"
 #define icon_eject @"\uf131"
 #define icon_email @"\uf132"
