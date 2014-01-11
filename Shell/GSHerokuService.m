@@ -9,14 +9,15 @@
 #import "GSHerokuService.h"
 
 #import "GSApplication.h"
+#import "GSDyno.h"
 
 @implementation GSHerokuService
 
 + (void)initialize
 {
     [self get:@"/apps" class:GSApplication.class as:@selector(getApps:callback:)];
-    [self get:@"/apps/:id/dynos" class:Nil as:@selector(getDynos:callback:)];
-    [self post:@"/apps/:id/dynos" class:Nil as:@selector(updateDynos:callback:)];
+    [self get:@"/apps/:id/dynos" class:GSDyno.class as:@selector(getDynos:callback:)];
+    [self post:@"/apps/:id/dynos" class:GSDyno.class as:@selector(postDyno:callback:)];
 }
 
 + (instancetype)sharedService

@@ -20,6 +20,6 @@
 
 - (void)getApps:(NSDictionary *)params callback:(TZRESTCallback)callback;
 - (void)getDynos:(NSDictionary *)params callback:(TZRESTCallback)callback;
-- (void)updateDynos:(NSDictionary *)params callback:(TZRESTCallback)callback;
+- (void)postDyno:(NSDictionary *)params callback:(TZRESTCallback)callback;
 
 @end
