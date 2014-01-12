@@ -10,6 +10,12 @@
                 <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.20392156862745098" green="0.40000000000000002" blue="0.69019607843137254" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
@@ -65,7 +71,13 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Shell" id="tQt-TN-PWz"/>
+                    <navigationItem key="navigationItem" title="Shell" id="tQt-TN-PWz">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TYL-oQ-wL2">
+                            <connections>
+                                <segue destination="CIK-il-434" kind="modal" id="ecn-nF-vd7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="Ah7-4n-0Wa" kind="push" identifier="GSSSHConnection" id="Xw3-ut-eaj"/>
                         <segue destination="xuC-sy-zJE" kind="push" identifier="GSHerokuConnection" id="wZc-2E-9It"/>
@@ -74,6 +86,143 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="459" y="64"/>
+        </scene>
+        <!--Table View Controller - Add Account-->
+        <scene sceneID="bTv-qA-92p">
+            <objects>
+                <tableViewController id="dSY-6s-GBo" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nCx-JK-cy9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="NC7-ev-FfO">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="9X1-UF-Bv2">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9X1-UF-Bv2" id="i1V-0I-a8L">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HerokuLogo" translatesAutoresizingMaskIntoConstraints="NO" id="fay-p4-aSK">
+                                                    <rect key="frame" x="61" y="10" width="199" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="1iy-8e-ch0"/>
+                                                        <constraint firstAttribute="width" constant="199" id="axt-bG-xxT"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="fay-p4-aSK" secondAttribute="trailing" constant="60" id="Wk2-Ue-xQt"/>
+                                                <constraint firstItem="fay-p4-aSK" firstAttribute="leading" secondItem="i1V-0I-a8L" secondAttribute="leading" constant="61" id="fS6-S9-Vgg"/>
+                                                <constraint firstItem="fay-p4-aSK" firstAttribute="top" secondItem="i1V-0I-a8L" secondAttribute="top" constant="10" id="kcc-KX-vC0"/>
+                                                <constraint firstAttribute="bottom" secondItem="fay-p4-aSK" secondAttribute="bottom" constant="9" id="wFk-c7-7rV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="wfv-AZ-7Vw" kind="push" id="eYl-1R-PvU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ImX-2t-BhE">
+                                        <rect key="frame" x="0.0" y="179" width="320" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ImX-2t-BhE" id="6ms-CF-Zl4">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add SSH Server..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RpJ-lY-1gW">
+                                                    <rect key="frame" x="57" y="20" width="207" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="DAq-Ex-4v8" kind="push" id="txN-bV-ICn"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Account" id="Jlq-Zr-pRw"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lnm-SV-aFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1564" y="-874"/>
+        </scene>
+        <!--Connection Form Controller-->
+        <scene sceneID="D4x-eH-WTZ">
+            <objects>
+                <viewController id="DAq-Ex-4v8" customClass="GSConnectionFormController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hp5-aG-MTP"/>
+                        <viewControllerLayoutGuide type="bottom" id="hPz-J5-PBZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="reG-Zn-7Xg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hlZ-hZ-0T7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k0A-2i-lsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2112" y="-518"/>
+        </scene>
+        <!--Heroku Login Controller-->
+        <scene sceneID="N5D-1G-WFP">
+            <objects>
+                <viewController id="wfv-AZ-7Vw" customClass="GSHerokuLoginController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3dR-wR-wqH"/>
+                        <viewControllerLayoutGuide type="bottom" id="qaa-pn-cEd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eFG-m1-pPK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LVF-eh-r6f">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8GM-uZ-jaH"/>
+                    <connections>
+                        <outlet property="webView" destination="LVF-eh-r6f" id="aOM-Wj-LVm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jC2-pS-Zcw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2110" y="-1237"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Mr5-B4-Qds">
+            <objects>
+                <navigationController storyboardIdentifier="AddServerNavigation" definesPresentationContext="YES" id="CIK-il-434" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="K4h-fE-irV">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dSY-6s-GBo" kind="relationship" relationship="rootViewController" id="198-mq-59y"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uBi-U2-TPc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1032" y="-874"/>
         </scene>
         <!--Terminal View Controller - Detail-->
         <scene sceneID="Cn3-H9-jdl">
@@ -101,19 +250,19 @@
                             <constraint firstAttribute="bottom" secondItem="EL2-bP-9Dg" secondAttribute="bottom" id="cSa-BC-RkQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
+                    <navigationItem key="navigationItem" title="SSH" id="cra-N8-TIN"/>
                     <connections>
                         <outlet property="terminalView" destination="EL2-bP-9Dg" id="yki-2J-zbS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1010" y="-448"/>
+            <point key="canvasLocation" x="1032" y="-182"/>
         </scene>
-        <!--Heroku Terminal View Controller - Detail-->
+        <!--Heroku Terminal View Controller - Heroku-->
         <scene sceneID="Pan-oa-KgL">
             <objects>
-                <viewController title="Detail" id="xuC-sy-zJE" customClass="GSHerokuTerminalViewController" sceneMemberID="viewController">
+                <viewController title="Heroku" id="xuC-sy-zJE" customClass="GSHerokuTerminalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d3U-Qc-1uW"/>
                         <viewControllerLayoutGuide type="bottom" id="ouA-EM-VM5"/>
@@ -136,16 +285,19 @@
                             <constraint firstAttribute="trailing" secondItem="ijj-h8-I4d" secondAttribute="trailing" id="bSg-d9-Ajs"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="4tU-Lp-bLB"/>
+                    <navigationItem key="navigationItem" title="Heroku" id="4tU-Lp-bLB"/>
                     <connections>
                         <outlet property="terminalView" destination="ijj-h8-I4d" id="LSL-xG-ibe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cdT-pH-QpE" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1010" y="284"/>
+            <point key="canvasLocation" x="1032" y="550"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HerokuLogo" width="199" height="60"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

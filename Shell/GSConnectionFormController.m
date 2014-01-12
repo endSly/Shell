@@ -8,6 +8,8 @@
 
 #import "GSConnectionFormController.h"
 
+#import <ObjectiveRecord/ObjectiveRecord.h>
+
 #import "GSConnection.h"
 
 #import "UIBarButtonItem+IonIcons.h"
@@ -18,11 +20,27 @@
 
 @implementation GSConnectionFormController
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    GSConnection *newConnection = (GSConnection *) [GSConnection create];
+    newConnection.port = @22;
+
+    QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"connection-form" andData:newConnection];
+
+    QAppearance *defaultAppearance = [[QAppearance alloc] init];
+    defaultAppearance.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
+    root.appearance = defaultAppearance;
+
+    self = [super initWithRoot:root];
+    if (self) {
+        self.connection = newConnection;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
 
     ((QEntryElement *) [self.root elementWithKey:@"name"]).delegate = self;
 }

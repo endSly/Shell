@@ -44,6 +44,7 @@
 		0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3388F18796F6800A5F50C /* ionicons.ttf */; };
 		0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */; };
 		0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */; };
+		0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,8 @@
 		0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSSHTerminalViewController.m; sourceTree = "<group>"; };
 		0DE583E51883202D0083EE00 /* GSHerokuTerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuTerminalViewController.h; sourceTree = "<group>"; };
 		0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuTerminalViewController.m; sourceTree = "<group>"; };
+		0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuLoginController.h; sourceTree = "<group>"; };
+		0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuLoginController.m; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -243,8 +246,7 @@
 			children = (
 				0D58EC3B186C5265008893E5 /* GSConnectionsTableController.h */,
 				0D58EC3C186C5265008893E5 /* GSConnectionsTableController.m */,
-				0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */,
-				0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */,
+				0DE583E818832C330083EE00 /* Add Account Controller */,
 				0DE583E118831C360083EE00 /* Terminal View Controllers */,
 			);
 			name = Controllers;
@@ -338,6 +340,17 @@
 				0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */,
 			);
 			name = "Terminal View Controllers";
+			sourceTree = "<group>";
+		};
+		0DE583E818832C330083EE00 /* Add Account Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */,
+				0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */,
+				0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */,
+				0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */,
+			);
+			name = "Add Account Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -491,6 +504,7 @@
 				0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */,
 				0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */,
 				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
+				0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
 				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,

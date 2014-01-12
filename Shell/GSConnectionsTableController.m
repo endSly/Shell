@@ -29,14 +29,6 @@
 
 #import "GSHerokuService.h"
 
-#import "GSRendezvous.h"
-
-#include <sys/socket.h>
-#include <resolv.h>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
 @interface GSConnectionsTableController () {
     NSArray *_connections;
     NSArray *_herokuApps;
@@ -58,27 +50,14 @@
 {
     [super viewDidLoad];
 
-	// Do any additional setup after loading the view, typically from a nib.
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline
-                                                                 color:[UIColor whiteColor]
-                                                                target:self
-                                                                action:@selector(newConnectionAction:)];
-
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_gear_outline
                                                                       color:[UIColor whiteColor]
                                                                      target:self
                                                                      action:@selector(settingsAction:)];
 
-    self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.leftBarButtonItem = settingsButton;
 
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-
-    self.navigationController.navigationBar.titleTextAttributes =  @{NSForegroundColorAttributeName: [UIColor whiteColor],
-                                                                     NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]};
-
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:52.0/255.0 green:102.0/255.0 blue:176.0/255.0 alpha:1.0];
 
     [self reloadConnections];
 /*
@@ -132,6 +111,11 @@
 
 - (void)newConnectionAction:(id)sender
 {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    UINavigationController *addServerNavigation = [storyboard instantiateViewControllerWithIdentifier:@"AddServerNavigation"];
+
+    [self presentViewController:addServerNavigation animated:YES completion:nil];
+/*
     GSConnection *newConnection = (GSConnection *) [GSConnection create];
 
     newConnection.port = @22;
@@ -155,6 +139,7 @@
     formController.connection = newConnection;
 
     [self presentViewController:navigation animated:YES completion:nil];
+ */
 }
 
 - (void)settingsAction:(id)sender
