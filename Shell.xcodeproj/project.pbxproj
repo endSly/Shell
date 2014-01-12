@@ -42,6 +42,8 @@
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
 		0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */; };
 		0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3388F18796F6800A5F50C /* ionicons.ttf */; };
+		0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */; };
+		0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +112,10 @@
 		0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+IonIcons.h"; sourceTree = "<group>"; };
 		0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+IonIcons.m"; sourceTree = "<group>"; };
 		0DE3388F18796F6800A5F50C /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ionicons.ttf; sourceTree = "<group>"; };
+		0DE583E218831EA40083EE00 /* GSSSHTerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSSHTerminalViewController.h; sourceTree = "<group>"; };
+		0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSSHTerminalViewController.m; sourceTree = "<group>"; };
+		0DE583E51883202D0083EE00 /* GSHerokuTerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuTerminalViewController.h; sourceTree = "<group>"; };
+		0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuTerminalViewController.m; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -326,6 +332,10 @@
 			children = (
 				0D58EC3E186C5265008893E5 /* GSTerminalViewController.h */,
 				0D58EC3F186C5265008893E5 /* GSTerminalViewController.m */,
+				0DE583E218831EA40083EE00 /* GSSSHTerminalViewController.h */,
+				0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */,
+				0DE583E51883202D0083EE00 /* GSHerokuTerminalViewController.h */,
+				0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */,
 			);
 			name = "Terminal View Controllers";
 			sourceTree = "<group>";
@@ -478,6 +488,7 @@
 				0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
+				0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */,
 				0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */,
 				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
@@ -486,6 +497,7 @@
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
+				0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
 				0D559134187F51F4004ECB99 /* GSKeyPair.m in Sources */,

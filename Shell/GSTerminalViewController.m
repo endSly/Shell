@@ -23,29 +23,16 @@
 @interface GSTerminalViewController ()
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
-@property (strong, nonatomic) NMSSHSession *session;
 
 @end
 
-@implementation GSTerminalViewController {
-    NSOperationQueue *_queue;
-
-    BOOL hidden;
-    CGFloat startContentOffset;
-    CGFloat lastContentOffset;
-
-    GSRendezvous *_rendezvous;
-}
+@implementation GSTerminalViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    _queue = [[NSOperationQueue mainQueue] init];
-
     self.terminalView.delegate = self;
-
-    self.title = self.connection.name;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -66,114 +53,12 @@
     [self.view addGestureRecognizer:recognizer];
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_eject target:self action:@selector(disconnect)];
-
-}
-
-- (void)connect
-{
-    [_queue addOperationWithBlock:^{
-        NMSSHSession *session = [NMSSHSession connectToHost:self.connection.host
-                                                       port:[self.connection.port integerValue]
-                                               withUsername:self.connection.username];
-
-        if (!session.rawSession) {
-            [self closeWithError:@"Unable to connect to host."];
-            return;
-        }
-
-        session.delegate = self;
-        session.channel.delegate = self;
-
-        session.channel.environmentVariables = @{@"TERM": @"xterm"};
-
-        [session authenticateByPassword:self.connection.password];
-
-        session.channel.ptyTerminalType = NMSSHChannelPtyTerminalXterm;
-
-        session.channel.requestPty = YES;
-        self.session = session;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSError *error = nil;
-
-            [session.channel startShell:&error];
-
-            if (error) {
-                [self closeWithError:error.description];
-                return;
-            }
-        });
-    }];
-}
-
-- (void)connectToRendezvous
-{
-    GSHerokuService *service = [GSHerokuService sharedService];
-    service.authKey = @"15ad8f9d-43ea-4e3a-8843-b2e29feba024";
-
-    GSApplication *app = self.application;
-    [service postDyno:@{@"id": app.id, @"attach": @YES, @"command": @"bash", @"size": @1} callback:^(GSDyno *dyno, NSURLResponse *resp, NSError *error) {
-
-        NSURL *rendezvousURL = [NSURL URLWithString:dyno.attach_url];
-
-        GSRendezvous *rendezvous = [[GSRendezvous alloc] init];
-        rendezvous.delegate = self;
-        rendezvous.URL = rendezvousURL;
-
-        [rendezvous start];
-
-        _rendezvous = rendezvous;
-    }];
-}
-
-- (void)disconnect
-{
-    [_queue addOperationWithBlock:^{
-        [self.session disconnect];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController popViewControllerAnimated:YES];
-        });
-    }];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [_queue addOperationWithBlock:^{
-        [self.session disconnect];
-    }];
-}
-
-- (void)closeWithError:(NSString *)error
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:error
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-        [alert show];
-
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.navigationController popViewControllerAnimated:YES];
-        });
-    });
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)adjustSizeToTerminalView
-{
-    NSUInteger cols, rows;
-    [self.terminalView getScreenCols:&cols rows:&rows];
-
-    rows = MAX(rows, 20);
-
-    [self.terminalView setCols:cols rows:rows];
-    [self.session.channel requestSizeWidth:cols height:rows];
 }
 
 - (void)backGestureRecognized:(UISwipeGestureRecognizer *)recognizer
@@ -191,6 +76,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+/*
 #pragma mark - Split view
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
@@ -206,66 +92,23 @@
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
 }
+*/
 
 #pragma mark - Terminal view delegate
 
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView
 {
-    [self adjustSizeToTerminalView];
-
-    if (self.connection) {
-        [self connect];
-    } else {
-        [self connectToRendezvous];
-    }
 
 }
 
 - (void)terminalViewDidResize:(GSTerminalView *)terminalView
 {
-    [self adjustSizeToTerminalView];
+
 }
 
 - (void)terminalView:(GSTerminalView *)terminalView didWrite:(NSString *)data
 {
-    NSError *error;
-    if (self.connection) {
-        [self.session.channel write:data error:&error];
-    } else {
-        [_rendezvous writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
-    }
 
-}
-
-#pragma mark - SSH Session delegate
-
-- (void)session:(NMSSHSession *)session didDisconnectWithError:(NSError *)error
-{
-
-}
-
-- (NSString *)session:(NMSSHSession *)session keyboardInteractiveRequest:(NSString *)request
-{
-    return @"";
-}
-
-#pragma mark - SSH Channel delegate
-
-- (void)channel:(NMSSHChannel *)channel didReadData:(NSString *)message
-{
-    [self.terminalView terminalWrite:message];
-}
-
-- (void)channel:(NMSSHChannel *)channel didReadError:(NSString *)error
-{
-    
-}
-
-#pragma mark - Rendezvous delegate
-
-- (void)rendezvous:(GSRendezvous *)rendezvous didReadData:(NSData *)data
-{
-    [self.terminalView terminalWrite:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
 
 @end

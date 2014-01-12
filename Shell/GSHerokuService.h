@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *authKey;
 
-+ (instancetype)sharedService;
++ (instancetype)service;
 
 @end
 

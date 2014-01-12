@@ -67,7 +67,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Shell" id="tQt-TN-PWz"/>
                     <connections>
-                        <segue destination="Ah7-4n-0Wa" kind="push" identifier="showDetail" id="Xw3-ut-eaj"/>
+                        <segue destination="Ah7-4n-0Wa" kind="push" identifier="GSSSHConnection" id="Xw3-ut-eaj"/>
+                        <segue destination="xuC-sy-zJE" kind="push" identifier="GSHerokuConnection" id="wZc-2E-9It"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
@@ -77,7 +78,7 @@
         <!--Terminal View Controller - Detail-->
         <scene sceneID="Cn3-H9-jdl">
             <objects>
-                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="GSTerminalViewController" sceneMemberID="viewController">
+                <viewController title="Detail" id="Ah7-4n-0Wa" customClass="GSSSHTerminalViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAF-OV-V27"/>
                         <viewControllerLayoutGuide type="bottom" id="5VS-nz-2gF"/>
@@ -107,7 +108,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902" y="64"/>
+            <point key="canvasLocation" x="1010" y="-448"/>
+        </scene>
+        <!--Heroku Terminal View Controller - Detail-->
+        <scene sceneID="Pan-oa-KgL">
+            <objects>
+                <viewController title="Detail" id="xuC-sy-zJE" customClass="GSHerokuTerminalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d3U-Qc-1uW"/>
+                        <viewControllerLayoutGuide type="bottom" id="ouA-EM-VM5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yC7-tT-Dvt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ijj-h8-I4d" customClass="GSTerminalView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ijj-h8-I4d" secondAttribute="bottom" id="JvZ-Wh-oE8"/>
+                            <constraint firstItem="ijj-h8-I4d" firstAttribute="leading" secondItem="yC7-tT-Dvt" secondAttribute="leading" id="Pio-ad-gug"/>
+                            <constraint firstItem="ijj-h8-I4d" firstAttribute="top" secondItem="yC7-tT-Dvt" secondAttribute="top" id="Ru2-G3-Ifo"/>
+                            <constraint firstAttribute="trailing" secondItem="ijj-h8-I4d" secondAttribute="trailing" id="bSg-d9-Ajs"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detail" id="4tU-Lp-bLB"/>
+                    <connections>
+                        <outlet property="terminalView" destination="ijj-h8-I4d" id="LSL-xG-ibe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cdT-pH-QpE" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1010" y="284"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

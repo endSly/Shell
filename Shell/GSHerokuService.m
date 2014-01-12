@@ -20,15 +20,12 @@
     [self post:@"/apps/:id/dynos" class:GSDyno.class as:@selector(postDyno:callback:)];
 }
 
-+ (instancetype)sharedService
++ (instancetype)service
 {
-    static GSHerokuService *sharedService = nil;
-    if (!sharedService) {
-        sharedService = [[self alloc] init];
-        sharedService.baseURL = [NSURL URLWithString:@"https://api.heroku.com"];
-        sharedService.delegate = sharedService;
-    }
-    return sharedService;
+    GSHerokuService *service = [[self alloc] init];
+    service.baseURL = [NSURL URLWithString:@"https://api.heroku.com"];
+    service.delegate = service;
+    return service;
 }
 
 - (void)RESTService:(TZRESTService *)service beforeSendRequest:(NSMutableURLRequest *__autoreleasing *)request
