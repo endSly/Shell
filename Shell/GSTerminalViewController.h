@@ -7,15 +7,19 @@
 //
 
 @import UIKit;
+
 #import <NMSSH/NMSSH.h>
+#import "GSRendezvous.h"
 
 #import "GSTerminalView.h"
 
 @class GSConnection;
+@class GSApplication;
 
-@interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate, GSTerminalViewDelegate, NMSSHSessionDelegate, NMSSHChannelDelegate>
+@interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate, GSTerminalViewDelegate, NMSSHSessionDelegate, NMSSHChannelDelegate, GSRendezvousDelegate>
 
 @property (nonatomic, strong) GSConnection * connection;
+@property (nonatomic, strong) GSApplication * application;
 
 @property (nonatomic, weak) IBOutlet GSTerminalView * terminalView;
 @end

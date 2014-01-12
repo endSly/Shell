@@ -56,7 +56,6 @@
                                 <connections>
                                     <outlet property="detailLabel" destination="sT2-6L-rwd" id="U46-WI-s8C"/>
                                     <outlet property="nameLabel" destination="kj8-lJ-R3z" id="h3N-RF-OcY"/>
-                                    <segue destination="Ah7-4n-0Wa" kind="push" identifier="showDetail" id="jUr-3t-vfg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -67,6 +66,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Shell" id="tQt-TN-PWz"/>
+                    <connections>
+                        <segue destination="Ah7-4n-0Wa" kind="push" identifier="showDetail" id="Xw3-ut-eaj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>

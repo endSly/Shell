@@ -13,8 +13,12 @@
 #import "UIBarButtonItem+IonIcons.h"
 
 #import "GSConnection.h"
+#import "GSApplication.h"
+#import "GSDyno.h"
 
 #import "GSTerminalView.h"
+
+#import "GSHerokuService.h"
 
 @interface GSTerminalViewController ()
 
@@ -29,6 +33,8 @@
     BOOL hidden;
     CGFloat startContentOffset;
     CGFloat lastContentOffset;
+
+    GSRendezvous *_rendezvous;
 }
 
 - (void)viewDidLoad
@@ -96,6 +102,26 @@
                 return;
             }
         });
+    }];
+}
+
+- (void)connectToRendezvous
+{
+    GSHerokuService *service = [GSHerokuService sharedService];
+    service.authKey = @"15ad8f9d-43ea-4e3a-8843-b2e29feba024";
+
+    GSApplication *app = self.application;
+    [service postDyno:@{@"id": app.id, @"attach": @YES, @"command": @"bash", @"size": @1} callback:^(GSDyno *dyno, NSURLResponse *resp, NSError *error) {
+
+        NSURL *rendezvousURL = [NSURL URLWithString:dyno.attach_url];
+
+        GSRendezvous *rendezvous = [[GSRendezvous alloc] init];
+        rendezvous.delegate = self;
+        rendezvous.URL = rendezvousURL;
+
+        [rendezvous start];
+
+        _rendezvous = rendezvous;
     }];
 }
 
@@ -187,7 +213,12 @@
 {
     [self adjustSizeToTerminalView];
 
-    [self connect];
+    if (self.connection) {
+        [self connect];
+    } else {
+        [self connectToRendezvous];
+    }
+
 }
 
 - (void)terminalViewDidResize:(GSTerminalView *)terminalView
@@ -198,7 +229,12 @@
 - (void)terminalView:(GSTerminalView *)terminalView didWrite:(NSString *)data
 {
     NSError *error;
-    [self.session.channel write:data error:&error];
+    if (self.connection) {
+        [self.session.channel write:data error:&error];
+    } else {
+        [_rendezvous writeData:[data dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+
 }
 
 #pragma mark - SSH Session delegate
@@ -223,6 +259,13 @@
 - (void)channel:(NMSSHChannel *)channel didReadError:(NSString *)error
 {
     
+}
+
+#pragma mark - Rendezvous delegate
+
+- (void)rendezvous:(GSRendezvous *)rendezvous didReadData:(NSData *)data
+{
+    [self.terminalView terminalWrite:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
 }
 
 @end

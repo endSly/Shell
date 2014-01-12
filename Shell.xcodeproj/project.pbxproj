@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E4D1880821400F693B4 /* SSLCrypto.m */; };
+		0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E50188082E300F693B4 /* GSRendezvous.m */; };
+		0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E5318816CAD00F693B4 /* GSDyno.m */; };
 		0D55912E187F3F9D004ECB99 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D55912D187F3F9D004ECB99 /* CoreData.framework */; };
 		0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */; };
 		0D559134187F51F4004ECB99 /* GSKeyPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D559133187F51F4004ECB99 /* GSKeyPair.m */; };
@@ -53,6 +56,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D0E6E4C1880821400F693B4 /* SSLCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLCrypto.h; sourceTree = "<group>"; };
+		0D0E6E4D1880821400F693B4 /* SSLCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLCrypto.m; sourceTree = "<group>"; };
+		0D0E6E4F188082E300F693B4 /* GSRendezvous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRendezvous.h; sourceTree = "<group>"; };
+		0D0E6E50188082E300F693B4 /* GSRendezvous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRendezvous.m; sourceTree = "<group>"; };
+		0D0E6E5218816CAD00F693B4 /* GSDyno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSDyno.h; sourceTree = "<group>"; };
+		0D0E6E5318816CAD00F693B4 /* GSDyno.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSDyno.m; sourceTree = "<group>"; };
 		0D55912D187F3F9D004ECB99 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0D559130187F403C004ECB99 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		0D559132187F51F4004ECB99 /* GSKeyPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyPair.h; sourceTree = "<group>"; };
@@ -131,6 +140,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D0E6E4B188081CE00F693B4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0D0E6E4C1880821400F693B4 /* SSLCrypto.h */,
+				0D0E6E4D1880821400F693B4 /* SSLCrypto.m */,
+				0D0E6E4F188082E300F693B4 /* GSRendezvous.h */,
+				0D0E6E50188082E300F693B4 /* GSRendezvous.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		0D58EC17186C5265008893E5 = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +187,7 @@
 		0D58EC29186C5265008893E5 /* Shell */ = {
 			isa = PBXGroup;
 			children = (
+				0D0E6E4B188081CE00F693B4 /* Utilities */,
 				0DE3388E18796F5300A5F50C /* Resources */,
 				0D89EADE1880405600737407 /* Service */,
 				0DE3388D18796F4700A5F50C /* Categories */,
@@ -218,8 +239,7 @@
 				0D58EC3C186C5265008893E5 /* GSConnectionsTableController.m */,
 				0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */,
 				0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */,
-				0D58EC3E186C5265008893E5 /* GSTerminalViewController.h */,
-				0D58EC3F186C5265008893E5 /* GSTerminalViewController.m */,
+				0DE583E118831C360083EE00 /* Terminal View Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -272,6 +292,8 @@
 			children = (
 				0D89EAE3188049AD00737407 /* GSApplication.h */,
 				0D89EAE4188049AD00737407 /* GSApplication.m */,
+				0D0E6E5218816CAD00F693B4 /* GSDyno.h */,
+				0D0E6E5318816CAD00F693B4 /* GSDyno.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -297,6 +319,15 @@
 				0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		0DE583E118831C360083EE00 /* Terminal View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0D58EC3E186C5265008893E5 /* GSTerminalViewController.h */,
+				0D58EC3F186C5265008893E5 /* GSTerminalViewController.m */,
+			);
+			name = "Terminal View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,14 +472,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
+				0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */,
 				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
 				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
+				0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
 				0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */,
 				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
+				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,

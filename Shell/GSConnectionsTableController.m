@@ -22,10 +22,19 @@
 
 #import "GSConnection.h"
 #import "GSApplication.h"
+#import "GSDyno.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 
 #import "GSHerokuService.h"
+
+#import "GSRendezvous.h"
+
+#include <sys/socket.h>
+#include <resolv.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 @interface GSConnectionsTableController () {
     NSArray *_connections;
@@ -97,12 +106,51 @@
 
     RSA_free(rsa);
 */
+
+/*
+    GSHerokuService *service = [GSHerokuService sharedService];
+    service.authKey = @"15ad8f9d-43ea-4e3a-8843-b2e29feba024";
+    [service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
+        _herokuApps = apps;
+        [self.tableView reloadData];
+
+        GSApplication *app = apps.lastObject;
+        [service postDyno:@{@"id": app.id, @"attach": @YES, @"command": @"bash", @"size": @1} callback:^(GSDyno *dyno, NSURLResponse *resp, NSError *error) {
+
+            NSURL *rendezvousURL = [NSURL URLWithString:dyno.attach_url];
+
+            GSRendezvous *socket = [[GSRendezvous alloc] init];
+            socket.URL = rendezvousURL;
+
+            [socket start];
+
+            NSData * result;
+
+            [socket writeData:[rendezvousURL.lastPathComponent dataUsingEncoding:NSUTF8StringEncoding]];
+            [socket writeData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            result = [socket readData];
+            NSLog(@"%@", [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+            result = [socket readData];
+            NSLog(@"%@", [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+
+            [socket writeData:[@"ls\n" dataUsingEncoding:NSUTF8StringEncoding]];
+            result = [socket readData];
+            NSLog(@"%@", [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+            result = [socket readData];
+            NSLog(@"%@", [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+            result = [socket readData];
+            NSLog(@"%@", [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+        }];
+    }];
+*/
+
     GSHerokuService *service = [GSHerokuService sharedService];
     service.authKey = @"";
     [service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
         _herokuApps = apps;
         [self.tableView reloadData];
     }];
+
 }
 
 - (void)reloadConnections
@@ -234,6 +282,8 @@
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         GSConnection *object = _connections[indexPath.row];
         self.detailViewController.connection = object;
+    } else {
+        [self performSegueWithIdentifier:@"showDetail" sender:indexPath];
     }
 }
 
@@ -252,12 +302,17 @@
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSIndexPath *)indexPath
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        GSConnection *object = _connections[indexPath.row];
-        [[segue destinationViewController] setConnection:object];
+        if (indexPath.section == 0) {
+            GSConnection *object = _connections[indexPath.row];
+            [[segue destinationViewController] setConnection:object];
+        } else {
+            GSApplication *object = _herokuApps[indexPath.row];
+            [[segue destinationViewController] setApplication:object];
+        }
+
     }
 }
 
