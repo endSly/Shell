@@ -88,7 +88,7 @@
 */
 
     GSHerokuService *service = [GSHerokuService service];
-    service.authKey = @"15ad8f9d-43ea-4e3a-8843-b2e29feba024";
+    service.authKey = @"";
     [service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
         _herokuApps = apps;
         [self.tableView reloadData];

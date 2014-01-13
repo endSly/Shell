@@ -8,8 +8,11 @@
 
 #import "GSHerokuLoginController.h"
 
+#import <ObjectiveRecord/ObjectiveRecord.h>
 #import <TenzingCore/TenzingCore.h>
 #import <TenzingCore/TenzingCore-RESTService.h>
+
+#import "GSHerokuAccount.h"
 
 static NSString * const kGSHerokuClientId = @"c07e2cb2-9ec6-4330-a846-d89e1398eaa4";
 static NSString * const kGSHerokuClientSecret = @"53b4e5ae-6bd2-4fdd-9d36-e30398324424";
@@ -39,6 +42,23 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
     NSDictionary *params = @{@"grant_type": @"authorization_code",
                              @"code": code,
                              @"client_secret": kGSHerokuClientSecret};
+
+    NSMutableURLRequest *oauthRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://id.heroku.com/oauth/token"]];
+    oauthRequest.HTTPMethod = @"POST";
+    oauthRequest.HTTPBody = [[params asURLQueryString] dataUsingEncoding:NSUTF8StringEncoding];
+
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:oauthRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *accountDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+
+        GSHerokuAccount *account = [GSHerokuAccount findOrCreate:@{@"userId": accountDict[@"user_id"]}];
+        [account setValuesForKeysWithDictionary:accountDict];
+        [account save];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        });
+    }];
 }
 
 #pragma mark - Web view delegate
