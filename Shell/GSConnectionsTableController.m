@@ -24,6 +24,7 @@
 #import "GSConnection.h"
 #import "GSApplication.h"
 #import "GSDyno.h"
+#import "GSHerokuAccount.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 
@@ -31,7 +32,9 @@
 
 @interface GSConnectionsTableController () {
     NSArray *_connections;
-    NSArray *_herokuApps;
+
+    NSArray *_herokuAccounts;
+    NSMutableDictionary *_herokuApps;
 }
 @end
 
@@ -87,13 +90,15 @@
     RSA_free(rsa);
 */
 
-    GSHerokuService *service = [GSHerokuService service];
-    service.authKey = @"";
-    [service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
-        _herokuApps = apps;
-        [self.tableView reloadData];
-    }];
+    _herokuApps = [NSMutableDictionary dictionary];
+    _herokuAccounts = [GSHerokuAccount all];
 
+    for (GSHerokuAccount *account in _herokuAccounts) {
+        [account.service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
+            _herokuApps[account.user_id] = apps;
+            [self.tableView reloadData];
+        }];
+    }
 }
 
 - (void)reloadConnections
@@ -160,16 +165,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1 + _herokuAccounts.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            return _connections.count;
-        case 1:
-            return _herokuApps.count;
+    if (section == 0) {
+        return _connections.count;
+    } else /* if ... */ {
+        GSHerokuAccount *account = _herokuAccounts[section - 1];
+        NSArray *apps = _herokuApps[account.user_id];
+        return apps.count;
     }
     return 0;
 }
@@ -196,8 +202,10 @@
 
         cell.rightUtilityButtons = @[editButton, deleteButton];
 
-    } else if (indexPath.section == 1) {
-        GSApplication *app = _herokuApps[indexPath.row];
+    } else /* if ... */ {
+        GSHerokuAccount *account = _herokuAccounts[indexPath.section - 1];
+        NSArray *apps = _herokuApps[account.user_id];
+        GSApplication *app = apps[indexPath.row];
         cell.nameLabel.text = app.name;
         cell.detailLabel.text = app.buildpack_provided_description;
     }
@@ -243,7 +251,9 @@
             break;
         }
         case 1: {
-            [self performSegueWithIdentifier:@"GSHerokuConnection" sender:_herokuApps[indexPath.row]];
+            GSHerokuAccount *account = _herokuAccounts[indexPath.section - 1];
+            NSArray *apps = _herokuApps[account.user_id];
+            [self performSegueWithIdentifier:@"GSHerokuConnection" sender:apps[indexPath.row]];
             break;
         }
     }

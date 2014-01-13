@@ -8,15 +8,27 @@
 
 #import "GSHerokuAccount.h"
 
+#import "GSHerokuService.h"
 
 @implementation GSHerokuAccount
 
-@dynamic accessToken;
-@dynamic expiresIn;
-@dynamic refreshToken;
-@dynamic sessionNonce;
-@dynamic tokenType;
-@dynamic userId;
+@dynamic access_token;
+@dynamic expires_in;
+@dynamic refresh_token;
+@dynamic session_nonce;
+@dynamic token_type;
+@dynamic user_id;
 @dynamic name;
+
+@synthesize service = _service;
+
+- (GSHerokuService *)service
+{
+    if (!_service) {
+        _service = [GSHerokuService service];
+        _service.authKey = self.access_token;
+    }
+    return _service;
+}
 
 @end

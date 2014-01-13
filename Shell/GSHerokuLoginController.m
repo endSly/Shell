@@ -51,7 +51,7 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
     [NSURLConnection sendAsynchronousRequest:oauthRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *accountDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 
-        GSHerokuAccount *account = [GSHerokuAccount findOrCreate:@{@"userId": accountDict[@"user_id"]}];
+        GSHerokuAccount *account = [GSHerokuAccount findOrCreate:@{@"user_id": accountDict[@"user_id"]}];
         [account setValuesForKeysWithDictionary:accountDict];
         [account save];
 
