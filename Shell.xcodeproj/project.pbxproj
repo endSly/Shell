@@ -46,6 +46,7 @@
 		0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */; };
 		0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */; };
 		0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */; };
+		0DEB241C188712D000B9CB3B /* GSAmazonEC2Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DEB241B188712D000B9CB3B /* GSAmazonEC2Service.m */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,8 @@
 		0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuTerminalViewController.m; sourceTree = "<group>"; };
 		0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuLoginController.h; sourceTree = "<group>"; };
 		0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuLoginController.m; sourceTree = "<group>"; };
+		0DEB241A188712D000B9CB3B /* GSAmazonEC2Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAmazonEC2Service.h; sourceTree = "<group>"; };
+		0DEB241B188712D000B9CB3B /* GSAmazonEC2Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAmazonEC2Service.m; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,8 +160,6 @@
 			children = (
 				0D0E6E4C1880821400F693B4 /* SSLCrypto.h */,
 				0D0E6E4D1880821400F693B4 /* SSLCrypto.m */,
-				0D0E6E4F188082E300F693B4 /* GSRendezvous.h */,
-				0D0E6E50188082E300F693B4 /* GSRendezvous.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -201,7 +202,8 @@
 			children = (
 				0D0E6E4B188081CE00F693B4 /* Utilities */,
 				0DE3388E18796F5300A5F50C /* Resources */,
-				0D89EADE1880405600737407 /* Service */,
+				0DEB2419188712A400B9CB3B /* AWSService */,
+				0D89EADE1880405600737407 /* HerokuService */,
 				0DE3388D18796F4700A5F50C /* Categories */,
 				0D58EC64186C5636008893E5 /* Models */,
 				0D58EC5F186C5516008893E5 /* Views */,
@@ -290,14 +292,16 @@
 			path = "terminal-html";
 			sourceTree = "<group>";
 		};
-		0D89EADE1880405600737407 /* Service */ = {
+		0D89EADE1880405600737407 /* HerokuService */ = {
 			isa = PBXGroup;
 			children = (
 				0D89EAE21880498700737407 /* Models */,
 				0D89EADF188040F300737407 /* GSHerokuService.h */,
 				0D89EAE0188040F300737407 /* GSHerokuService.m */,
+				0D0E6E4F188082E300F693B4 /* GSRendezvous.h */,
+				0D0E6E50188082E300F693B4 /* GSRendezvous.m */,
 			);
-			name = Service;
+			name = HerokuService;
 			sourceTree = "<group>";
 		};
 		0D89EAE21880498700737407 /* Models */ = {
@@ -356,6 +360,15 @@
 				0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */,
 			);
 			name = "Add Account Controller";
+			sourceTree = "<group>";
+		};
+		0DEB2419188712A400B9CB3B /* AWSService */ = {
+			isa = PBXGroup;
+			children = (
+				0DEB241A188712D000B9CB3B /* GSAmazonEC2Service.h */,
+				0DEB241B188712D000B9CB3B /* GSAmazonEC2Service.m */,
+			);
+			name = AWSService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,6 +526,7 @@
 				0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
+				0DEB241C188712D000B9CB3B /* GSAmazonEC2Service.m in Sources */,
 				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,

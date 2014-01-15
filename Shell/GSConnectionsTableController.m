@@ -95,8 +95,10 @@
 
     for (GSHerokuAccount *account in _herokuAccounts) {
         [account.service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
-            _herokuApps[account.user_id] = apps;
-            [self.tableView reloadData];
+            if ([apps isKindOfClass:[NSArray class]]) {
+                _herokuApps[account.user_id] = apps;
+                [self.tableView reloadData];
+            }
         }];
     }
 }

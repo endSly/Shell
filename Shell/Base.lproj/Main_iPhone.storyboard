@@ -125,8 +125,22 @@
                                             <segue destination="wfv-AZ-7Vw" kind="push" id="eYl-1R-PvU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ImX-2t-BhE">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="hXb-V9-cPy">
                                         <rect key="frame" x="0.0" y="179" width="320" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXb-V9-cPy" id="hTq-Xj-mHv">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AWSLogo" translatesAutoresizingMaskIntoConstraints="NO" id="kB6-g0-1wm">
+                                                    <rect key="frame" x="80" y="10" width="160" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ImX-2t-BhE">
+                                        <rect key="frame" x="0.0" y="259" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ImX-2t-BhE" id="6ms-CF-Zl4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -149,7 +163,9 @@
                             </tableViewSection>
                         </sections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Account" id="Jlq-Zr-pRw"/>
+                    <navigationItem key="navigationItem" title="Add Account" id="Jlq-Zr-pRw">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PFA-fl-bP2"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lnm-SV-aFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -296,6 +312,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AWSLogo" width="160" height="60"/>
         <image name="HerokuLogo" width="199" height="60"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
