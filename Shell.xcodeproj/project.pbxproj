@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D09085F188742E20053A108 /* AWSEC2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D09085E188742E20053A108 /* AWSEC2.framework */; };
+		0D090863188743840053A108 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D090862188743840053A108 /* AWSRuntime.framework */; };
 		0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E4D1880821400F693B4 /* SSLCrypto.m */; };
 		0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E50188082E300F693B4 /* GSRendezvous.m */; };
 		0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E5318816CAD00F693B4 /* GSDyno.m */; };
@@ -40,13 +42,13 @@
 		0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */; };
 		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
 		0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */; };
+		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
 		0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */; };
 		0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3388F18796F6800A5F50C /* ionicons.ttf */; };
 		0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */; };
 		0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */; };
 		0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */; };
-		0DEB241C188712D000B9CB3B /* GSAmazonEC2Service.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DEB241B188712D000B9CB3B /* GSAmazonEC2Service.m */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D09085E188742E20053A108 /* AWSEC2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSEC2.framework; sourceTree = "<group>"; };
+		0D090862188743840053A108 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		0D0E6E4C1880821400F693B4 /* SSLCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLCrypto.h; sourceTree = "<group>"; };
 		0D0E6E4D1880821400F693B4 /* SSLCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLCrypto.m; sourceTree = "<group>"; };
 		0D0E6E4F188082E300F693B4 /* GSRendezvous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRendezvous.h; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConnectionFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnectionFormController.m; sourceTree = "<group>"; };
+		0DCBC766188872A0001810E6 /* GSAWSCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSCredentials.h; sourceTree = "<group>"; };
+		0DCBC767188872A0001810E6 /* GSAWSCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSCredentials.m; sourceTree = "<group>"; };
 		0DE3388718796F3900A5F50C /* UIFont+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+IonIcons.h"; sourceTree = "<group>"; };
 		0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+IonIcons.m"; sourceTree = "<group>"; };
 		0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+IonIcons.h"; sourceTree = "<group>"; };
@@ -123,8 +129,6 @@
 		0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuTerminalViewController.m; sourceTree = "<group>"; };
 		0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuLoginController.h; sourceTree = "<group>"; };
 		0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuLoginController.m; sourceTree = "<group>"; };
-		0DEB241A188712D000B9CB3B /* GSAmazonEC2Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAmazonEC2Service.h; sourceTree = "<group>"; };
-		0DEB241B188712D000B9CB3B /* GSAmazonEC2Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAmazonEC2Service.m; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +143,8 @@
 				0D58EC28186C5265008893E5 /* UIKit.framework in Frameworks */,
 				0D58EC24186C5265008893E5 /* Foundation.framework in Frameworks */,
 				A669840BA28A4E978853907C /* libPods.a in Frameworks */,
+				0D09085F188742E20053A108 /* AWSEC2.framework in Frameworks */,
+				0D090863188743840053A108 /* AWSRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +193,8 @@
 		0D58EC22186C5265008893E5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0D090862188743840053A108 /* AWSRuntime.framework */,
+				0D09085E188742E20053A108 /* AWSEC2.framework */,
 				0D55912D187F3F9D004ECB99 /* CoreData.framework */,
 				0D58EC23186C5265008893E5 /* Foundation.framework */,
 				0D58EC25186C5265008893E5 /* CoreGraphics.framework */,
@@ -202,7 +210,6 @@
 			children = (
 				0D0E6E4B188081CE00F693B4 /* Utilities */,
 				0DE3388E18796F5300A5F50C /* Resources */,
-				0DEB2419188712A400B9CB3B /* AWSService */,
 				0D89EADE1880405600737407 /* HerokuService */,
 				0DE3388D18796F4700A5F50C /* Categories */,
 				0D58EC64186C5636008893E5 /* Models */,
@@ -279,6 +286,8 @@
 				0D559133187F51F4004ECB99 /* GSKeyPair.m */,
 				0D186F501884839900063E10 /* GSHerokuAccount.h */,
 				0D186F511884839900063E10 /* GSHerokuAccount.m */,
+				0DCBC766188872A0001810E6 /* GSAWSCredentials.h */,
+				0DCBC767188872A0001810E6 /* GSAWSCredentials.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -360,15 +369,6 @@
 				0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */,
 			);
 			name = "Add Account Controller";
-			sourceTree = "<group>";
-		};
-		0DEB2419188712A400B9CB3B /* AWSService */ = {
-			isa = PBXGroup;
-			children = (
-				0DEB241A188712D000B9CB3B /* GSAmazonEC2Service.h */,
-				0DEB241B188712D000B9CB3B /* GSAmazonEC2Service.m */,
-			);
-			name = AWSService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,6 +516,7 @@
 				0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */,
 				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
 				0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */,
+				0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */,
 				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
 				0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
@@ -526,7 +527,6 @@
 				0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
-				0DEB241C188712D000B9CB3B /* GSAmazonEC2Service.m in Sources */,
 				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,
@@ -674,6 +674,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/endika/Projects/Shell,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shell/Shell-Prefix.pch";
 				INFOPLIST_FILE = "Shell/Shell-Info.plist";
@@ -691,6 +695,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/endika/Projects/Shell,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Shell/Shell-Prefix.pch";
 				INFOPLIST_FILE = "Shell/Shell-Info.plist";

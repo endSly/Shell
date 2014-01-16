@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="GSAWSCredentials" representedClassName="GSAWSCredentials" syncable="YES">
+        <attribute name="accessKey" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="accessSecret" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="GSConnection" syncable="YES">
         <attribute name="host" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastConnected" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,7 +26,8 @@
     </entity>
     <elements>
         <element name="GSConnection" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="GSKeyPair" positionX="0" positionY="0" width="0" height="0"/>
         <element name="GSHerokuAccount" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GSKeyPair" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GSAWSCredentials" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
