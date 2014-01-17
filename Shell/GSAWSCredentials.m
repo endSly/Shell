@@ -11,6 +11,7 @@
 
 @implementation GSAWSCredentials
 
+@dynamic accountName;
 @dynamic accessKey;
 @dynamic accessSecret;
 

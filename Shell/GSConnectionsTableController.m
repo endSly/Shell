@@ -19,7 +19,7 @@
 
 #import "GSSSHTerminalViewController.h"
 #import "GSHerokuTerminalViewController.h"
-#import "GSConnectionFormController.h"
+#import "GSAddSSHFormController.h"
 
 #import "GSConnection.h"
 #import "GSApplication.h"
@@ -156,7 +156,7 @@
 
 #pragma mark - Connection Form Delegate
 
-- (void)connectionForm:(GSConnectionFormController *)controller didSave:(GSConnection *)connection
+- (void)connectionForm:(GSAddSSHFormController *)controller didSave:(GSConnection *)connection
 {
     [connection save];
 

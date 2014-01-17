@@ -1,7 +1,7 @@
 {
   "grouped":true,
   "title":"New connection",
-  "controllerName":"GSConnectionFormController",
+  "controllerName":"GSAddSSHFormController",
   "sections": [
     { "elements": [
         { "type":"QEntryElement", "key": "name", "bind":"textValue:name", "title":"Name\t\t\t", "placeholder": "Connection", "autocorrectionType": 1},

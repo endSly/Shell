@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import "GSConnectionFormController.h"
+#import "GSAddSSHFormController.h"
 
 #import <ObjectiveRecord/ObjectiveRecord.h>
 
@@ -14,18 +14,15 @@
 
 #import "UIBarButtonItem+IonIcons.h"
 
-@interface GSConnectionFormController ()
+@interface GSAddSSHFormController ()
 
 @end
 
-@implementation GSConnectionFormController
+@implementation GSAddSSHFormController
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    GSConnection *newConnection = (GSConnection *) [GSConnection create];
-    newConnection.port = @22;
-
-    QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"connection-form" andData:newConnection];
+    QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"connection-form" andData:@{@"port": @22}];
 
     QAppearance *defaultAppearance = [[QAppearance alloc] init];
     defaultAppearance.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
@@ -33,7 +30,7 @@
 
     self = [super initWithRoot:root];
     if (self) {
-        self.connection = newConnection;
+
     }
     return self;
 }
@@ -50,13 +47,10 @@
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     [self.root fetchValueUsingBindingsIntoObject:data];
 
-    for (NSString *key in data) {
-        [self.connection setValue:data[key] forKey:key];
-    }
+    GSConnection *connection = [GSConnection create:data];
+    [connection save];
 
-    [self.delegate connectionForm:self didSave:self.connection];
-
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)cancelAction:(id)sender

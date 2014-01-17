@@ -35,7 +35,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GSTableViewCell" rowHeight="64" id="m0d-ak-lc9" customClass="GSTableViewCell">
-                                <rect key="frame" x="0.0" y="119" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="55" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="Lvv-1U-Ljk">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
@@ -99,7 +99,7 @@
                             <tableViewSection id="NC7-ev-FfO">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="9X1-UF-Bv2">
-                                        <rect key="frame" x="0.0" y="99" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="35" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9X1-UF-Bv2" id="i1V-0I-a8L">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -126,7 +126,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="hXb-V9-cPy">
-                                        <rect key="frame" x="0.0" y="179" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="115" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXb-V9-cPy" id="hTq-Xj-mHv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -138,9 +138,12 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="WOp-Aw-k6d" kind="push" id="hdS-jh-hv8"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ImX-2t-BhE">
-                                        <rect key="frame" x="0.0" y="259" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="195" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ImX-2t-BhE" id="6ms-CF-Zl4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -171,10 +174,10 @@
             </objects>
             <point key="canvasLocation" x="1564" y="-874"/>
         </scene>
-        <!--Connection Form Controller-->
+        <!--AddSSH Form Controller-->
         <scene sceneID="D4x-eH-WTZ">
             <objects>
-                <viewController id="DAq-Ex-4v8" customClass="GSConnectionFormController" sceneMemberID="viewController">
+                <viewController id="DAq-Ex-4v8" customClass="GSAddSSHFormController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hp5-aG-MTP"/>
                         <viewControllerLayoutGuide type="bottom" id="hPz-J5-PBZ"/>
@@ -188,7 +191,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k0A-2i-lsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2112" y="-518"/>
+            <point key="canvasLocation" x="2112" y="-548"/>
+        </scene>
+        <!--Account Form Controller-->
+        <scene sceneID="dvz-uo-nia">
+            <objects>
+                <viewController id="WOp-Aw-k6d" customClass="GSAWSAccountFormController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lTe-rU-oPF"/>
+                        <viewControllerLayoutGuide type="bottom" id="aqw-t4-Mge"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="i9B-eT-Qtg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="wxl-Pt-4A8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vdR-P7-9DJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2524" y="-874"/>
         </scene>
         <!--Heroku Login Controller-->
         <scene sceneID="N5D-1G-WFP">
@@ -217,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jC2-pS-Zcw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2110" y="-1237"/>
+            <point key="canvasLocation" x="2110" y="-1267"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mr5-B4-Qds">

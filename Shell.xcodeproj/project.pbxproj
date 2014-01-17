@@ -40,9 +40,11 @@
 		0D89EAE5188049AD00737407 /* GSApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE4188049AD00737407 /* GSApplication.m */; };
 		0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE7188058AA00737407 /* GSTableViewCell.m */; };
 		0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */; };
+		0D94713D18899A40005A511B /* aws-account-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D94713C18899A40005A511B /* aws-account-form.json */; };
 		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
-		0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */; };
+		0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
+		0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */; };
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
 		0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */; };
 		0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3388F18796F6800A5F50C /* ionicons.ttf */; };
@@ -113,11 +115,14 @@
 		0D89EAE7188058AA00737407 /* GSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTableViewCell.m; sourceTree = "<group>"; };
 		0D89EAEB18806C7500737407 /* UIButton+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+IonIcons.h"; sourceTree = "<group>"; };
 		0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+IonIcons.m"; sourceTree = "<group>"; };
+		0D94713C18899A40005A511B /* aws-account-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "aws-account-form.json"; sourceTree = "<group>"; };
 		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
-		0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSConnectionFormController.h; sourceTree = "<group>"; };
-		0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSConnectionFormController.m; sourceTree = "<group>"; };
+		0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddSSHFormController.h; sourceTree = "<group>"; };
+		0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddSSHFormController.m; sourceTree = "<group>"; };
 		0DCBC766188872A0001810E6 /* GSAWSCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSCredentials.h; sourceTree = "<group>"; };
 		0DCBC767188872A0001810E6 /* GSAWSCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSCredentials.m; sourceTree = "<group>"; };
+		0DCBC76C18887873001810E6 /* GSAWSAccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSAccountFormController.h; sourceTree = "<group>"; };
+		0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSAccountFormController.m; sourceTree = "<group>"; };
 		0DE3388718796F3900A5F50C /* UIFont+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+IonIcons.h"; sourceTree = "<group>"; };
 		0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+IonIcons.m"; sourceTree = "<group>"; };
 		0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+IonIcons.h"; sourceTree = "<group>"; };
@@ -219,7 +224,6 @@
 				0D58EC33186C5265008893E5 /* GSAppDelegate.m */,
 				0D58EC41186C5265008893E5 /* Images.xcassets */,
 				0D58EC2A186C5265008893E5 /* Supporting Files */,
-				0DB9E8EC1876DE2D00B09E28 /* connection-form.json */,
 			);
 			path = Shell;
 			sourceTree = "<group>";
@@ -340,6 +344,8 @@
 		0DE3388E18796F5300A5F50C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0DB9E8EC1876DE2D00B09E28 /* connection-form.json */,
+				0D94713C18899A40005A511B /* aws-account-form.json */,
 				0DE3388F18796F6800A5F50C /* ionicons.ttf */,
 				0D58EC7A186C6425008893E5 /* terminal-html */,
 				0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */,
@@ -363,10 +369,12 @@
 		0DE583E818832C330083EE00 /* Add Account Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0DB9E8EE1876E5E700B09E28 /* GSConnectionFormController.h */,
-				0DB9E8EF1876E5E700B09E28 /* GSConnectionFormController.m */,
+				0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */,
+				0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */,
 				0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */,
 				0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */,
+				0DCBC76C18887873001810E6 /* GSAWSAccountFormController.h */,
+				0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */,
 			);
 			name = "Add Account Controller";
 			sourceTree = "<group>";
@@ -457,6 +465,7 @@
 				0D58EC3A186C5265008893E5 /* Main_iPad.storyboard in Resources */,
 				0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */,
 				0D58EC42186C5265008893E5 /* Images.xcassets in Resources */,
+				0D94713D18899A40005A511B /* aws-account-form.json in Resources */,
 				0D58EC37186C5265008893E5 /* Main_iPhone.storyboard in Resources */,
 				0D58EC2E186C5265008893E5 /* InfoPlist.strings in Resources */,
 				0D58EC86186C6425008893E5 /* terminal.html in Resources */,
@@ -513,11 +522,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
+				0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */,
 				0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */,
 				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
 				0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */,
 				0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */,
-				0DB9E8F01876E5E700B09E28 /* GSConnectionFormController.m in Sources */,
+				0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */,
 				0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,

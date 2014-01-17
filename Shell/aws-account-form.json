@@ -1,0 +1,21 @@
+{
+  "grouped":true,
+  "title":"Add AWS Account",
+  "controllerName":"GSAWSAccountFormController",
+  "sections": [
+    { "elements": [
+        { "type":"QEntryElement", "key": "name", "bind":"textValue:name", "title":"Name\t\t\t", "placeholder": "My AWS Account", "autocorrectionType": 1},
+      ]
+    },
+    { "title":"Credentials", "elements": [
+        { "type":"QEntryElement", "bind":"textValue:username", "title":"Access Key\t\t", "placeholder": "key", "autocorrectionType": 1, "autocapitalizationType": 0},
+        { "type":"QEntryElement", "bind":"textValue:password", "title":"Access Secret\t", "placeholder": "secret", "autocorrectionType": 1, "autocapitalizationType": 0},
+      ]
+    },
+    { "elements": [
+        { "type":"QButtonElement", "title":"Save", "controllerAction":"saveAction:" }
+      ]
+    }
+  ]
+}
+

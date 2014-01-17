@@ -13,6 +13,7 @@
 
 @interface GSAWSCredentials : NSManagedObject
 
+@property (nonatomic, retain) NSString * accountName;
 @property (nonatomic, retain) NSString * accessKey;
 @property (nonatomic, retain) NSString * accessSecret;
 

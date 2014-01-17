@@ -10,7 +10,7 @@
 
 #import <SWTableViewCell/SWTableViewCell.h>
 
-#import "GSConnectionFormController.h"
+#import "GSAddSSHFormController.h"
 
 @class GSTerminalViewController;
 
