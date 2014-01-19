@@ -35,7 +35,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GSTableViewCell" rowHeight="64" id="m0d-ak-lc9" customClass="GSTableViewCell">
-                                <rect key="frame" x="0.0" y="55" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="119" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="Lvv-1U-Ljk">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
@@ -99,7 +99,7 @@
                             <tableViewSection id="NC7-ev-FfO">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="9X1-UF-Bv2">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="99" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9X1-UF-Bv2" id="i1V-0I-a8L">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -126,7 +126,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="hXb-V9-cPy">
-                                        <rect key="frame" x="0.0" y="115" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="179" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXb-V9-cPy" id="hTq-Xj-mHv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -143,7 +143,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ImX-2t-BhE">
-                                        <rect key="frame" x="0.0" y="195" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="259" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ImX-2t-BhE" id="6ms-CF-Zl4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>

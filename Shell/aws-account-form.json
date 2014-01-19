@@ -8,8 +8,8 @@
       ]
     },
     { "title":"Credentials", "elements": [
-        { "type":"QEntryElement", "bind":"textValue:username", "title":"Access Key\t\t", "placeholder": "key", "autocorrectionType": 1, "autocapitalizationType": 0},
-        { "type":"QEntryElement", "bind":"textValue:password", "title":"Access Secret\t", "placeholder": "secret", "autocorrectionType": 1, "autocapitalizationType": 0},
+        { "type":"QEntryElement", "bind":"textValue:accessKey", "title":"Access Key\t\t", "placeholder": "key", "autocorrectionType": 1, "autocapitalizationType": 0},
+        { "type":"QEntryElement", "bind":"textValue:accessSecret", "title":"Access Secret\t", "placeholder": "secret", "autocorrectionType": 1, "autocapitalizationType": 0},
       ]
     },
     { "elements": [

@@ -8,6 +8,7 @@
 
 #import "GSAWSCredentials.h"
 
+#import <CommonCrypto/CommonCrypto.h>
 
 @implementation GSAWSCredentials
 

@@ -39,7 +39,7 @@
 	// Do any additional setup after loading the view.
 }
 
-- (void)saveAccount:(id)sender
+- (void)saveAction:(id)sender
 {
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     [self.root fetchValueUsingBindingsIntoObject:data];

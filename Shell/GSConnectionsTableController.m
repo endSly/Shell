@@ -10,8 +10,11 @@
 
 #import <QuickDialog/QuickDialog.h>
 #import <ObjectiveRecord/ObjectiveRecord.h>
+#import <TenzingCore/TenzingCore.h>
 #import <OpenSSL/rsa.h>
 #import <OpenSSL/pem.h>
+#import <AWSRuntime/AWSRuntime.h>
+#import <AWSEC2/AWSEC2.h>
 
 #import "UIButton+IonIcons.h"
 
@@ -24,17 +27,16 @@
 #import "GSConnection.h"
 #import "GSApplication.h"
 #import "GSDyno.h"
+
 #import "GSHerokuAccount.h"
+#import "GSAWSCredentials.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 
 #import "GSHerokuService.h"
 
 @interface GSConnectionsTableController () {
-    NSArray *_connections;
-
-    NSArray *_herokuAccounts;
-    NSMutableDictionary *_herokuApps;
+    NSArray *_sections;
 }
 @end
 
@@ -62,7 +64,6 @@
 
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
-    [self reloadConnections];
 /*
     RSA *rsa = RSA_new();
     BIGNUM *e = BN_new();
@@ -90,24 +91,82 @@
     RSA_free(rsa);
 */
 
-    _herokuApps = [NSMutableDictionary dictionary];
-    _herokuAccounts = [GSHerokuAccount all];
+    NSMutableArray *sections = [NSMutableArray array];
+    _sections = sections;
 
-    for (GSHerokuAccount *account in _herokuAccounts) {
+    // Add SSH connections
+    NSArray *sshConnection = [GSConnection all];
+    if (sshConnection.count) {
+        [sections addObject:@{@"items": sshConnection,
+                              @"type": @"ssh",
+                              @"title": @"SSH Connections"}];
+    }
+
+    // Add Heroku accounts
+    NSArray *herokuAccounts = [GSHerokuAccount all];
+    for (GSHerokuAccount *account in herokuAccounts) {
+        NSMutableDictionary *section = [NSMutableDictionary dictionary];
+        section[@"title"] = [NSString stringWithFormat:@"Heroku <%@>", account.name];
+        section[@"type"] = @"heroku";
+        section[@"group"] = account;
+        section[@"loading"] = @YES;
+
+        [sections addObject:section];
+
         [account.service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
-            if ([apps isKindOfClass:[NSArray class]]) {
-                _herokuApps[account.user_id] = apps;
-                [self.tableView reloadData];
+            if (apps.count) {
+                section[@"items"] = apps;
+                section[@"loading"] = @NO;
+            } else {
+                [sections removeObject:section];
             }
+            [self reloadCells];
+        }];
+    }
+
+    // Add AWS accounts
+    NSArray *awsAccounts = [GSAWSCredentials all];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    for (GSAWSCredentials *credentials in awsAccounts) {
+        NSMutableDictionary *section = [NSMutableDictionary dictionary];
+
+        NSMutableArray *instances = [NSMutableArray array];
+
+        section[@"title"] = [NSString stringWithFormat:@"AWS EC2 <%@>", credentials.accountName];
+        section[@"type"] = @"aws";
+        section[@"group"] = credentials;
+        section[@"loading"] = @YES;
+        section[@"items"] = instances;
+
+        [sections addObject:section];
+
+        [queue addOperationWithBlock:^{
+            AmazonEC2Client *client = credentials.client;
+            EC2DescribeRegionsResponse *response = [client describeRegions:[[EC2DescribeRegionsRequest alloc] init]];
+
+            for (EC2Region *region in response.regions) {
+                AmazonEC2Client *regionClient = [client copy];
+                regionClient.endpoint = [NSString stringWithFormat:@"https://%@", region.endpoint];
+
+                EC2DescribeInstancesResponse *response = [regionClient describeInstances:[[EC2DescribeInstancesRequest alloc] init]];
+
+                for (EC2Reservation *reservation in response.reservations) {
+                    [instances addObjectsFromArray:reservation.instances];
+                }
+                [self reloadCells];
+            }
+
+            section[@"loading"] = @NO;
+            [self reloadCells];
         }];
     }
 }
 
-- (void)reloadConnections
+- (void)reloadCells
 {
-    _connections = [GSConnection all];
-
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)didReceiveMemoryWarning
@@ -122,31 +181,6 @@
     UINavigationController *addServerNavigation = [storyboard instantiateViewControllerWithIdentifier:@"AddServerNavigation"];
 
     [self presentViewController:addServerNavigation animated:YES completion:nil];
-/*
-    GSConnection *newConnection = (GSConnection *) [GSConnection create];
-
-    newConnection.port = @22;
-
-    QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"connection-form" andData:newConnection];
-
-    QAppearance *defaultAppearance = [[QAppearance alloc] init];
-    defaultAppearance.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
-    root.appearance = defaultAppearance;
-
-    UINavigationController *navigation = [QuickDialogController controllerWithNavigationForRoot:root];
-
-    navigation.navigationBar.titleTextAttributes =  @{NSForegroundColorAttributeName: [UIColor whiteColor],
-                                                      NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0]};
-
-    navigation.navigationBar.tintColor = [UIColor whiteColor];
-    navigation.navigationBar.barTintColor = [UIColor grayColor];
-
-    GSConnectionFormController *formController = (GSConnectionFormController *) navigation.topViewController;
-    formController.delegate = self;
-    formController.connection = newConnection;
-
-    [self presentViewController:navigation animated:YES completion:nil];
- */
 }
 
 - (void)settingsAction:(id)sender
@@ -154,32 +188,18 @@
 
 }
 
-#pragma mark - Connection Form Delegate
-
-- (void)connectionForm:(GSAddSSHFormController *)controller didSave:(GSConnection *)connection
-{
-    [connection save];
-
-    [self reloadConnections];
-}
-
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1 + _herokuAccounts.count;
+    return [_sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return _connections.count;
-    } else /* if ... */ {
-        GSHerokuAccount *account = _herokuAccounts[section - 1];
-        NSArray *apps = _herokuApps[account.user_id];
-        return apps.count;
-    }
-    return 0;
+    NSDictionary *sectionInfo = _sections[section];
+    NSArray *items = sectionInfo[@"items"];
+    return items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,46 +209,45 @@
     cell.containingTableView = tableView;
     cell.delegate = self;
 
-    if (indexPath.section == 0) {
-        GSConnection *connection = _connections[indexPath.row];
+    NSDictionary *sectionInfo = _sections[indexPath.section];
+
+    NSArray *items = sectionInfo[@"items"];
+    NSString *sectionType = sectionInfo[@"type"];
+
+    if ([sectionType isEqualToString:@"ssh"]) {
+        GSConnection *connection = items[indexPath.row];
         cell.nameLabel.text = connection.name;
         cell.detailLabel.text = [NSString stringWithFormat:@"%@:%@", connection.host, connection.port];
+        cell.removeButtonVisible = YES;
+        cell.editButtonVisible = YES;
+        cell.rebootButtonVisible = NO;
 
-        UIButton *deleteButton = [UIButton buttonWithIcon:icon_ios7_trash_outline size:32];
-        [deleteButton setTitle:icon_ios7_trash forState:UIControlStateHighlighted];
-        deleteButton.backgroundColor = [UIColor redColor];
+    } else if ([sectionType isEqualToString:@"heroku"]) {
+        GSApplication *application = items[indexPath.row];
+        cell.nameLabel.text = application.name;
+        cell.detailLabel.text = application.buildpack_provided_description;
+        cell.removeButtonVisible = NO;
+        cell.editButtonVisible = NO;
+        cell.rebootButtonVisible = YES;
 
-        UIButton *editButton = [UIButton buttonWithIcon:icon_ios7_compose_outline size:32];
-        [editButton setTitle:icon_ios7_compose forState:UIControlStateHighlighted];
-        editButton.backgroundColor = [UIColor lightGrayColor];
-
-        cell.rightUtilityButtons = @[editButton, deleteButton];
-
-    } else /* if ... */ {
-        GSHerokuAccount *account = _herokuAccounts[indexPath.section - 1];
-        NSArray *apps = _herokuApps[account.user_id];
-        GSApplication *app = apps[indexPath.row];
-        cell.nameLabel.text = app.name;
-        cell.detailLabel.text = app.buildpack_provided_description;
+    } else if ([sectionType isEqualToString:@"aws"]) {
+        EC2Instance *instance = items[indexPath.row];
+        EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
+        cell.nameLabel.text = nameTag.value;
+        cell.detailLabel.text = instance.publicDnsName;
+        cell.removeButtonVisible = NO;
+        cell.editButtonVisible = NO;
+        cell.rebootButtonVisible = YES;
     }
 
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            return @"SSH CONNECTIONS";
-        case 1:
-            return @"HEROKU APPS";
-    }
-    return nil;
+    NSDictionary *sectionInfo = _sections[section];
+    NSString *title = sectionInfo[@"title"];
+    return [title uppercaseString];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -246,7 +265,7 @@
         [self performSegueWithIdentifier:@"showDetail" sender:indexPath];
     }
      */
-
+/*
     switch (indexPath.section) {
         case 0: {
             [self performSegueWithIdentifier:@"GSSSHConnection" sender:_connections[indexPath.row]];
@@ -259,11 +278,13 @@
             break;
         }
     }
+ */
 
 }
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
+    /*
     if (0 == UITableViewCellEditingStyleDelete) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         
@@ -275,6 +296,7 @@
 
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
+     */
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)item
