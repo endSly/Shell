@@ -47,7 +47,27 @@
     GSAWSCredentials *credentials = [GSAWSCredentials create:data];
     [credentials save];
 
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [queue addOperationWithBlock:^{
+        @try {
+            AmazonEC2Client *client = credentials.client;
+            [client describeAccountAttributes:[[EC2DescribeAccountAttributesRequest alloc] init]];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:kGSConnectionsListUpdated object:nil];
+
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }
+        @catch (NSException *exception) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error")
+                                                                message:NSLocalizedString(@"Invalid credentials", @"Invalid credentials")
+                                                               delegate:nil
+                                                      cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok")
+                                                      otherButtonTitles:nil];
+                [alert show];
+            });
+        }
+    }];
 }
 
 @end

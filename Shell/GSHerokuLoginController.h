@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
+#import "GSConnectionsTableController.h"
 
 @interface GSHerokuLoginController : UIViewController <UIWebViewDelegate>
 

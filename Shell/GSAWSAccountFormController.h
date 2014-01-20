@@ -8,6 +8,8 @@
 
 #import <QuickDialog/QuickDialog.h>
 
+#import "GSConnectionsTableController.h"
+
 @interface GSAWSAccountFormController : QuickDialogController <QuickDialogEntryElementDelegate>
 
 @end

@@ -14,6 +14,8 @@
 
 @class GSTerminalViewController;
 
+extern NSString * const kGSConnectionsListUpdated;
+
 @interface GSConnectionsTableController : UITableViewController <SWTableViewCellDelegate>
 
 @property (weak, nonatomic) GSTerminalViewController *detailViewController;

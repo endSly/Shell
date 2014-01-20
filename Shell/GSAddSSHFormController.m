@@ -42,13 +42,15 @@
     ((QEntryElement *) [self.root elementWithKey:@"name"]).delegate = self;
 }
 
-- (void)connectAction:(id)sender
+- (void)saveAction:(id)sender
 {
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     [self.root fetchValueUsingBindingsIntoObject:data];
 
     GSConnection *connection = [GSConnection create:data];
     [connection save];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGSConnectionsListUpdated object:nil];
 
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }

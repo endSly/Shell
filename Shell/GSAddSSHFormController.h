@@ -8,6 +8,8 @@
 
 #import <QuickDialog/QuickDialog.h>
 
+#import "GSConnectionsTableController.h"
+
 @class GSConnection;
 
 @protocol GSConnectionFormDelegate;

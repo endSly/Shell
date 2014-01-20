@@ -35,6 +35,8 @@
 
 #import "GSHerokuService.h"
 
+NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
+
 @interface GSConnectionsTableController () {
     NSArray *_sections;
 }
@@ -64,6 +66,9 @@
 
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadConnections:) name:kGSConnectionsListUpdated object:nil];
+
+    [self reloadConnections:nil];
 /*
     RSA *rsa = RSA_new();
     BIGNUM *e = BN_new();
@@ -91,6 +96,10 @@
     RSA_free(rsa);
 */
 
+}
+
+- (void)reloadConnections:(id)sender
+{
     NSMutableArray *sections = [NSMutableArray array];
     _sections = sections;
 
@@ -126,7 +135,6 @@
 
     // Add AWS accounts
     NSArray *awsAccounts = [GSAWSCredentials all];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     for (GSAWSCredentials *credentials in awsAccounts) {
         NSMutableDictionary *section = [NSMutableDictionary dictionary];
 
@@ -140,24 +148,32 @@
 
         [sections addObject:section];
 
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [queue addOperationWithBlock:^{
-            AmazonEC2Client *client = credentials.client;
-            EC2DescribeRegionsResponse *response = [client describeRegions:[[EC2DescribeRegionsRequest alloc] init]];
+            @try {
+                AmazonEC2Client *client = credentials.client;
+                EC2DescribeRegionsResponse *response = [client describeRegions:[[EC2DescribeRegionsRequest alloc] init]];
 
-            for (EC2Region *region in response.regions) {
-                AmazonEC2Client *regionClient = [client copy];
-                regionClient.endpoint = [NSString stringWithFormat:@"https://%@", region.endpoint];
+                for (EC2Region *region in response.regions) {
+                    AmazonEC2Client *regionClient = [client copy];
+                    regionClient.endpoint = [NSString stringWithFormat:@"https://%@", region.endpoint];
 
-                EC2DescribeInstancesResponse *response = [regionClient describeInstances:[[EC2DescribeInstancesRequest alloc] init]];
+                    EC2DescribeInstancesResponse *response = [regionClient describeInstances:[[EC2DescribeInstancesRequest alloc] init]];
 
-                for (EC2Reservation *reservation in response.reservations) {
-                    [instances addObjectsFromArray:reservation.instances];
+                    for (EC2Reservation *reservation in response.reservations) {
+                        [instances addObjectsFromArray:reservation.instances];
+                    }
+                    [self reloadCells];
                 }
+                section[@"loading"] = @NO;
                 [self reloadCells];
-            }
 
-            section[@"loading"] = @NO;
-            [self reloadCells];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception);
+            }
+            
+
         }];
     }
 }
