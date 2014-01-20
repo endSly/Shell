@@ -10,7 +10,9 @@
 
 #import "UIButton+IonIcons.h"
 
-@implementation GSTableViewCell
+@implementation GSTableViewCell {
+
+}
 
 - (void)setRemoveButtonVisible:(BOOL)removeButtonVisible
 {
@@ -53,8 +55,8 @@
         return;
 
     if (rebootButtonVisible) {
-        UIButton *rebootButton = [UIButton buttonWithIcon:icon_ios7_compose_outline size:32];
-        [rebootButton setTitle:icon_ios7_compose forState:UIControlStateHighlighted];
+        UIButton *rebootButton = [UIButton buttonWithIcon:icon_ios7_refresh_outline size:32];
+        [rebootButton setTitle:icon_ios7_refresh forState:UIControlStateHighlighted];
         rebootButton.backgroundColor = [UIColor lightGrayColor];
 
         self.rightUtilityButtons = [self.rightUtilityButtons ?: @[] arrayByAddingObject:rebootButton];
@@ -63,7 +65,6 @@
     }
     rebootButtonVisible = _rebootButtonVisible;
 }
-
 
 
 @end

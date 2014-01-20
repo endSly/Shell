@@ -19,20 +19,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "ProgressHUD.h"
+#import "GSProgressHUD.h"
 
-@implementation ProgressHUD
+@implementation GSProgressHUD {
+    BOOL _visible;
+}
 
 @synthesize window, spinner, image, label;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (ProgressHUD *)shared
++ (GSProgressHUD *)shared
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	static dispatch_once_t once = 0;
-	static ProgressHUD *progressHUD;
+	static GSProgressHUD *progressHUD;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	dispatch_once(&once, ^{ progressHUD = [[ProgressHUD alloc] init]; });
+	dispatch_once(&once, ^{ progressHUD = [[GSProgressHUD alloc] init]; });
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	return progressHUD;
 }
@@ -269,9 +271,8 @@
 - (void)hudShow
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (self.alpha == 0)
-	{
-		self.alpha = 1;
+	if (!_visible) {
+        _visible = YES;
 
 		self.alpha = 0;
 		self.transform = CGAffineTransformScale(self.transform, 1.4, 1.4);
@@ -290,16 +291,16 @@
 - (void)hudHide
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (self.alpha == 1)
-	{
+	if (_visible) {
+        _visible = NO;
+        
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
 
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
 			self.transform = CGAffineTransformScale(self.transform, 0.7, 0.7);
 			self.alpha = 0;
-		}
-		completion:^(BOOL finished)
-		{
+
+		} completion:^(BOOL finished) {
 			[self hudDestroy];
 			self.alpha = 0;
 		}];

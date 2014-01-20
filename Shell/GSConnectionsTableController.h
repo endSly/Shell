@@ -14,7 +14,7 @@
 
 @class GSTerminalViewController;
 
-@interface GSConnectionsTableController : UITableViewController <GSConnectionFormDelegate, SWTableViewCellDelegate>
+@interface GSConnectionsTableController : UITableViewController <SWTableViewCellDelegate>
 
 @property (weak, nonatomic) GSTerminalViewController *detailViewController;
 

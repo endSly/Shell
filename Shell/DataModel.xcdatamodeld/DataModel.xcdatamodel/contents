@@ -14,13 +14,14 @@
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="GSHerokuAccount" representedClassName="GSHerokuAccount" syncable="YES">
-        <attribute name="access_token" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="expires_in" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expiresIn" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="refresh_token" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="session_nonce" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="token_type" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="user_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="refreshToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sessionNonce" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tokenType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="GSKeyPair" representedClassName="GSKeyPair" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>

@@ -106,7 +106,7 @@
     NSArray *herokuAccounts = [GSHerokuAccount all];
     for (GSHerokuAccount *account in herokuAccounts) {
         NSMutableDictionary *section = [NSMutableDictionary dictionary];
-        section[@"title"] = [NSString stringWithFormat:@"Heroku <%@>", account.name];
+        section[@"title"] = [NSString stringWithFormat:@"Heroku <%@>", account.name ?: account.email];
         section[@"type"] = @"heroku";
         section[@"group"] = account;
         section[@"loading"] = @YES;
@@ -265,20 +265,23 @@
         [self performSegueWithIdentifier:@"showDetail" sender:indexPath];
     }
      */
-/*
-    switch (indexPath.section) {
-        case 0: {
-            [self performSegueWithIdentifier:@"GSSSHConnection" sender:_connections[indexPath.row]];
-            break;
-        }
-        case 1: {
-            GSHerokuAccount *account = _herokuAccounts[indexPath.section - 1];
-            NSArray *apps = _herokuApps[account.user_id];
-            [self performSegueWithIdentifier:@"GSHerokuConnection" sender:apps[indexPath.row]];
-            break;
-        }
+
+    NSDictionary *sectionInfo = _sections[indexPath.section];
+
+    NSArray *items = sectionInfo[@"items"];
+    NSString *sectionType = sectionInfo[@"type"];
+
+    if ([sectionType isEqualToString:@"ssh"]) {
+        GSConnection *connection = items[indexPath.row];
+        [self performSegueWithIdentifier:@"GSSSHConnection" sender:connection];
+
+    } else if ([sectionType isEqualToString:@"heroku"]) {
+        GSApplication *application = items[indexPath.row];
+        [self performSegueWithIdentifier:@"GSHerokuConnection" sender:application];
+
+    } else if ([sectionType isEqualToString:@"aws"]) {
+
     }
- */
 
 }
 

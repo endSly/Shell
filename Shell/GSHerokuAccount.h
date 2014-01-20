@@ -13,12 +13,14 @@
 
 @interface GSHerokuAccount : NSManagedObject
 
-@property (nonatomic, strong) NSString * access_token;
-@property (nonatomic, strong) NSString * expires_in;
-@property (nonatomic, strong) NSString * refresh_token;
-@property (nonatomic, strong) NSString * session_nonce;
-@property (nonatomic, strong) NSString * token_type;
-@property (nonatomic, strong) NSString * user_id;
+@property (nonatomic, strong) NSString * accessToken;
+@property (nonatomic, strong) NSString * expiresIn;
+@property (nonatomic, strong) NSString * refreshToken;
+@property (nonatomic, strong) NSString * sessionNonce;
+@property (nonatomic, strong) NSString * tokenType;
+@property (nonatomic, strong) NSString * userId;
+
+@property (nonatomic, strong) NSString * email;
 @property (nonatomic, strong) NSString * name;
 
 @property (nonatomic, readonly) GSHerokuService *service;

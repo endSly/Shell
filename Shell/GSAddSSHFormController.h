@@ -15,12 +15,6 @@
 @interface GSAddSSHFormController : QuickDialogController <QuickDialogEntryElementDelegate>
 
 @property (nonatomic, strong) GSConnection * connection;
-@property (nonatomic, weak) id <GSConnectionFormDelegate> delegate;
 
 @end
 
-@protocol GSConnectionFormDelegate <NSObject>
-
-- (void)connectionForm:(GSAddSSHFormController *)controller didSave:(GSConnection *)connection;
-
-@end

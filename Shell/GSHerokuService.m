@@ -15,6 +15,7 @@
 
 + (void)initialize
 {
+    [self get:@"/account" class:nil as:@selector(getAccount:callback:)];
     [self get:@"/apps" class:GSApplication.class as:@selector(getApps:callback:)];
     [self get:@"/apps/:id/dynos" class:GSDyno.class as:@selector(getDynos:callback:)];
     [self post:@"/apps/:id/dynos" class:GSDyno.class as:@selector(postDyno:callback:)];
@@ -24,6 +25,7 @@
 {
     GSHerokuService *service = [[self alloc] init];
     service.baseURL = [NSURL URLWithString:@"https://api.heroku.com"];
+    service.operationQueue = [[NSOperationQueue alloc] init];
     service.delegate = service;
     return service;
 }
@@ -36,6 +38,13 @@
     [(* request) setValue:@"application/vnd.heroku+json; version=3" forHTTPHeaderField:@"Accept"];
     [(* request) setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [(* request) setValue:authorizationCode forHTTPHeaderField:@"Authorization"];
+}
+
+- (void)RESTService:(TZRESTService *)service
+      afterResponse:(NSURLResponse *__autoreleasing *)resp
+               data:(NSData *__autoreleasing *)data
+              error:(NSError *__autoreleasing *)error
+{
 
 }
 

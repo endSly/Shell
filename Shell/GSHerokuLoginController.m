@@ -12,7 +12,10 @@
 #import <TenzingCore/TenzingCore.h>
 #import <TenzingCore/TenzingCore-RESTService.h>
 
+#import "GSHerokuService.h"
 #import "GSHerokuAccount.h"
+
+#import "GSProgressHUD.h"
 
 static NSString * const kGSHerokuClientId = @"c07e2cb2-9ec6-4330-a846-d89e1398eaa4";
 static NSString * const kGSHerokuClientSecret = @"53b4e5ae-6bd2-4fdd-9d36-e30398324424";
@@ -39,6 +42,8 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
 
 - (void)loginWithCode:(NSString *)code
 {
+    [GSProgressHUD show:nil];
+
     NSDictionary *params = @{@"grant_type": @"authorization_code",
                              @"code": code,
                              @"client_secret": kGSHerokuClientSecret};
@@ -51,13 +56,18 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
     [NSURLConnection sendAsynchronousRequest:oauthRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *accountDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 
-        GSHerokuAccount *account = [GSHerokuAccount findOrCreate:@{@"user_id": accountDict[@"user_id"]}];
-        [account setValuesForKeysWithDictionary:accountDict];
-        [account save];
+        GSHerokuAccount *account = [GSHerokuAccount findOrCreate:@{@"userId": accountDict[@"user_id"]}];
+        [account update:accountDict];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-        });
+        [account.service getAccount:nil callback:^(id accountInfo, NSURLResponse *resp, NSError *error) {
+            [account update:accountInfo];
+            [account save];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                [GSProgressHUD dismiss];
+            });
+        }];
     }];
 }
 
@@ -72,6 +82,16 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
         return NO;
     }
     return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [GSProgressHUD show:nil];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [GSProgressHUD dismiss];
 }
 
 @end

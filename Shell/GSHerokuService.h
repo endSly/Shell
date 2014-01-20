@@ -18,6 +18,7 @@
 
 @interface GSHerokuService (DynamicMethod)
 
+- (void)getAccount:(NSDictionary *)params callback:(TZRESTCallback)callback;
 - (void)getApps:(NSDictionary *)params callback:(TZRESTCallback)callback;
 - (void)getDynos:(NSDictionary *)params callback:(TZRESTCallback)callback;
 - (void)postDyno:(NSDictionary *)params callback:(TZRESTCallback)callback;

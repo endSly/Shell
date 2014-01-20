@@ -45,6 +45,7 @@
 		0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
 		0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */; };
+		0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE7F6C188C5CFC00C69124 /* GSProgressHUD.m */; };
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
 		0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */; };
 		0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DE3388F18796F6800A5F50C /* ionicons.ttf */; };
@@ -123,6 +124,8 @@
 		0DCBC767188872A0001810E6 /* GSAWSCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSCredentials.m; sourceTree = "<group>"; };
 		0DCBC76C18887873001810E6 /* GSAWSAccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSAccountFormController.h; sourceTree = "<group>"; };
 		0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSAccountFormController.m; sourceTree = "<group>"; };
+		0DCE7F6B188C5CFC00C69124 /* GSProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSProgressHUD.h; sourceTree = "<group>"; };
+		0DCE7F6C188C5CFC00C69124 /* GSProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSProgressHUD.m; sourceTree = "<group>"; };
 		0DE3388718796F3900A5F50C /* UIFont+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+IonIcons.h"; sourceTree = "<group>"; };
 		0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+IonIcons.m"; sourceTree = "<group>"; };
 		0DE3388918796F3A00A5F50C /* UIBarButtonItem+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+IonIcons.h"; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 			children = (
 				0D58EC35186C5265008893E5 /* Main_iPhone.storyboard */,
 				0D58EC38186C5265008893E5 /* Main_iPad.storyboard */,
+				0DCE7F6B188C5CFC00C69124 /* GSProgressHUD.h */,
+				0DCE7F6C188C5CFC00C69124 /* GSProgressHUD.m */,
 				0D58EC65186C59EF008893E5 /* GSTerminalView.h */,
 				0D58EC66186C59EF008893E5 /* GSTerminalView.m */,
 				0D89EAE6188058AA00737407 /* GSTableViewCell.h */,
@@ -523,6 +528,7 @@
 			files = (
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
 				0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */,
+				0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */,
 				0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */,
 				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
 				0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */,
