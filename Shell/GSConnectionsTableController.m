@@ -201,7 +201,7 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
 - (void)settingsAction:(id)sender
 {
-
+    [self performSegueWithIdentifier:@"GSShowSettings" sender:self];
 }
 
 #pragma mark - Table View

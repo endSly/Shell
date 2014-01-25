@@ -8,6 +8,6 @@
 
 #import "AKFormController.h"
 
-@interface GSSettingsController : AKFormController
+@interface GSSettingsController : AKFormController <AKFormCellTextFieldDelegate, AKFormCellTextFieldStyleProvider, AKFormCellSwitchStyleProvider, AKFormCellButtonDelegate, AKFormCellButtonStyleProvider>
 
 @end

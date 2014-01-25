@@ -81,6 +81,7 @@
                     <connections>
                         <segue destination="Ah7-4n-0Wa" kind="push" identifier="GSSSHConnection" id="Xw3-ut-eaj"/>
                         <segue destination="xuC-sy-zJE" kind="push" identifier="GSHerokuConnection" id="wZc-2E-9It"/>
+                        <segue destination="bge-fX-oKr" kind="modal" identifier="GSShowSettings" id="h6m-Nh-OV0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
@@ -331,6 +332,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cdT-pH-QpE" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1032" y="550"/>
+        </scene>
+        <!--Settings Controller - Settings-->
+        <scene sceneID="8Qj-o4-XWI">
+            <objects>
+                <tableViewController id="6WE-Gx-f6P" customClass="GSSettingsController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="9qE-lF-iYv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="52J-jl-x3X">
+                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="52J-jl-x3X" id="6jO-Mb-tqM">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="cFg-Vc-wYX"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fi2-a0-P57" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1566" y="1270"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Yfg-c9-eHX">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="bge-fX-oKr" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eXz-Nw-5UB">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6WE-Gx-f6P" kind="relationship" relationship="rootViewController" id="Kwv-Kh-lV4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="42o-Pu-Lc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1032" y="1270"/>
         </scene>
     </scenes>
     <resources>
