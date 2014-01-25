@@ -42,6 +42,7 @@
 		0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE7188058AA00737407 /* GSTableViewCell.m */; };
 		0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */; };
 		0D94713D18899A40005A511B /* aws-account-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D94713C18899A40005A511B /* aws-account-form.json */; };
+		0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */; };
 		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
 		0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
@@ -120,6 +121,8 @@
 		0D89EAEB18806C7500737407 /* UIButton+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+IonIcons.h"; sourceTree = "<group>"; };
 		0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+IonIcons.m"; sourceTree = "<group>"; };
 		0D94713C18899A40005A511B /* aws-account-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "aws-account-form.json"; sourceTree = "<group>"; };
+		0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyPairsFormController.h; sourceTree = "<group>"; };
+		0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPairsFormController.m; sourceTree = "<group>"; };
 		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddSSHFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddSSHFormController.m; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				0D58EC3C186C5265008893E5 /* GSConnectionsTableController.m */,
 				0D5488671894109E0061659B /* GSSettingsController.h */,
 				0D5488681894109E0061659B /* GSSettingsController.m */,
+				0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */,
+				0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */,
 				0DE583E818832C330083EE00 /* Add Account Controller */,
 				0DE583E118831C360083EE00 /* Terminal View Controllers */,
 			);
@@ -550,6 +555,7 @@
 				0D5488691894109E0061659B /* GSSettingsController.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
 				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,
+				0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,

@@ -353,10 +353,42 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="cFg-Vc-wYX"/>
+                    <connections>
+                        <segue destination="wdE-WX-CJG" kind="push" identifier="GSEditKeyPairsSegue" id="iwy-8v-Ywl"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fi2-a0-P57" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1566" y="1270"/>
+        </scene>
+        <!--Key Pairs Form Controller-->
+        <scene sceneID="jqw-rD-g15">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1mP-Us-aIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="wdE-WX-CJG" customClass="GSKeyPairsFormController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pmx-VY-tKf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="FTf-RY-Hqm">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FTf-RY-Hqm" id="dot-Q3-5MW">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wdE-WX-CJG" id="8bR-ww-Ccn"/>
+                            <outlet property="delegate" destination="wdE-WX-CJG" id="EeE-eh-acn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="16x-10-EQh"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2104" y="1270"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yfg-c9-eHX">

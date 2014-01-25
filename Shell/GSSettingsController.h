@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import "AKFormController.h"
+#import <AKForm/AKForm.h>
 
-@interface GSSettingsController : AKFormController <AKFormCellTextFieldDelegate, AKFormCellTextFieldStyleProvider, AKFormCellSwitchStyleProvider, AKFormCellButtonDelegate, AKFormCellButtonStyleProvider>
+@interface GSSettingsController : AKFormController <AKFormCellTextFieldDelegate, AKFormCellTextFieldStyleProvider, AKFormFieldSwitchDelegate, AKFormCellSwitchStyleProvider, AKFormCellButtonDelegate, AKFormCellButtonStyleProvider>
 
 @end

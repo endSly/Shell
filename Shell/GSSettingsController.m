@@ -30,6 +30,8 @@
                                                                delegate:self
                                                           styleProvider:self];
 
+    forceSizeField.value = [AKFormValue value:@YES withType:AKFormValueBool];
+
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[forceSizeField]];
     section.headerTitle = @"Screen Size";
 
@@ -102,8 +104,8 @@
 
 - (void)addKeyPairsSection
 {
-    AKFormFieldButton *showKeyPairsButton = [AKFormFieldButton fieldWithKey:@"showKeyPairs"
-                                                                      title:@"Show Key Pairs"
+    AKFormFieldButton *showKeyPairsButton = [AKFormFieldButton fieldWithKey:@"editKeyPairs"
+                                                                      title:@"Edit Key Pairs"
                                                                    subtitle:nil
                                                                       image:nil
                                                                    delegate:self
@@ -161,8 +163,8 @@
 {
     AKFormFieldButton *field = cell.valueDelegate;
 
-    if ([field.key isEqualToString:@"showKeyPairs"]) {
-        
+    if ([field.key isEqualToString:@"editKeyPairs"]) {
+        [self performSegueWithIdentifier:@"GSEditKeyPairsSegue" sender:self];
     }
 }
 
