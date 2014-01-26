@@ -15,3 +15,5 @@ pod 'AKForm', '~> 0.0.5'
 pod 'FrameAccessor'
 
 pod 'SWTableViewCell', '~> 0.2.2'
+
+pod 'DCModalSegue'

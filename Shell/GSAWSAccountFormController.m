@@ -55,7 +55,7 @@
 
             [[NSNotificationCenter defaultCenter] postNotificationName:kGSConnectionsListUpdated object:nil];
 
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
         @catch (NSException *exception) {
             dispatch_async(dispatch_get_main_queue(), ^{

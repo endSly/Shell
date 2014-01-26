@@ -8,6 +8,10 @@
 
 #import "GSSettingsController.h"
 
+#import "GSFormStyleProvider.h"
+
+#import "UIBarButtonItem+IonIcons.h"
+
 @interface GSSettingsController ()
 
 @end
@@ -21,6 +25,8 @@
     [self addScreenSizeSection];
     [self addPasswordSection];
     [self addKeyPairsSection];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
 }
 
 - (void)addScreenSizeSection
@@ -28,7 +34,7 @@
     AKFormFieldSwitch *forceSizeField = [AKFormFieldSwitch fieldWithKey:@"autoSize"
                                                                   title:@"Adjust size to Screen"
                                                                delegate:self
-                                                          styleProvider:self];
+                                                          styleProvider:[GSFormStyleProvider styleProvider]];
 
     forceSizeField.value = [AKFormValue value:@YES withType:AKFormValueBool];
 
@@ -42,7 +48,7 @@
                                                                    title:@"Rows"
                                                              placeholder:@"24"
                                                                 delegate:self
-                                                           styleProvider:self];
+                                                           styleProvider:[GSFormStyleProvider styleProvider]];
     rowsField.keyboardType = UIKeyboardTypeDecimalPad;
     [fields addObject:rowsField];
 
@@ -50,7 +56,7 @@
                                                                    title:@"Columns"
                                                              placeholder:@"80"
                                                                 delegate:self
-                                                           styleProvider:self];
+                                                           styleProvider:[GSFormStyleProvider styleProvider]];
     rowsField.keyboardType = UIKeyboardTypeDecimalPad;
     [fields addObject:colsField];
 
@@ -69,7 +75,7 @@
     AKFormFieldSwitch *usePasswordField = [AKFormFieldSwitch fieldWithKey:@"usePassword"
                                                                     title:@"Use password"
                                                                  delegate:self
-                                                            styleProvider:self];
+                                                            styleProvider:[GSFormStyleProvider styleProvider]];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[usePasswordField]];
     section.headerTitle = @"Password";
@@ -80,7 +86,7 @@
                                                                        title:@"Password"
                                                                  placeholder:@"required"
                                                                     delegate:self
-                                                               styleProvider:self];
+                                                               styleProvider:[GSFormStyleProvider styleProvider]];
     passwordField.secureTextEntry = YES;
     [fields addObject:passwordField];
 
@@ -88,7 +94,7 @@
                                                                                    title:@"Password Confirmation"
                                                                              placeholder:@"required"
                                                                                 delegate:self
-                                                                           styleProvider:self];
+                                                                           styleProvider:[GSFormStyleProvider styleProvider]];
     passwordConfirmationField.secureTextEntry = YES;
     [fields addObject:passwordConfirmationField];
 
@@ -109,52 +115,16 @@
                                                                    subtitle:nil
                                                                       image:nil
                                                                    delegate:self
-                                                              styleProvider:self];
+                                                              styleProvider:[GSFormStyleProvider styleProvider]];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[showKeyPairsButton]];
     section.headerTitle = @"Key Pairs";
     [self addSection:section];
 }
 
-#pragma mark - Text Field Cell Style Provider
-
-- (AKFormCellTextFieldStyle)styleForTextFieldCell:(AKFormCellTextField *)cell
+- (void)cancelAction:(id)sender
 {
-    return AKFormCellTextFieldStyleLabelWithDynamicWidth;
-}
-
-- (UIFont *)labelFontForMode:(AKFormCellTextFieldMode)mode style:(AKFormCellTextFieldStyle)style forTextFieldCell:(AKFormCellTextField *)cell
-{
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f];
-}
-
-#pragma mark - Switch Cell Style Provider
-
-- (AKFormCellSwitchStyle)styleForSwitchCell:(AKFormCellSwitch *)cell
-{
-    return AKFormCellSwitchStyleLabelWithStaticWidth3;
-}
-
-- (CGFloat)labelWidthForSwitchCell:(AKFormCellSwitch *)cell
-{
-    return 280.0f;
-}
-
-- (UIColor *)tintColorForSwitchCell:(AKFormCellSwitch *)cell
-{
-    return [UIColor colorWith8BitRed:52 green:102 blue:176];
-}
-
-- (UIFont *)labelFontForMode:(AKFormCellSwitchMode)mode style:(AKFormCellSwitchStyle)style forSwitchCell:(AKFormCellSwitch *)cell
-{
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f];
-}
-
-#pragma mark - Button Cell Style Provider
-
-- (UIFont *)labelFontForMode:(AKFormCellButtonMode)mode style:(AKFormCellButtonStyle)style forButtonCell:(AKFormCellButton *)cell
-{
-    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Button Cell Delegate
@@ -167,6 +137,5 @@
         [self performSegueWithIdentifier:@"GSEditKeyPairsSegue" sender:self];
     }
 }
-
 
 @end

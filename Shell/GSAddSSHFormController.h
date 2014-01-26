@@ -6,15 +6,11 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import <QuickDialog/QuickDialog.h>
-
-#import "GSConnectionsTableController.h"
+#import <AKForm/AKForm.h>
 
 @class GSConnection;
 
-@protocol GSConnectionFormDelegate;
-
-@interface GSAddSSHFormController : QuickDialogController <QuickDialogEntryElementDelegate>
+@interface GSAddSSHFormController : AKFormController <AKFormCellTextFieldDelegate, AKFormCellButtonDelegate>
 
 @property (nonatomic, strong) GSConnection * connection;
 

@@ -56,11 +56,18 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     [super viewDidLoad];
 
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_gear_outline
-                                                                      color:[UIColor whiteColor]
                                                                      target:self
                                                                      action:@selector(settingsAction:)];
 
     self.navigationItem.leftBarButtonItem = settingsButton;
+
+    UIBarButtonItem *addConnectionButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline
+                                                                          target:self
+                                                                          action:@selector(addConnectionAction:)];
+
+    self.navigationItem.rightBarButtonItem = addConnectionButton;
+
+
 
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
@@ -173,6 +180,11 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 - (void)settingsAction:(id)sender
 {
     [self performSegueWithIdentifier:@"GSShowSettings" sender:self];
+}
+
+- (void)addConnectionAction:(id)sender
+{
+    [self performSegueWithIdentifier:@"GSAddConnectionSegue" sender:self];
 }
 
 #pragma mark - Table View

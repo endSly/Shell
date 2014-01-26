@@ -71,27 +71,22 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Shell" id="tQt-TN-PWz">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TYL-oQ-wL2">
-                            <connections>
-                                <segue destination="CIK-il-434" kind="modal" id="ecn-nF-vd7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Shell" id="tQt-TN-PWz"/>
                     <connections>
                         <segue destination="Ah7-4n-0Wa" kind="push" identifier="GSSSHConnection" id="Xw3-ut-eaj"/>
                         <segue destination="xuC-sy-zJE" kind="push" identifier="GSHerokuConnection" id="wZc-2E-9It"/>
-                        <segue destination="bge-fX-oKr" kind="modal" identifier="GSShowSettings" id="h6m-Nh-OV0"/>
+                        <segue destination="bge-fX-oKr" kind="custom" identifier="GSShowSettings" customClass="DCModalSegue" id="h6m-Nh-OV0"/>
+                        <segue destination="CIK-il-434" kind="custom" identifier="GSAddConnectionSegue" customClass="DCModalSegue" id="h0c-T8-GXS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="459" y="64"/>
         </scene>
-        <!--Table View Controller - Add Account-->
+        <!--Add Connection Table Controller - Add Account-->
         <scene sceneID="bTv-qA-92p">
             <objects>
-                <tableViewController id="dSY-6s-GBo" sceneMemberID="viewController">
+                <tableViewController id="dSY-6s-GBo" customClass="GSAddConnectionTableController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nCx-JK-cy9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,39 +155,47 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DAq-Ex-4v8" kind="push" id="txN-bV-ICn"/>
+                                            <segue destination="ipk-FJ-6lV" kind="push" id="XLB-xg-LhK"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Account" id="Jlq-Zr-pRw">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PFA-fl-bP2"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Add Account" id="Jlq-Zr-pRw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lnm-SV-aFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1564" y="-874"/>
         </scene>
         <!--AddSSH Form Controller-->
-        <scene sceneID="D4x-eH-WTZ">
+        <scene sceneID="LFW-sg-Mk0">
             <objects>
-                <viewController id="DAq-Ex-4v8" customClass="GSAddSSHFormController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Hp5-aG-MTP"/>
-                        <viewControllerLayoutGuide type="bottom" id="hPz-J5-PBZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="reG-Zn-7Xg">
+                <tableViewController id="ipk-FJ-6lV" customClass="GSAddSSHFormController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="GTc-BU-k3Z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="hlZ-hZ-0T7"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k0A-2i-lsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="w90-2p-hT7">
+                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w90-2p-hT7" id="0fl-Ku-nXw">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ipk-FJ-6lV" id="eO7-tX-F7m"/>
+                            <outlet property="delegate" destination="ipk-FJ-6lV" id="b2d-Nw-4jU"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="zAx-yp-aSf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dLt-Ss-CtM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2112" y="-548"/>
+            <point key="canvasLocation" x="2096" y="-472"/>
         </scene>
         <!--Account Form Controller-->
         <scene sceneID="dvz-uo-nia">
@@ -364,7 +367,6 @@
         <!--Key Pairs Form Controller-->
         <scene sceneID="jqw-rD-g15">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1mP-Us-aIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="wdE-WX-CJG" customClass="GSKeyPairsFormController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pmx-VY-tKf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -387,6 +389,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="16x-10-EQh"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1mP-Us-aIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2104" y="1270"/>
         </scene>
@@ -396,6 +399,7 @@
                 <navigationController definesPresentationContext="YES" id="bge-fX-oKr" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eXz-Nw-5UB">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>

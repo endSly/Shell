@@ -66,7 +66,7 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
             [[NSNotificationCenter defaultCenter] postNotificationName:kGSConnectionsListUpdated object:nil];
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
                 [GSProgressHUD dismiss];
             });
         }];

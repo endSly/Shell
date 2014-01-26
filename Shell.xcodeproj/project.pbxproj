@@ -42,8 +42,9 @@
 		0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE7188058AA00737407 /* GSTableViewCell.m */; };
 		0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */; };
 		0D94713D18899A40005A511B /* aws-account-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D94713C18899A40005A511B /* aws-account-form.json */; };
+		0DA514B718954ED200B4ECBF /* GSFormStyleProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */; };
+		0DA514BE1895650600B4ECBF /* GSAddConnectionTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA514BD1895650600B4ECBF /* GSAddConnectionTableController.m */; };
 		0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */; };
-		0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EC1876DE2D00B09E28 /* connection-form.json */; };
 		0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
 		0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */; };
@@ -121,9 +122,12 @@
 		0D89EAEB18806C7500737407 /* UIButton+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+IonIcons.h"; sourceTree = "<group>"; };
 		0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+IonIcons.m"; sourceTree = "<group>"; };
 		0D94713C18899A40005A511B /* aws-account-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "aws-account-form.json"; sourceTree = "<group>"; };
+		0DA514B518954ED200B4ECBF /* GSFormStyleProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSFormStyleProvider.h; sourceTree = "<group>"; };
+		0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSFormStyleProvider.m; sourceTree = "<group>"; };
+		0DA514BC1895650600B4ECBF /* GSAddConnectionTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddConnectionTableController.h; sourceTree = "<group>"; };
+		0DA514BD1895650600B4ECBF /* GSAddConnectionTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddConnectionTableController.m; sourceTree = "<group>"; };
 		0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyPairsFormController.h; sourceTree = "<group>"; };
 		0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPairsFormController.m; sourceTree = "<group>"; };
-		0DB9E8EC1876DE2D00B09E28 /* connection-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "connection-form.json"; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddSSHFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddSSHFormController.m; sourceTree = "<group>"; };
 		0DCBC766188872A0001810E6 /* GSAWSCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSCredentials.h; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 			children = (
 				0D0E6E4C1880821400F693B4 /* SSLCrypto.h */,
 				0D0E6E4D1880821400F693B4 /* SSLCrypto.m */,
+				0DA514B518954ED200B4ECBF /* GSFormStyleProvider.h */,
+				0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -271,10 +277,7 @@
 			children = (
 				0D58EC3B186C5265008893E5 /* GSConnectionsTableController.h */,
 				0D58EC3C186C5265008893E5 /* GSConnectionsTableController.m */,
-				0D5488671894109E0061659B /* GSSettingsController.h */,
-				0D5488681894109E0061659B /* GSSettingsController.m */,
-				0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */,
-				0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */,
+				0DA514B4189545D700B4ECBF /* Settings */,
 				0DE583E818832C330083EE00 /* Add Account Controller */,
 				0DE583E118831C360083EE00 /* Terminal View Controllers */,
 			);
@@ -343,6 +346,17 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		0DA514B4189545D700B4ECBF /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0D5488671894109E0061659B /* GSSettingsController.h */,
+				0D5488681894109E0061659B /* GSSettingsController.m */,
+				0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */,
+				0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		0DE3388D18796F4700A5F50C /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +373,6 @@
 		0DE3388E18796F5300A5F50C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0DB9E8EC1876DE2D00B09E28 /* connection-form.json */,
 				0D94713C18899A40005A511B /* aws-account-form.json */,
 				0DE3388F18796F6800A5F50C /* ionicons.ttf */,
 				0D58EC7A186C6425008893E5 /* terminal-html */,
@@ -384,6 +397,8 @@
 		0DE583E818832C330083EE00 /* Add Account Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0DA514BC1895650600B4ECBF /* GSAddConnectionTableController.h */,
+				0DA514BD1895650600B4ECBF /* GSAddConnectionTableController.m */,
 				0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */,
 				0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */,
 				0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */,
@@ -484,7 +499,6 @@
 				0D58EC37186C5265008893E5 /* Main_iPhone.storyboard in Resources */,
 				0D58EC2E186C5265008893E5 /* InfoPlist.strings in Resources */,
 				0D58EC86186C6425008893E5 /* terminal.html in Resources */,
-				0DB9E8ED1876DE2D00B09E28 /* connection-form.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +566,7 @@
 				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
 				0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
+				0DA514BE1895650600B4ECBF /* GSAddConnectionTableController.m in Sources */,
 				0D5488691894109E0061659B /* GSSettingsController.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
 				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,
@@ -562,6 +577,7 @@
 				0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
+				0DA514B718954ED200B4ECBF /* GSFormStyleProvider.m in Sources */,
 				0D559134187F51F4004ECB99 /* GSKeyPair.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
