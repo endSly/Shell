@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSNumber *port;
 @property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *password;
+@property (nonatomic, copy) NSNumber *savePassword;
 @property (nonatomic, copy) NSDate *lastConnected;
 
 @end

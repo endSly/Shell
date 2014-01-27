@@ -14,12 +14,9 @@
 
 #import "GSHerokuService.h"
 #import "GSHerokuAccount.h"
+#import "GSHerokuOAuth.h"
 
 #import "GSProgressHUD.h"
-
-static NSString * const kGSHerokuClientId = @"c07e2cb2-9ec6-4330-a846-d89e1398eaa4";
-static NSString * const kGSHerokuClientSecret = @"53b4e5ae-6bd2-4fdd-9d36-e30398324424";
-static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
 
 @interface GSHerokuLoginController ()
 
@@ -44,17 +41,7 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
 {
     [GSProgressHUD show:nil];
 
-    NSDictionary *params = @{@"grant_type": @"authorization_code",
-                             @"code": code,
-                             @"client_secret": kGSHerokuClientSecret};
-
-    NSMutableURLRequest *oauthRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://id.heroku.com/oauth/token"]];
-    oauthRequest.HTTPMethod = @"POST";
-    oauthRequest.HTTPBody = [[params asURLQueryString] dataUsingEncoding:NSUTF8StringEncoding];
-
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:oauthRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *accountDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    [[GSHerokuOAuth sharedInstance] loginWithAuthToken:code callback:^(NSDictionary *accountDict) {
 
         GSHerokuAccount *account = [GSHerokuAccount findOrCreate:@{@"userId": accountDict[@"user_id"]}];
         [account update:accountDict];
@@ -70,6 +57,7 @@ static NSString * const kGSHerokuCallbackHost = @"heroku-oauth-cb.local";
                 [GSProgressHUD dismiss];
             });
         }];
+
     }];
 }
 

@@ -8,12 +8,16 @@
 
 #import "GSHerokuAccount.h"
 
+#import <ObjectiveRecord/ObjectiveRecord.h>
+
 #import "GSHerokuService.h"
+
+#import "GSHerokuOAuth.h"
 
 @implementation GSHerokuAccount
 
 @dynamic accessToken;
-@dynamic expiresIn;
+@dynamic expiresAt;
 @dynamic refreshToken;
 @dynamic sessionNonce;
 @dynamic tokenType;
@@ -31,6 +35,28 @@
         _service.authKey = self.accessToken;
     }
     return _service;
+}
+
+- (void)setExpiresIn:(NSNumber *)expiresIn
+{
+    self.expiresAt = [NSDate dateWithTimeIntervalSinceNow:expiresIn.integerValue];
+}
+
+- (NSNumber *)expiresIn
+{
+    return @([self.expiresAt timeIntervalSinceNow]);
+}
+
+- (BOOL)isExpired
+{
+    return [self.expiresAt timeIntervalSinceNow] < 0;
+}
+
+- (void)refreshAccessToken:(void(^)(void))callback
+{
+    [[GSHerokuOAuth sharedInstance] refreshAccessToken:self.refreshToken callback:^(NSDictionary *info) {
+        [self update:info];
+    }];
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key

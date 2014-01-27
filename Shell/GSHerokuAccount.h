@@ -14,7 +14,7 @@
 @interface GSHerokuAccount : NSManagedObject
 
 @property (nonatomic, strong) NSString * accessToken;
-@property (nonatomic, strong) NSString * expiresIn;
+@property (nonatomic, strong) NSDate * expiresAt;
 @property (nonatomic, strong) NSString * refreshToken;
 @property (nonatomic, strong) NSString * sessionNonce;
 @property (nonatomic, strong) NSString * tokenType;
@@ -23,6 +23,11 @@
 @property (nonatomic, strong) NSString * email;
 @property (nonatomic, strong) NSString * name;
 
+@property (nonatomic) NSNumber *expiresIn;
+@property (nonatomic, readonly) BOOL isExpired;
+
 @property (nonatomic, readonly) GSHerokuService *service;
+
+- (void)refreshAccessToken:(void(^)(void))callback;
 
 @end

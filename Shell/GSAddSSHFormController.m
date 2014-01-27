@@ -50,11 +50,15 @@
 
 - (void)addNameSection
 {
+    AKFormValidator *requiredValidator = [AKFormValidator requiredValidator:@"Please enter a value"];
+
     _nameField = [AKFormFieldTextField fieldWithKey:@"name"
                                               title:@"Name"
                                         placeholder:@"My server"
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
+
+    _nameField.validators = @[requiredValidator];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_nameField]];
     section.headerTitle = @"Name";

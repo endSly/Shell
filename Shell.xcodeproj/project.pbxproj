@@ -44,6 +44,7 @@
 		0D94713D18899A40005A511B /* aws-account-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D94713C18899A40005A511B /* aws-account-form.json */; };
 		0DA514B718954ED200B4ECBF /* GSFormStyleProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */; };
 		0DA514BE1895650600B4ECBF /* GSAddConnectionTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA514BD1895650600B4ECBF /* GSAddConnectionTableController.m */; };
+		0DB2DE171897160900481750 /* GSHerokuOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2DE161897160900481750 /* GSHerokuOAuth.m */; };
 		0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */; };
 		0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
@@ -126,6 +127,8 @@
 		0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSFormStyleProvider.m; sourceTree = "<group>"; };
 		0DA514BC1895650600B4ECBF /* GSAddConnectionTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddConnectionTableController.h; sourceTree = "<group>"; };
 		0DA514BD1895650600B4ECBF /* GSAddConnectionTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddConnectionTableController.m; sourceTree = "<group>"; };
+		0DB2DE151897160900481750 /* GSHerokuOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuOAuth.h; sourceTree = "<group>"; };
+		0DB2DE161897160900481750 /* GSHerokuOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuOAuth.m; sourceTree = "<group>"; };
 		0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyPairsFormController.h; sourceTree = "<group>"; };
 		0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPairsFormController.m; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddSSHFormController.h; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				0D89EAE0188040F300737407 /* GSHerokuService.m */,
 				0D0E6E4F188082E300F693B4 /* GSRendezvous.h */,
 				0D0E6E50188082E300F693B4 /* GSRendezvous.m */,
+				0DB2DE151897160900481750 /* GSHerokuOAuth.h */,
+				0DB2DE161897160900481750 /* GSHerokuOAuth.m */,
 			);
 			name = HerokuService;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 				0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,
+				0DB2DE171897160900481750 /* GSHerokuOAuth.m in Sources */,
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
 				0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
