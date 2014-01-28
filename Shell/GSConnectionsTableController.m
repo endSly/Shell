@@ -93,36 +93,22 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     NSArray *herokuAccounts = [GSHerokuAccount all];
     for (GSHerokuAccount *account in herokuAccounts) {
         NSMutableDictionary *section = [NSMutableDictionary dictionary];
-        section[@"title"] = [NSString stringWithFormat:@"Heroku <%@>", account.name ?: account.email];
+        section[@"title"] = [NSString stringWithFormat:@"Heroku <%@>", account.email ?: @""];
         section[@"type"] = @"heroku";
         section[@"group"] = account;
         section[@"loading"] = @YES;
 
         [sections addObject:section];
 
-        if (account.isExpired) {
-            [account refreshAccessToken:^{
-                [account.service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
-                    if (apps.count) {
-                        section[@"items"] = apps;
-                        section[@"loading"] = @NO;
-                    } else {
-                        [sections removeObject:section];
-                    }
-                    [self reloadCells];
-                }];
-            }];
-        } else {
-            [account.service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *error) {
-                if (apps.count) {
-                    section[@"items"] = apps;
-                    section[@"loading"] = @NO;
-                } else {
-                    [sections removeObject:section];
-                }
-                [self reloadCells];
-            }];
-        }
+        [account getApps:^(NSArray *apps, NSError *error) {
+            if (apps.count) {
+                section[@"items"] = apps;
+                section[@"loading"] = @NO;
+            } else {
+                [sections removeObject:section];
+            }
+            [self reloadCells];
+        }];
 
     }
 
@@ -169,6 +155,7 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
         }];
     }
+    [self reloadCells];
 }
 
 - (void)reloadCells

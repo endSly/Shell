@@ -30,4 +30,6 @@
 
 - (void)refreshAccessToken:(void(^)(void))callback;
 
+- (void)getApps:(void(^)(NSArray *, NSError *))callback;
+
 @end

@@ -63,6 +63,11 @@
     return [UIFont fontWithName:@"HelveticaNeue-Thin" size:17.0f];
 }
 
+- (UIFont *)detailLabelFontForMode:(AKFormCellButtonMode)mode style:(AKFormCellButtonStyle)style forButtonCell:(AKFormCellButton *)cell
+{
+    return [UIFont fontWithName:@"HelveticaNeue-Thin" size:12.0f];
+}
+
 #pragma mark - Cell Label Style Provider
 
 - (UIFont *)titleLabelFontForMode:(AKFormCellLabelMode)mode style:(AKFormCellLabelStyle)style forLabelCell:(AKFormCellLabel *)cell

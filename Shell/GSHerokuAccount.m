@@ -56,7 +56,24 @@
 {
     [[GSHerokuOAuth sharedInstance] refreshAccessToken:self.refreshToken callback:^(NSDictionary *info) {
         [self update:info];
+        [self save];
+        callback();
     }];
+}
+
+- (void)getApps:(void(^)(NSArray *, NSError *))callback
+{
+    void (^loadApps)(void) = ^{
+        [self.service getApps:nil callback:^(NSArray *apps, NSURLResponse *resp, NSError *err) {
+            callback(apps, err);
+        }];
+    };
+
+    if (self.isExpired) {
+        [self refreshAccessToken:loadApps];
+    } else {
+        loadApps();
+    }
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key

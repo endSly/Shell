@@ -45,7 +45,7 @@
                data:(NSData *__autoreleasing *)data
               error:(NSError *__autoreleasing *)error
 {
-    if (error) {
+    if (*error) {
         id errorInfo = [NSJSONSerialization JSONObjectWithData:*data options:0 error:nil];
         if (errorInfo) {
             NSUInteger statusCode = ((NSHTTPURLResponse *) *resp).statusCode;

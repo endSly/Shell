@@ -8,13 +8,15 @@
 
 #import "GSSettingsController.h"
 
+#import <ObjectiveRecord/ObjectiveRecord.h>
+
 #import "GSFormStyleProvider.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 
-@interface GSSettingsController ()
-
-@end
+#import "GSKeyPair.h"
+#import "GSAWSCredentials.h"
+#import "GSHerokuAccount.h"
 
 @implementation GSSettingsController
 
@@ -24,6 +26,7 @@
 
     [self addScreenSizeSection];
     [self addPasswordSection];
+    [self addAccountsSection];
     [self addKeyPairsSection];
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
@@ -110,15 +113,30 @@
 
 - (void)addKeyPairsSection
 {
-    AKFormFieldButton *showKeyPairsButton = [AKFormFieldButton fieldWithKey:@"editKeyPairs"
+    AKFormFieldButton *showAccountsButton = [AKFormFieldButton fieldWithKey:@"editKeyPairs"
                                                                       title:@"Edit Key Pairs"
-                                                                   subtitle:nil
+                                                                   subtitle:[NSString stringWithFormat:@"%lu keys", [[GSKeyPair all] count]]
+                                                                      image:nil
+                                                                   delegate:self
+                                                              styleProvider:[GSFormStyleProvider styleProvider]];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[showAccountsButton]];
+    section.headerTitle = @"Key Pairs";
+    [self addSection:section];
+}
+
+- (void)addAccountsSection
+{
+    NSUInteger connectionsCount = [[GSAWSCredentials all] count] + [[GSHerokuAccount all] count];
+    AKFormFieldButton *showKeyPairsButton = [AKFormFieldButton fieldWithKey:@"editAccounts"
+                                                                      title:@"Edit Accounts"
+                                                                   subtitle:[NSString stringWithFormat:@"%lu accounts", connectionsCount]
                                                                       image:nil
                                                                    delegate:self
                                                               styleProvider:[GSFormStyleProvider styleProvider]];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[showKeyPairsButton]];
-    section.headerTitle = @"Key Pairs";
+    section.headerTitle = @"Accounts";
     [self addSection:section];
 }
 
