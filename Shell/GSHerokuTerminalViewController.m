@@ -29,9 +29,21 @@
 
 - (void)connect
 {
+    NSUInteger cols, rows;
+    [self.terminalView getScreenCols:&cols rows:&rows];
+    
+    rows = MAX(rows, 20);
+
+    [self.terminalView setCols:cols rows:rows];
+
+    NSDictionary *env = @{@"TERM": @"xterm",
+                          @"COLUMNS": @(cols),
+                          @"LINES": @(rows)};
+
     NSDictionary *params = @{@"id": self.application.id,
                              @"attach": @YES,
                              @"command": @"bash",
+                             @"env": env,
                              @"size": @1};
 
     [self.herokuService postDyno:params callback:^(GSDyno *dyno, NSURLResponse *resp, NSError *error) {
