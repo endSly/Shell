@@ -95,7 +95,7 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
         NSMutableDictionary *section = [NSMutableDictionary dictionary];
         section[@"title"] = [NSString stringWithFormat:@"Heroku <%@>", account.email ?: @""];
         section[@"type"] = @"heroku";
-        section[@"group"] = account;
+        section[@"account"] = account;
         section[@"loading"] = @YES;
 
         [sections addObject:section];
@@ -121,7 +121,7 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
         section[@"title"] = [NSString stringWithFormat:@"AWS EC2 <%@>", credentials.accountName];
         section[@"type"] = @"aws";
-        section[@"group"] = credentials;
+        section[@"credentials"] = credentials;
         section[@"loading"] = @YES;
         section[@"items"] = instances;
 
@@ -278,7 +278,9 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
     } else if ([sectionType isEqualToString:@"heroku"]) {
         GSApplication *application = items[indexPath.row];
-        [self performSegueWithIdentifier:@"GSHerokuConnection" sender:application];
+        GSHerokuAccount *account = sectionInfo[@"account"];
+        [self performSegueWithIdentifier:@"GSHerokuConnection" sender:@{@"app": application,
+                                                                        @"service": account.service}];
 
     } else if ([sectionType isEqualToString:@"aws"]) {
 
@@ -309,11 +311,10 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
         [segue.destinationViewController setConnection:item];
 
     } else if ([segue.identifier isEqualToString:@"GSHerokuConnection"]) {
-        [segue.destinationViewController setApplication:item];
+        NSDictionary *params = item;
 
-        GSHerokuService *service = [GSHerokuService service];
-        service.authKey = @"15ad8f9d-43ea-4e3a-8843-b2e29feba024";
-        [segue.destinationViewController setHerokuService:service];
+        [segue.destinationViewController setApplication:params[@"app"]];
+        [segue.destinationViewController setHerokuService:params[@"service"]];
 
     }
 }

@@ -280,9 +280,9 @@
 			children = (
 				0D58EC3B186C5265008893E5 /* GSConnectionsTableController.h */,
 				0D58EC3C186C5265008893E5 /* GSConnectionsTableController.m */,
+				0DE583E118831C360083EE00 /* Terminal View Controllers */,
 				0DA514B4189545D700B4ECBF /* Settings */,
 				0DE583E818832C330083EE00 /* Add Account Controller */,
-				0DE583E118831C360083EE00 /* Terminal View Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
