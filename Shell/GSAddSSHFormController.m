@@ -83,6 +83,7 @@
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
 
+    _portField.value = [AKFormValue value:@"22" withType:AKFormValueString];
     _portField.validators = @[requiredValidator];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_hostField, _portField]];
@@ -172,17 +173,17 @@
         if ([self validateForm]) {
             BOOL savePassword = _savePasswordField.value.boolValue;
 
-            NSDictionary *data = @{@"name": _nameField.value.stringValue,
-                                   @"host": _hostField.value.stringValue,
-                                   @"port": @(_hostField.value.stringValue.intValue),
-                                   @"username": _usernameField.value.stringValue,
+            NSDictionary *data = @{@"name": _nameField.value.stringValue ?: [NSNull null],
+                                   @"host": _hostField.value.stringValue ?: [NSNull null],
+                                   @"port": @(_portField.value.stringValue.intValue),
+                                   @"username": _usernameField.value.stringValue ?: [NSNull null],
                                    @"savePassword": @(savePassword),
-                                   @"password": savePassword ? _savePasswordField.value.stringValue : @""};
+                                   @"password": savePassword ? _passwordField.value.stringValue : [NSNull null]};
 
             GSConnection *connection = [GSConnection create:data];
             [connection save];
 
-            //[[NSNotificationCenter defaultCenter] postNotificationName:kGSConnectionsListUpdated object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kGSConnectionsListUpdated" object:nil];
 
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
