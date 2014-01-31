@@ -233,11 +233,9 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
         GSApplication *application = items[indexPath.row];
         cell.nameLabel.text = application.name;
         cell.detailLabel.text = application.buildpack_provided_description;
-/*
-        UIButton *rebootButton = [UIButton buttonWithIcon:icon_ios7_refresh_outline size:32];
-        rebootButton.backgroundColor = [UIColor lightGrayColor];
-        cell.rightUtilityButtons = @[rebootButton];
-*/
+
+        cell.rightUtilityButtons = nil;
+
     } else if ([sectionType isEqualToString:@"aws"]) {
         EC2Instance *instance = items[indexPath.row];
         EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
@@ -334,6 +332,8 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
         };
         [confirmationAlert show];
     }
+
+    [cell hideUtilityButtonsAnimated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)item
