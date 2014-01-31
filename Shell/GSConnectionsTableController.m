@@ -13,10 +13,12 @@
 #import <TenzingCore/TenzingCore.h>
 #import <AWSRuntime/AWSRuntime.h>
 #import <AWSEC2/AWSEC2.h>
+#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
 
 #import "UIButton+IonIcons.h"
 
 #import "GSTableViewCell.h"
+#import "GSProgressHUD.h"
 
 #import "GSSSHTerminalViewController.h"
 #import "GSHerokuTerminalViewController.h"
@@ -115,17 +117,6 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     // Add AWS accounts
     NSArray *awsAccounts = [GSAWSCredentials all];
     for (GSAWSCredentials *credentials in awsAccounts) {
-        NSMutableDictionary *section = [NSMutableDictionary dictionary];
-
-        NSMutableArray *instances = [NSMutableArray array];
-
-        section[@"title"] = [NSString stringWithFormat:@"AWS EC2 <%@>", credentials.accountName];
-        section[@"type"] = @"aws";
-        section[@"credentials"] = credentials;
-        section[@"loading"] = @YES;
-        section[@"items"] = instances;
-
-        [sections addObject:section];
 
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [queue addOperationWithBlock:^{
@@ -134,25 +125,36 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
                 EC2DescribeRegionsResponse *response = [client describeRegions:[[EC2DescribeRegionsRequest alloc] init]];
 
                 for (EC2Region *region in response.regions) {
+
+
                     AmazonEC2Client *regionClient = [client copy];
                     regionClient.endpoint = [NSString stringWithFormat:@"https://%@", region.endpoint];
+
+                    NSMutableArray *instances = [NSMutableArray array];
 
                     EC2DescribeInstancesResponse *response = [regionClient describeInstances:[[EC2DescribeInstancesRequest alloc] init]];
 
                     for (EC2Reservation *reservation in response.reservations) {
                         [instances addObjectsFromArray:reservation.instances];
                     }
-                    [self reloadCells];
-                }
-                section[@"loading"] = @NO;
-                [self reloadCells];
 
+                    if (instances.count) {
+                        NSMutableDictionary *section = [NSMutableDictionary dictionary];
+                        [sections addObject:section];
+
+                        section[@"title"] = [NSString stringWithFormat:@"AWS EC2 %@ <%@>", region.regionName, credentials.accountName];
+                        section[@"type"] = @"aws";
+                        section[@"credentials"] = credentials;
+                        section[@"client"] = regionClient;
+                        section[@"items"] = instances;
+                        section[@"loading"] = @NO;
+                        [self reloadCells];
+                    }
+                }
             }
             @catch (NSException *exception) {
                 NSLog(@"%@", exception);
             }
-            
-
         }];
     }
     [self reloadCells];
@@ -231,11 +233,11 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
         GSApplication *application = items[indexPath.row];
         cell.nameLabel.text = application.name;
         cell.detailLabel.text = application.buildpack_provided_description;
-
+/*
         UIButton *rebootButton = [UIButton buttonWithIcon:icon_ios7_refresh_outline size:32];
         rebootButton.backgroundColor = [UIColor lightGrayColor];
         cell.rightUtilityButtons = @[rebootButton];
-
+*/
     } else if ([sectionType isEqualToString:@"aws"]) {
         EC2Instance *instance = items[indexPath.row];
         EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
@@ -296,19 +298,42 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
-    /*
-    if (0 == UITableViewCellEditingStyleDelete) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        
-        GSConnection *connection = _connections[indexPath.row];
-        [connection delete];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSDictionary *sectionInfo = _sections[indexPath.section];
 
-        _connections = [_connections mutableCopy];
-        [(NSMutableArray *) _connections removeObjectAtIndex:indexPath.row];
+    NSArray *items = sectionInfo[@"items"];
+    NSString *sectionType = sectionInfo[@"type"];
 
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    if ([sectionType isEqualToString:@"ssh"]) {
+
+    } else if ([sectionType isEqualToString:@"heroku"]) {
+        // Reboot button pressed
+
+    } else if ([sectionType isEqualToString:@"aws"]) {
+        UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Confirmation", @"Confirmation")
+                                                                    message:NSLocalizedString(@"Are yo sure you want to reboot instance?",
+                                                                                              @"Confirmation message")
+                                                                   delegate:self
+                                                          cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                          otherButtonTitles:NSLocalizedString(@"Reboot", @"Reboot"), nil];
+
+        confirmationAlert.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [GSProgressHUD show:NSLocalizedString(@"Rebooting...", @"")];
+                AmazonEC2Client *client = sectionInfo[@"client"];
+                EC2Instance *instance = items[indexPath.row];
+                @try {
+                    [client rebootInstances:[[EC2RebootInstancesRequest alloc]
+                                             initWithInstanceIds:[NSMutableArray arrayWithObject:instance.instanceId]]];
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"%@", exception);
+                }
+                [GSProgressHUD dismiss];
+            }
+        };
+        [confirmationAlert show];
     }
-     */
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)item

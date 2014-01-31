@@ -17,3 +17,5 @@ pod 'FrameAccessor'
 pod 'SWTableViewCell', '~> 0.2.2'
 
 pod 'DCModalSegue'
+
+pod 'UIAlertView+Blocks'

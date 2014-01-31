@@ -27,6 +27,7 @@ PODS:
   - TenzingCore/Core (0.2.1)
   - TenzingCore/RESTService (0.2.1):
     - TenzingCore/Core
+  - UIAlertView+Blocks (0.8)
   - UIDevice-Hardware@arkuana (0.0.1)
   - UIImage-Resize (1.0.1)
   - UIImageEffects (0.0.1)
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - SWTableViewCell (~> 0.2.2)
   - TenzingCore (~> 0.2.1)
   - TenzingCore/RESTService (~> 0.2.1)
+  - UIAlertView+Blocks
 
 EXTERNAL SOURCES:
   NMSSH:
@@ -69,6 +71,7 @@ SPEC CHECKSUMS:
   QuickDialog: fa9f2641b1c2028667e115add0005530c77193a3
   SWTableViewCell: b20432962d410c45c25b69e7c519a1296ecce70b
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999
+  UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
   UIDevice-Hardware@arkuana: a5ad224939dba974634574e68ad6a7533499ba4f
   UIImage-Resize: 575381c9746383a5f557bc584a538a2d2ff53c76
   UIImageEffects: e1059bcd4c1766f72a78ae6ade359e3f9ee31063
