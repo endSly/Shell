@@ -85,7 +85,7 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     // Add SSH connections
     NSArray *sshConnection = [GSConnection all];
     if (sshConnection.count) {
-        [sections addObject:@{@"items": sshConnection,
+        [sections addObject:@{@"items": [sshConnection mutableCopy],
                               @"type": @"ssh",
                               @"title": @"SSH Connections"}];
     }
@@ -298,13 +298,40 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NSDictionary *sectionInfo = _sections[indexPath.section];
 
-    NSArray *items = sectionInfo[@"items"];
+    NSMutableArray *items = sectionInfo[@"items"];
     NSString *sectionType = sectionInfo[@"type"];
 
     if ([sectionType isEqualToString:@"ssh"]) {
+        if (index == 0) { // Remove button
+            GSConnection *connection = items[indexPath.row];
+
+            UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Confirmation", @"Confirmation")
+                                                                        message:NSLocalizedString(@"Are yo sure you want to remove connection?",
+                                                                                                  @"Confirmation message")
+                                                                       delegate:self
+                                                              cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                              otherButtonTitles:NSLocalizedString(@"Remove", @"Remove"), nil];
+
+            confirmationAlert.tapBlock = ^(UIAlertView *alertView, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [self.tableView beginUpdates];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                    [items removeObject:connection];
+                    [connection delete];
+                    [self.tableView endUpdates];
+
+                }
+                [cell hideUtilityButtonsAnimated:YES];
+            };
+            [confirmationAlert show];
+
+        } else if (index == 1) { // Edit button
+
+        }
 
     } else if ([sectionType isEqualToString:@"heroku"]) {
         // Reboot button pressed
+        [cell hideUtilityButtonsAnimated:YES];
 
     } else if ([sectionType isEqualToString:@"aws"]) {
         UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Confirmation", @"Confirmation")
@@ -328,11 +355,10 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
                 }
                 [GSProgressHUD dismiss];
             }
+            [cell hideUtilityButtonsAnimated:YES];
         };
         [confirmationAlert show];
     }
-
-    [cell hideUtilityButtonsAnimated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)item
