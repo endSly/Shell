@@ -13,8 +13,4 @@
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailLabel;
 
-@property (nonatomic) BOOL removeButtonVisible;
-@property (nonatomic) BOOL editButtonVisible;
-@property (nonatomic) BOOL rebootButtonVisible;
-
 @end

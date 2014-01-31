@@ -219,26 +219,32 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
         GSConnection *connection = items[indexPath.row];
         cell.nameLabel.text = connection.name;
         cell.detailLabel.text = [NSString stringWithFormat:@"%@:%@", connection.host, connection.port];
-        cell.removeButtonVisible = YES;
-        cell.editButtonVisible = YES;
-        cell.rebootButtonVisible = NO;
+
+        UIButton *removeButton = [UIButton buttonWithIcon:icon_ios7_trash_outline size:32];
+        removeButton.backgroundColor = [UIColor redColor];
+        UIButton *editButton = [UIButton buttonWithIcon:icon_ios7_compose_outline size:32];
+        editButton.backgroundColor = [UIColor lightGrayColor];
+        cell.rightUtilityButtons = @[removeButton, editButton];
+
 
     } else if ([sectionType isEqualToString:@"heroku"]) {
         GSApplication *application = items[indexPath.row];
         cell.nameLabel.text = application.name;
         cell.detailLabel.text = application.buildpack_provided_description;
-        cell.removeButtonVisible = NO;
-        cell.editButtonVisible = NO;
-        cell.rebootButtonVisible = YES;
+
+        UIButton *rebootButton = [UIButton buttonWithIcon:icon_ios7_refresh_outline size:32];
+        rebootButton.backgroundColor = [UIColor lightGrayColor];
+        cell.rightUtilityButtons = @[rebootButton];
 
     } else if ([sectionType isEqualToString:@"aws"]) {
         EC2Instance *instance = items[indexPath.row];
         EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
         cell.nameLabel.text = nameTag.value;
         cell.detailLabel.text = instance.publicDnsName;
-        cell.removeButtonVisible = NO;
-        cell.editButtonVisible = NO;
-        cell.rebootButtonVisible = YES;
+
+        UIButton *rebootButton = [UIButton buttonWithIcon:icon_ios7_refresh_outline size:32];
+        rebootButton.backgroundColor = [UIColor lightGrayColor];
+        cell.rightUtilityButtons = @[rebootButton];
     }
 
     return cell;
