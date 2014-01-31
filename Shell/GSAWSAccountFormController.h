@@ -10,6 +10,6 @@
 
 #import "GSConnectionsTableController.h"
 
-@interface GSAWSAccountFormController : QuickDialogController <QuickDialogEntryElementDelegate>
+@interface GSAWSAccountFormController : AKFormController <AKFormCellTextFieldDelegate, AKFormCellButtonDelegate>
 
 @end

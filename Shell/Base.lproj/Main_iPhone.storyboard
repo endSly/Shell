@@ -135,7 +135,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WOp-Aw-k6d" kind="push" id="hdS-jh-hv8"/>
+                                            <segue destination="9vC-my-b78" kind="push" id="qdm-jz-9Tw"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="ImX-2t-BhE">
@@ -197,25 +197,6 @@
             </objects>
             <point key="canvasLocation" x="2096" y="-472"/>
         </scene>
-        <!--Account Form Controller-->
-        <scene sceneID="dvz-uo-nia">
-            <objects>
-                <viewController id="WOp-Aw-k6d" customClass="GSAWSAccountFormController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lTe-rU-oPF"/>
-                        <viewControllerLayoutGuide type="bottom" id="aqw-t4-Mge"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="i9B-eT-Qtg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="wxl-Pt-4A8"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vdR-P7-9DJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2524" y="-874"/>
-        </scene>
         <!--Heroku Login Controller-->
         <scene sceneID="N5D-1G-WFP">
             <objects>
@@ -244,6 +225,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jC2-pS-Zcw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2110" y="-1267"/>
+        </scene>
+        <!--Account Form Controller-->
+        <scene sceneID="8cY-Aa-70r">
+            <objects>
+                <tableViewController id="9vC-my-b78" customClass="GSAWSAccountFormController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="cs4-Pm-ZTU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="2q5-jZ-QzN">
+                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2q5-jZ-QzN" id="dHg-we-CNb">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9vC-my-b78" id="NBP-cZ-gV7"/>
+                            <outlet property="delegate" destination="9vC-my-b78" id="DQu-Rx-Th7"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="a4s-V9-88X"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IFb-NM-56L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2526" y="-874"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mr5-B4-Qds">

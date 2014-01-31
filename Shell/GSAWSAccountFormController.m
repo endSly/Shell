@@ -9,65 +9,111 @@
 #import "GSAWSAccountFormController.h"
 
 #import <ObjectiveRecord/ObjectiveRecord.h>
+#import <AWSRuntime/AWSRuntime.h>
 
 #import "GSAWSCredentials.h"
+
+#import "GSFormStyleProvider.h"
 
 @interface GSAWSAccountFormController ()
 
 @end
 
-@implementation GSAWSAccountFormController
+@implementation GSAWSAccountFormController {
+    AKFormFieldTextField *_nameField;
+    AKFormFieldTextField *_accessKeyField;
+    AKFormFieldTextField *_accessSecretField;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    QRootElement *root = [[QRootElement alloc] initWithJSONFile:@"aws-account-form"];
-
-    QAppearance *defaultAppearance = [[QAppearance alloc] init];
-    defaultAppearance.labelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
-    root.appearance = defaultAppearance;
-
-    self = [super initWithRoot:root];
-    if (self) {
-        
-    }
-    return self;
+    AKFormFieldButton *_saveField;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    self.title = NSLocalizedString(@"Add AWS Account", @"Add AWS Account");
+
+    [self addNameSection];
+    [self addCredentialsSection];
+    [self addSaveSection];
 }
 
-- (void)saveAction:(id)sender
+- (void)addNameSection
 {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    [self.root fetchValueUsingBindingsIntoObject:data];
+    AKFormValidator *requiredValidator = [AKFormValidator requiredValidator:@"Please enter a value"];
 
-    GSAWSCredentials *credentials = [GSAWSCredentials create:data];
-    [credentials save];
+    _nameField = [AKFormFieldTextField fieldWithKey:@"accountName"
+                                              title:@"Name"
+                                        placeholder:@"My AWS account"
+                                           delegate:self
+                                      styleProvider:[GSFormStyleProvider styleProvider]];
 
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue addOperationWithBlock:^{
-        @try {
-            AmazonEC2Client *client = credentials.client;
-            [client describeAccountAttributes:[[EC2DescribeAccountAttributesRequest alloc] init]];
+    _nameField.validators = @[requiredValidator];
 
-            [[NSNotificationCenter defaultCenter] postNotificationName:kGSConnectionsListUpdated object:nil];
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_nameField]];
+    section.headerTitle = @"Name";
+
+    [self addSection:section];
+}
+
+- (void)addCredentialsSection
+{
+    AKFormValidator *requiredValidator = [AKFormValidator requiredValidator:@"Please enter a value"];
+
+    _accessKeyField = [AKFormFieldTextField fieldWithKey:@"accessKey"
+                                                   title:@"Key"
+                                             placeholder:@"AWS Key"
+                                                delegate:self
+                                           styleProvider:[GSFormStyleProvider styleProvider]];
+
+    _nameField.validators = @[requiredValidator];
+
+    _accessSecretField = [AKFormFieldTextField fieldWithKey:@"accessSecret"
+                                                      title:@"Secret"
+                                                placeholder:@"AWS Secret"
+                                                   delegate:self
+                                              styleProvider:[GSFormStyleProvider styleProvider]];
+
+    _accessSecretField.validators = @[requiredValidator];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_accessKeyField, _accessSecretField]];
+    section.headerTitle = @"Credentials";
+    
+    [self addSection:section];
+}
+
+- (void)addSaveSection
+{
+    _saveField = [AKFormFieldButton fieldWithKey:@"save"
+                                           title:NSLocalizedString(@"Save", @"Save")
+                                        subtitle:nil
+                                           image:nil
+                                        delegate:self
+                                   styleProvider:[GSFormStyleProvider styleProvider]];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_saveField]];
+
+    [self addSection:section];
+}
+
+- (void)didPressButtonCell:(AKFormCellButton *)cell
+{
+    if (cell.valueDelegate == _saveField) {
+        if ([self validateForm]) {
+
+            NSDictionary *data = @{@"accountName": _nameField.value.stringValue,
+                                   @"accessKey": _accessKeyField.value.stringValue,
+                                   @"accessSecret": _accessSecretField.value.stringValue};
+
+            GSAWSCredentials *connection = [GSAWSCredentials create:data];
+            [connection save];
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kGSConnectionsListUpdated" object:nil];
 
             [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
         }
-        @catch (NSException *exception) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error")
-                                                                message:NSLocalizedString(@"Invalid credentials", @"Invalid credentials")
-                                                               delegate:nil
-                                                      cancelButtonTitle:NSLocalizedString(@"Ok", @"Ok")
-                                                      otherButtonTitles:nil];
-                [alert show];
-            });
-        }
-    }];
+    }
 }
+
 
 @end
