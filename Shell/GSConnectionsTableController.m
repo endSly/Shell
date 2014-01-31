@@ -8,7 +8,6 @@
 
 #import "GSConnectionsTableController.h"
 
-#import <QuickDialog/QuickDialog.h>
 #import <ObjectiveRecord/ObjectiveRecord.h>
 #import <TenzingCore/TenzingCore.h>
 #import <AWSRuntime/AWSRuntime.h>

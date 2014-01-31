@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import <QuickDialog/QuickDialog.h>
-
-#import "GSConnectionsTableController.h"
+#import <AKForm/AKForm.h>
 
 @interface GSAWSAccountFormController : AKFormController <AKFormCellTextFieldDelegate, AKFormCellButtonDelegate>
 
