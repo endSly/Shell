@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0D09085F188742E20053A108 /* AWSEC2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D09085E188742E20053A108 /* AWSEC2.framework */; };
 		0D090863188743840053A108 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D090862188743840053A108 /* AWSRuntime.framework */; };
-		0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E4D1880821400F693B4 /* SSLCrypto.m */; };
 		0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E50188082E300F693B4 /* GSRendezvous.m */; };
 		0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E5318816CAD00F693B4 /* GSDyno.m */; };
 		0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D186F511884839900063E10 /* GSHerokuAccount.m */; };
@@ -72,8 +71,6 @@
 /* Begin PBXFileReference section */
 		0D09085E188742E20053A108 /* AWSEC2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSEC2.framework; sourceTree = "<group>"; };
 		0D090862188743840053A108 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
-		0D0E6E4C1880821400F693B4 /* SSLCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLCrypto.h; sourceTree = "<group>"; };
-		0D0E6E4D1880821400F693B4 /* SSLCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLCrypto.m; sourceTree = "<group>"; };
 		0D0E6E4F188082E300F693B4 /* GSRendezvous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRendezvous.h; sourceTree = "<group>"; };
 		0D0E6E50188082E300F693B4 /* GSRendezvous.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSRendezvous.m; sourceTree = "<group>"; };
 		0D0E6E5218816CAD00F693B4 /* GSDyno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSDyno.h; sourceTree = "<group>"; };
@@ -185,8 +182,6 @@
 		0D0E6E4B188081CE00F693B4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				0D0E6E4C1880821400F693B4 /* SSLCrypto.h */,
-				0D0E6E4D1880821400F693B4 /* SSLCrypto.m */,
 				0DA514B518954ED200B4ECBF /* GSFormStyleProvider.h */,
 				0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */,
 			);
@@ -574,7 +569,6 @@
 				0DA514BE1895650600B4ECBF /* GSAddConnectionTableController.m in Sources */,
 				0D5488691894109E0061659B /* GSSettingsController.m in Sources */,
 				0D58EC63186C5631008893E5 /* GSConnection.m in Sources */,
-				0D0E6E4E1880821400F693B4 /* SSLCrypto.m in Sources */,
 				0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */,
 				0D89EAE5188049AD00737407 /* GSApplication.m in Sources */,
 				0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */,

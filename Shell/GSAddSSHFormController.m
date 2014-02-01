@@ -173,10 +173,10 @@
         if ([self validateForm]) {
             BOOL savePassword = _savePasswordField.value.boolValue;
 
-            NSDictionary *data = @{@"name": _nameField.value.stringValue ?: [NSNull null],
-                                   @"host": _hostField.value.stringValue ?: [NSNull null],
+            NSDictionary *data = @{@"name": _nameField.value.stringValue,
+                                   @"host": _hostField.value.stringValue,
                                    @"port": @(_portField.value.stringValue.intValue),
-                                   @"username": _usernameField.value.stringValue ?: [NSNull null],
+                                   @"username": _usernameField.value.stringValue,
                                    @"savePassword": @(savePassword),
                                    @"password": savePassword ? _passwordField.value.stringValue : [NSNull null]};
 

@@ -25,7 +25,10 @@
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="GSKeyPair" representedClassName="GSKeyPair" syncable="YES">
+        <attribute name="hasPassword" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="privateKeyPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publicKeyPath" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="GSAWSCredentials" positionX="0" positionY="0" width="0" height="0"/>
