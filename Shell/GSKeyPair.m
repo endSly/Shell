@@ -23,7 +23,7 @@
 + (instancetype)createKeyPair:(NSString *)name size:(NSInteger)size password:(NSString *)password
 {
     NSString *keysPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    [keysPath stringByAppendingString:@"/rsa_keys"];
+    [keysPath stringByAppendingString:@"/key_pairs"];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:keysPath]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:keysPath withIntermediateDirectories:NO attributes:nil error:nil];
