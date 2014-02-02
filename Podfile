@@ -20,3 +20,5 @@ pod 'DCModalSegue'
 pod 'UIAlertView+Blocks'
 
 pod 'UAAppReviewManager', '~> 0.2.1'
+
+pod 'SQLCipher', '~> 3.0.1'
