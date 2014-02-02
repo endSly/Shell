@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import "AKFormController.h"
+@import UIKit;
 
-@interface GSKeyPairsFormController : AKFormController
+#import <SWTableViewCell/SWTableViewCell.h>
+
+@interface GSKeyPairsTableController : UITableViewController <SWTableViewCellDelegate>
 
 @end
