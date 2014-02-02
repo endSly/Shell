@@ -15,7 +15,7 @@
 @dynamic port;
 @dynamic username;
 @dynamic password;
+@dynamic savePassword;
 @dynamic lastConnected;
-
 
 @end

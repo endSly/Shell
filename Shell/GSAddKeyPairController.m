@@ -47,7 +47,7 @@
 
     _nameField = [AKFormFieldTextField fieldWithKey:@"name"
                                               title:@"Name"
-                                        placeholder:@"My key pair"
+                                        placeholder:@"My SSH key"
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
 
@@ -105,7 +105,7 @@
 - (void)addSaveSection
 {
     _saveField = [AKFormFieldButton fieldWithKey:@"save"
-                                           title:NSLocalizedString(@"Save", @"Save")
+                                           title:NSLocalizedString(@"Create", @"Create")
                                         subtitle:nil
                                            image:nil
                                         delegate:self

@@ -153,6 +153,9 @@
 
     if ([field.key isEqualToString:@"editKeyPairs"]) {
         [self performSegueWithIdentifier:@"GSEditKeyPairsSegue" sender:self];
+
+    } else if ([field.key isEqualToString:@"editAccounts"]) {
+        [self performSegueWithIdentifier:@"GSShowAccountsSegue" sender:self];
     }
 }
 

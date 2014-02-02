@@ -9,7 +9,7 @@ pod 'NMSSH',   :git => 'https://github.com/endSly/NMSSH.git'
 pod 'TenzingCore', '~> 0.2.1'
 pod 'TenzingCore/RESTService', '~> 0.2.1'
 
-pod 'AKForm', '~> 0.0.5'
+pod 'AKForm', '~> 0.0.6'
 
 pod 'FrameAccessor'
 

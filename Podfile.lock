@@ -1,5 +1,5 @@
 PODS:
-  - AKForm (0.0.5):
+  - AKForm (0.0.6):
     - CJStringValidator
     - GKImagePicker@arkuana
     - HexColors
@@ -38,7 +38,7 @@ PODS:
     - UIView-JTViewToImage
 
 DEPENDENCIES:
-  - AKForm (~> 0.0.5)
+  - AKForm (~> 0.0.6)
   - DCModalSegue
   - FrameAccessor
   - libssh2 (~> 1.4.3)
@@ -56,7 +56,7 @@ EXTERNAL SOURCES:
     :git: https://github.com/endSly/NMSSH.git
 
 SPEC CHECKSUMS:
-  AKForm: 4ef2f2d514546b3082d32e04069a08cc0accbefa
+  AKForm: 5571877ce4580825c7bd24d7ed71a99c3e77d014
   CJStringValidator: f6b1226a0d995dd36af145595ba7c2c18437a9b9
   DCModalSegue: dbec9bde298bdb92c4d15b2e4a10b6f43bc0977e
   FrameAccessor: 1c383c4dc298925749fb2a6b9c05cd45be0d8857

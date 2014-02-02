@@ -13,6 +13,7 @@
 		0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E5318816CAD00F693B4 /* GSDyno.m */; };
 		0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D186F511884839900063E10 /* GSHerokuAccount.m */; };
 		0D380A12189E9DBD009D33C9 /* GSKeyPairCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D380A11189E9DBD009D33C9 /* GSKeyPairCell.m */; };
+		0D380A15189EA29C009D33C9 /* GSAccountsTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D380A14189EA29C009D33C9 /* GSAccountsTableController.m */; };
 		0D5488691894109E0061659B /* GSSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5488681894109E0061659B /* GSSettingsController.m */; };
 		0D55912E187F3F9D004ECB99 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D55912D187F3F9D004ECB99 /* CoreData.framework */; };
 		0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */; };
@@ -81,6 +82,8 @@
 		0D186F511884839900063E10 /* GSHerokuAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuAccount.m; sourceTree = "<group>"; };
 		0D380A10189E9DBD009D33C9 /* GSKeyPairCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSKeyPairCell.h; sourceTree = "<group>"; };
 		0D380A11189E9DBD009D33C9 /* GSKeyPairCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPairCell.m; sourceTree = "<group>"; };
+		0D380A13189EA29C009D33C9 /* GSAccountsTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAccountsTableController.h; sourceTree = "<group>"; };
+		0D380A14189EA29C009D33C9 /* GSAccountsTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAccountsTableController.m; sourceTree = "<group>"; };
 		0D5488671894109E0061659B /* GSSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSettingsController.h; sourceTree = "<group>"; };
 		0D5488681894109E0061659B /* GSSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSettingsController.m; sourceTree = "<group>"; };
 		0D55912D187F3F9D004ECB99 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -363,6 +366,8 @@
 				0DB3EFA318946EE200705CC7 /* GSKeyPairsTableController.m */,
 				0DC7EA71189D881000D36E3A /* GSAddKeyPairController.h */,
 				0DC7EA72189D881000D36E3A /* GSAddKeyPairController.m */,
+				0D380A13189EA29C009D33C9 /* GSAccountsTableController.h */,
+				0D380A14189EA29C009D33C9 /* GSAccountsTableController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -588,6 +593,7 @@
 				0D58EC67186C59EF008893E5 /* GSTerminalView.m in Sources */,
 				0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */,
 				0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */,
+				0D380A15189EA29C009D33C9 /* GSAccountsTableController.m in Sources */,
 				0D58EC40186C5265008893E5 /* GSTerminalViewController.m in Sources */,
 				0DA514B718954ED200B4ECBF /* GSFormStyleProvider.m in Sources */,
 				0D559134187F51F4004ECB99 /* GSKeyPair.m in Sources */,
