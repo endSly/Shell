@@ -9,6 +9,7 @@
 #import "GSAppDelegate.h"
 
 #import <ObjectiveRecord/ObjectiveRecord.h>
+#import "EncryptedStore.h"
 
 #import <UAAppReviewManager/UAAppReviewManager.h>
 
@@ -24,6 +25,9 @@
                                                 forState:UIControlStateNormal];
 
     [CoreDataManager sharedManager].modelName = @"DataModel";
+
+    NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :@"PASSWORD"];
+    [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
 
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {

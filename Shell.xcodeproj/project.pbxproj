@@ -14,6 +14,7 @@
 		0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D186F511884839900063E10 /* GSHerokuAccount.m */; };
 		0D380A12189E9DBD009D33C9 /* GSKeyPairCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D380A11189E9DBD009D33C9 /* GSKeyPairCell.m */; };
 		0D380A15189EA29C009D33C9 /* GSAccountsTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D380A14189EA29C009D33C9 /* GSAccountsTableController.m */; };
+		0D380A18189ECA12009D33C9 /* EncryptedStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D380A17189ECA12009D33C9 /* EncryptedStore.m */; };
 		0D5488691894109E0061659B /* GSSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5488681894109E0061659B /* GSSettingsController.m */; };
 		0D55912E187F3F9D004ECB99 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D55912D187F3F9D004ECB99 /* CoreData.framework */; };
 		0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */; };
@@ -42,7 +43,6 @@
 		0D89EAE5188049AD00737407 /* GSApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE4188049AD00737407 /* GSApplication.m */; };
 		0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAE7188058AA00737407 /* GSTableViewCell.m */; };
 		0D89EAED18806C7500737407 /* UIButton+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */; };
-		0D94713D18899A40005A511B /* aws-account-form.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D94713C18899A40005A511B /* aws-account-form.json */; };
 		0DA514B718954ED200B4ECBF /* GSFormStyleProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */; };
 		0DA514BE1895650600B4ECBF /* GSAddConnectionTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA514BD1895650600B4ECBF /* GSAddConnectionTableController.m */; };
 		0DB2DE171897160900481750 /* GSHerokuOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2DE161897160900481750 /* GSHerokuOAuth.m */; };
@@ -84,6 +84,8 @@
 		0D380A11189E9DBD009D33C9 /* GSKeyPairCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPairCell.m; sourceTree = "<group>"; };
 		0D380A13189EA29C009D33C9 /* GSAccountsTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAccountsTableController.h; sourceTree = "<group>"; };
 		0D380A14189EA29C009D33C9 /* GSAccountsTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAccountsTableController.m; sourceTree = "<group>"; };
+		0D380A16189ECA12009D33C9 /* EncryptedStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptedStore.h; sourceTree = "<group>"; };
+		0D380A17189ECA12009D33C9 /* EncryptedStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptedStore.m; sourceTree = "<group>"; };
 		0D5488671894109E0061659B /* GSSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSettingsController.h; sourceTree = "<group>"; };
 		0D5488681894109E0061659B /* GSSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSettingsController.m; sourceTree = "<group>"; };
 		0D55912D187F3F9D004ECB99 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -126,7 +128,6 @@
 		0D89EAE7188058AA00737407 /* GSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTableViewCell.m; sourceTree = "<group>"; };
 		0D89EAEB18806C7500737407 /* UIButton+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+IonIcons.h"; sourceTree = "<group>"; };
 		0D89EAEC18806C7500737407 /* UIButton+IonIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+IonIcons.m"; sourceTree = "<group>"; };
-		0D94713C18899A40005A511B /* aws-account-form.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "aws-account-form.json"; sourceTree = "<group>"; };
 		0DA514B518954ED200B4ECBF /* GSFormStyleProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSFormStyleProvider.h; sourceTree = "<group>"; };
 		0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSFormStyleProvider.m; sourceTree = "<group>"; };
 		0DA514BC1895650600B4ECBF /* GSAddConnectionTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddConnectionTableController.h; sourceTree = "<group>"; };
@@ -193,6 +194,8 @@
 			children = (
 				0DA514B518954ED200B4ECBF /* GSFormStyleProvider.h */,
 				0DA514B618954ED200B4ECBF /* GSFormStyleProvider.m */,
+				0D380A16189ECA12009D33C9 /* EncryptedStore.h */,
+				0D380A17189ECA12009D33C9 /* EncryptedStore.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -388,7 +391,6 @@
 		0DE3388E18796F5300A5F50C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0D94713C18899A40005A511B /* aws-account-form.json */,
 				0DE3388F18796F6800A5F50C /* ionicons.ttf */,
 				0D58EC7A186C6425008893E5 /* terminal-html */,
 				0D55912F187F403C004ECB99 /* DataModel.xcdatamodeld */,
@@ -510,7 +512,6 @@
 				0D58EC3A186C5265008893E5 /* Main_iPad.storyboard in Resources */,
 				0DE3389018796F6800A5F50C /* ionicons.ttf in Resources */,
 				0D58EC42186C5265008893E5 /* Images.xcassets in Resources */,
-				0D94713D18899A40005A511B /* aws-account-form.json in Resources */,
 				0D58EC37186C5265008893E5 /* Main_iPhone.storyboard in Resources */,
 				0D58EC2E186C5265008893E5 /* InfoPlist.strings in Resources */,
 				0D58EC86186C6425008893E5 /* terminal.html in Resources */,
@@ -565,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D380A18189ECA12009D33C9 /* EncryptedStore.m in Sources */,
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
 				0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */,
 				0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */,
