@@ -10,6 +10,8 @@
 
 #import <ObjectiveRecord/ObjectiveRecord.h>
 
+#import <UAAppReviewManager/UAAppReviewManager.h>
+
 #import "GSConnectionsTableController.h"
 
 @implementation GSAppDelegate
@@ -32,6 +34,8 @@
 
     }
 
+    [UAAppReviewManager setAppID:@"12345678"];
+
     return YES;
 }
 							
@@ -49,7 +53,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [UAAppReviewManager showPromptIfNecessary];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
