@@ -8,6 +8,8 @@
 
 #import "GSKeyPairsFormController.h"
 
+#import "UIBarButtonItem+IonIcons.h"
+
 #import <OpenSSL/rsa.h>
 #import <OpenSSL/pem.h>
 
@@ -16,7 +18,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline target:self action:@selector(addKeyPairAction:)];
+}
+
+- (void)addKeyPairAction:(id)sender
+{
+    [self performSegueWithIdentifier:@"GSAddKeyPairSegue" sender:self];
 }
 
 @end

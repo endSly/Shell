@@ -46,6 +46,7 @@
 		0DB2DE171897160900481750 /* GSHerokuOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2DE161897160900481750 /* GSHerokuOAuth.m */; };
 		0DB3EFA418946EE200705CC7 /* GSKeyPairsFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */; };
 		0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */; };
+		0DC7EA73189D881000D36E3A /* GSAddKeyPairController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC7EA72189D881000D36E3A /* GSAddKeyPairController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
 		0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */; };
 		0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE7F6C188C5CFC00C69124 /* GSProgressHUD.m */; };
@@ -130,6 +131,8 @@
 		0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSKeyPairsFormController.m; sourceTree = "<group>"; };
 		0DB9E8EE1876E5E700B09E28 /* GSAddSSHFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddSSHFormController.h; sourceTree = "<group>"; };
 		0DB9E8EF1876E5E700B09E28 /* GSAddSSHFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddSSHFormController.m; sourceTree = "<group>"; };
+		0DC7EA71189D881000D36E3A /* GSAddKeyPairController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAddKeyPairController.h; sourceTree = "<group>"; };
+		0DC7EA72189D881000D36E3A /* GSAddKeyPairController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAddKeyPairController.m; sourceTree = "<group>"; };
 		0DCBC766188872A0001810E6 /* GSAWSCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSCredentials.h; sourceTree = "<group>"; };
 		0DCBC767188872A0001810E6 /* GSAWSCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSCredentials.m; sourceTree = "<group>"; };
 		0DCBC76C18887873001810E6 /* GSAWSAccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSAccountFormController.h; sourceTree = "<group>"; };
@@ -353,6 +356,8 @@
 				0D5488681894109E0061659B /* GSSettingsController.m */,
 				0DB3EFA218946EE200705CC7 /* GSKeyPairsFormController.h */,
 				0DB3EFA318946EE200705CC7 /* GSKeyPairsFormController.m */,
+				0DC7EA71189D881000D36E3A /* GSAddKeyPairController.h */,
+				0DC7EA72189D881000D36E3A /* GSAddKeyPairController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -565,6 +570,7 @@
 				0D89EAE8188058AA00737407 /* GSTableViewCell.m in Sources */,
 				0D89EAE1188040F300737407 /* GSHerokuService.m in Sources */,
 				0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */,
+				0DC7EA73189D881000D36E3A /* GSAddKeyPairController.m in Sources */,
 				0D58EC30186C5265008893E5 /* main.m in Sources */,
 				0DA514BE1895650600B4ECBF /* GSAddConnectionTableController.m in Sources */,
 				0D5488691894109E0061659B /* GSSettingsController.m in Sources */,
