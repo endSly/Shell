@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"New Key Pair", @"New Key Pair title");
+    self.title = NSLocalizedString(@"New SSH Key", @"New SSH Key form title");
 
     [self addNameSection];
     [self addSecuritySection];

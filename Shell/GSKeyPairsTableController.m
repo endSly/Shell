@@ -8,8 +8,11 @@
 
 #import "GSKeyPairsTableController.h"
 
+#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
 #import <ObjectiveRecord/ObjectiveRecord.h>
 #import "GSKeyPair.h"
+
+#import "GSKeyPairCell.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 #import "UIButton+IonIcons.h"
@@ -26,6 +29,7 @@
 {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"SSH keys", @"SSH keys table title");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline
                                                                             target:self
                                                                             action:@selector(addKeyPairAction:)];
@@ -57,7 +61,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SWTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    GSKeyPairCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
     [cell setCellHeight:44.0f];
     cell.containingTableView = tableView;
@@ -65,6 +69,7 @@
 
     GSKeyPair *keyPair = self.keyPairs[indexPath.row];
     cell.textLabel.text = keyPair.name;
+    cell.passwordIcon.hidden = !keyPair.hasPassword.boolValue;
 
     UIButton *removeButton = [UIButton buttonWithIcon:icon_ios7_trash_outline size:32];
     removeButton.backgroundColor = [UIColor redColor];
@@ -77,16 +82,30 @@
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Confirmation", @"Confirmation alert title")
+                                                                message:NSLocalizedString(@"Are you sure you want to delete key pair?", @"Confirmation message")
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                      otherButtonTitles:NSLocalizedString(@"Delete", @"Delete"), nil];
 
-    GSKeyPair *keyPair = self.keyPairs[indexPath.row];
+    confirmationAlert.tapBlock = ^(UIAlertView *confirmationAlert, NSInteger buttonIndex) {
+        if (buttonIndex == 0)
+            return;
 
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    [self.keyPairs removeObject:keyPair];
-    [keyPair delete];
-    [self.tableView endUpdates];
+        GSKeyPair *keyPair = self.keyPairs[indexPath.row];
+
+        [self.tableView beginUpdates];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.keyPairs removeObject:keyPair];
+        [keyPair delete];
+        [self.tableView endUpdates];
+    };
+
+    [confirmationAlert show];
+
+    [cell hideUtilityButtonsAnimated:YES];
 }
 
 @end

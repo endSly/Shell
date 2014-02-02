@@ -383,7 +383,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="yqe-04-etX" style="IBUITableViewCellStyleDefault" id="FTf-RY-Hqm" customClass="SWTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="yqe-04-etX" style="IBUITableViewCellStyleDefault" id="FTf-RY-Hqm" customClass="GSKeyPairCell">
                                 <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FTf-RY-Hqm" id="dot-Q3-5MW">
@@ -397,8 +397,26 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="KeyIcon" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9O-9m-gBN">
+                                            <rect key="frame" x="280" y="11" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="24" id="u43-cx-g4b"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="r9O-9m-gBN" secondAttribute="trailing" constant="16" id="Apf-yO-XcC"/>
+                                        <constraint firstAttribute="bottom" secondItem="r9O-9m-gBN" secondAttribute="bottom" constant="8" id="JI1-Fc-D68"/>
+                                        <constraint firstItem="r9O-9m-gBN" firstAttribute="top" secondItem="dot-Q3-5MW" secondAttribute="top" constant="11" id="baP-5H-Wps"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="passwordIcon" destination="r9O-9m-gBN" id="hHf-mJ-6PP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
