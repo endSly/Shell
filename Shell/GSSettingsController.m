@@ -14,11 +14,22 @@
 
 #import "UIBarButtonItem+IonIcons.h"
 
+#import "GSPasswordManager.h"
+
 #import "GSKeyPair.h"
 #import "GSAWSCredentials.h"
 #import "GSHerokuAccount.h"
 
-@implementation GSSettingsController
+static NSString * const kGSUseCustomPassword = @"kGSUseCustomPassword";
+static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
+
+@implementation GSSettingsController {
+
+    AKFormFieldButton *_setPasswordButton;
+    AKFormFieldTextField *_currentPasswordField;
+    AKFormFieldTextField *_passwordField;
+    AKFormFieldTextField *_passwordConfirmationField;
+}
 
 - (void)viewDidLoad
 {
@@ -85,21 +96,30 @@
 
     NSMutableArray *fields = [NSMutableArray array];
 
-    AKFormFieldTextField *passwordField = [AKFormFieldTextField fieldWithKey:@"password"
-                                                                       title:@"Password"
-                                                                 placeholder:@"required"
-                                                                    delegate:self
-                                                               styleProvider:[GSFormStyleProvider styleProvider]];
-    passwordField.secureTextEntry = YES;
-    [fields addObject:passwordField];
+    _passwordField = [AKFormFieldTextField fieldWithKey:@"password"
+                                                  title:@"Password"
+                                            placeholder:@"required"
+                                               delegate:self
+                                          styleProvider:[GSFormStyleProvider styleProvider]];
+    _passwordField.secureTextEntry = YES;
+    [fields addObject:_passwordField];
 
-    AKFormFieldTextField *passwordConfirmationField = [AKFormFieldTextField fieldWithKey:@"passwordConfirmation"
-                                                                                   title:@"Password Confirmation"
-                                                                             placeholder:@"required"
-                                                                                delegate:self
-                                                                           styleProvider:[GSFormStyleProvider styleProvider]];
-    passwordConfirmationField.secureTextEntry = YES;
-    [fields addObject:passwordConfirmationField];
+    _passwordConfirmationField = [AKFormFieldTextField fieldWithKey:@"passwordConfirmation"
+                                                              title:@"Password Confirmation"
+                                                        placeholder:@"required"
+                                                           delegate:self
+                                                      styleProvider:[GSFormStyleProvider styleProvider]];
+    _passwordConfirmationField.secureTextEntry = YES;
+    [fields addObject:_passwordConfirmationField];
+
+    _setPasswordButton = [AKFormFieldButton fieldWithKey:@"savePassword"
+                                                   title:@"Save password"
+                                                subtitle:nil
+                                                   image:nil
+                                                delegate:self
+                                           styleProvider:[GSFormStyleProvider styleProvider]];
+
+    [fields addObject:_setPasswordButton];
 
 
     NSMapTable *fieldsToShowOnOn = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory
@@ -156,6 +176,15 @@
 
     } else if ([field.key isEqualToString:@"editAccounts"]) {
         [self performSegueWithIdentifier:@"GSShowAccountsSegue" sender:self];
+
+    } else if ([field.key isEqualToString:@"savePassword"]) {
+        NSString *newPassword = _passwordField.value.stringValue;
+
+        if ([newPassword isEqualToString:_passwordConfirmationField.value.stringValue]) {
+            [[GSPasswordManager manager] updatePasswordKey:newPassword callback:^{
+                
+            }];
+        }
     }
 }
 

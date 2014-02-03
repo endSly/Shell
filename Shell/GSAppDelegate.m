@@ -15,7 +15,24 @@
 
 #import "GSConnectionsTableController.h"
 
+#import "GSPasswordManager.h"
+
 @implementation GSAppDelegate
+
+- (void)initializeDatabase
+{
+    [CoreDataManager sharedManager].modelName = @"DataModel";
+
+    // Set in memory store while not key
+    [[CoreDataManager sharedManager] useInMemoryStore];
+
+    [[GSPasswordManager manager] getPassword:^(NSString *password) {
+        if (password) {
+            NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :password];
+            [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
+        }
+    }];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -24,10 +41,7 @@
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:18]}
                                                 forState:UIControlStateNormal];
 
-    [CoreDataManager sharedManager].modelName = @"DataModel";
-
-    NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :@"PASSWORD"];
-    [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
+    [UAAppReviewManager setAppID:@"12345678"];
 
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -38,7 +52,10 @@
 
     }
 
-    [UAAppReviewManager setAppID:@"12345678"];
+    // Load database config
+    [self initializeDatabase];
+
+    [UAAppReviewManager showPromptIfNecessary];
 
     return YES;
 }
@@ -57,7 +74,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    [UAAppReviewManager showPromptIfNecessary];
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
