@@ -17,6 +17,8 @@
 
 #import "GSPasswordManager.h"
 
+NSString * const kGSUserHasLogged = @"kGSUserHasLogged";
+
 @implementation GSAppDelegate
 
 - (void)initializeDatabase
@@ -28,8 +30,14 @@
 
     [[GSPasswordManager manager] getPassword:^(NSString *password) {
         if (password) {
-            NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :password];
-            [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
+            @try {
+                NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :password];
+                [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception);
+            }
+
         }
     }];
 }

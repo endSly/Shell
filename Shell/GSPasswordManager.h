@@ -15,7 +15,8 @@
 - (BOOL)useUserPassword;
 
 - (void)getPassword:(void(^)(NSString *))callback;
-- (void)updatePasswordKey:(NSString *)key callback:(void(^)(void))callback;
+
+- (BOOL)updateCurrentKey:(NSString *)curentKey newKey:(NSString *)key;
 
 
 @end

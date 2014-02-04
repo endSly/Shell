@@ -42,11 +42,21 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     return [[NSUserDefaults standardUserDefaults] boolForKey:kGSUseCustomPassword];
 }
 
-- (void)getPassword:(void(^)(NSString *))callback
+- (NSString *)getPasswordWithKey:(NSString *)key
 {
     NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:kGSDatabasePassword];
+    
+    if (![self useUserPassword])
+        return password;
 
+    NSData *passwordData = [[NSData alloc] initWithBase64EncodedString:password options:0];
+    return [[NSString alloc] initWithData:[passwordData AES256DecryptWithKey:key] encoding:NSUTF8StringEncoding];
+}
+
+- (void)getPassword:(void(^)(NSString *))callback
+{
     if (!self.useUserPassword) {
+        NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:kGSDatabasePassword];
         callback(password);
         return;
     }
@@ -57,8 +67,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
             return;
         }
 
-        NSData *passwordData = [[NSData alloc] initWithBase64EncodedString:password options:0];
-        NSString *plainPassword = [[NSString alloc] initWithData:[passwordData AES256DecryptWithKey:key] encoding:NSUTF8StringEncoding];
+        NSString *plainPassword = [self getPasswordWithKey:key];
         if (plainPassword) {
             callback(plainPassword);
 
@@ -84,23 +93,25 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     }];
 }
 
-- (void)updatePasswordKey:(NSString *)key callback:(void(^)(void))callback
+- (BOOL)updateCurrentKey:(NSString *)currentKey newKey:(NSString *)key
 {
-    [self getPassword:^(NSString *password) {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *password = [self getPasswordWithKey:currentKey];
 
-        if (key.length) {
-            NSData *passwordEncryptedData = [[password dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key];
-            password = [passwordEncryptedData base64EncodedStringWithOptions:0];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
-        }
-        [userDefaults setObject:password forKey:kGSDatabasePassword];
-        [userDefaults setBool:(BOOL) (key.length > 0) forKey:kGSUseCustomPassword];
-        
-        [userDefaults synchronize];
+    if (key.length) {
+        NSData *passwordEncryptedData = [[password dataUsingEncoding:NSUTF8StringEncoding] AES256EncryptWithKey:key];
+        password = [passwordEncryptedData base64EncodedStringWithOptions:0];
+    }
+    if (!password) {
+        return NO;
+    }
+    [userDefaults setObject:password forKey:kGSDatabasePassword];
+    [userDefaults setBool:(BOOL) (key.length > 0) forKey:kGSUseCustomPassword];
 
-        callback();
-    }];
+    [userDefaults synchronize];
+
+    return YES;
 }
 
 + (instancetype)manager

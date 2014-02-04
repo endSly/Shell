@@ -34,6 +34,8 @@
 
 #import "GSHerokuService.h"
 
+#import "GSAppDelegate.h"
+
 NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
 @interface GSConnectionsTableController () {
@@ -73,6 +75,7 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadConnections:) name:kGSConnectionsListUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadConnections:) name:kGSUserHasLogged object:nil];
 
     [self reloadConnections:nil];
 }

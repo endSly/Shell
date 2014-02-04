@@ -20,6 +20,8 @@
 #import "GSAWSCredentials.h"
 #import "GSHerokuAccount.h"
 
+#import "GSProgressHUD.h"
+
 static NSString * const kGSUseCustomPassword = @"kGSUseCustomPassword";
 static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
@@ -96,6 +98,16 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
     NSMutableArray *fields = [NSMutableArray array];
 
+    if ([[GSPasswordManager manager] useUserPassword]) {
+        _currentPasswordField = [AKFormFieldTextField fieldWithKey:@"currentPassword"
+                                                             title:@"Current Password"
+                                                       placeholder:@"required"
+                                                          delegate:self
+                                                     styleProvider:[GSFormStyleProvider styleProvider]];
+        _currentPasswordField.secureTextEntry = YES;
+        [fields addObject:_currentPasswordField];
+    }
+
     _passwordField = [AKFormFieldTextField fieldWithKey:@"password"
                                                   title:@"Password"
                                             placeholder:@"required"
@@ -119,6 +131,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                                 delegate:self
                                            styleProvider:[GSFormStyleProvider styleProvider]];
 
+    _setPasswordButton.value = [AKFormValue value:@([[GSPasswordManager manager] useUserPassword]) withType:AKFormValueBool];
     [fields addObject:_setPasswordButton];
 
 
@@ -181,9 +194,26 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
         NSString *newPassword = _passwordField.value.stringValue;
 
         if ([newPassword isEqualToString:_passwordConfirmationField.value.stringValue]) {
-            [[GSPasswordManager manager] updatePasswordKey:newPassword callback:^{
-                
-            }];
+            BOOL result = [[GSPasswordManager manager] updateCurrentKey:_currentPasswordField.value.stringValue newKey:newPassword];
+
+            if (result) {
+                _passwordField.value = [AKFormValue value:@"" withType:AKFormValueString];
+                _passwordConfirmationField.value = [AKFormValue value:@"" withType:AKFormValueString];
+
+                [self.tableView reloadData];
+
+                [GSProgressHUD showSuccess:NSLocalizedString(@"Password changed", @"Password changed hud")];
+
+            } else {
+                [GSProgressHUD showError:NSLocalizedString(@"The password is incorrect", @"Wrong password hud")];
+            }
+            _currentPasswordField.value = [AKFormValue value:@"" withType:AKFormValueString];
+
+        } else {
+            _passwordField.value = [AKFormValue value:@"" withType:AKFormValueString];
+            _passwordConfirmationField.value = [AKFormValue value:@"" withType:AKFormValueString];
+            
+            [GSProgressHUD showError:NSLocalizedString(@"Passwords do not match", @"Passwords do not match hud")];
         }
     }
 }
