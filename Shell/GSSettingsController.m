@@ -26,7 +26,7 @@ static NSString * const kGSUseCustomPassword = @"kGSUseCustomPassword";
 static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 @implementation GSSettingsController {
-
+    AKFormFieldSwitch *_usePasswordField;
     AKFormFieldButton *_setPasswordButton;
     AKFormFieldTextField *_currentPasswordField;
     AKFormFieldTextField *_passwordField;
@@ -37,12 +37,17 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 {
     [super viewDidLoad];
 
+    [self buildForm];
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
+}
+
+- (void)buildForm
+{
     [self addScreenSizeSection];
     [self addPasswordSection];
     [self addAccountsSection];
     [self addKeyPairsSection];
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
 }
 
 - (void)addScreenSizeSection
@@ -88,19 +93,23 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 - (void)addPasswordSection
 {
-    AKFormFieldSwitch *usePasswordField = [AKFormFieldSwitch fieldWithKey:@"usePassword"
+    BOOL usesUserPassword = [[GSPasswordManager manager] useUserPassword];
+
+    _usePasswordField = [AKFormFieldSwitch fieldWithKey:@"usePassword"
                                                                     title:@"Use password"
                                                                  delegate:self
                                                             styleProvider:[GSFormStyleProvider styleProvider]];
 
-    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[usePasswordField]];
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_usePasswordField]];
     section.headerTitle = @"Password";
+
+    _usePasswordField.value = [AKFormValue value:@(usesUserPassword) withType:AKFormValueBool];
 
     NSMutableArray *fields = [NSMutableArray array];
 
-    if ([[GSPasswordManager manager] useUserPassword]) {
+    if (usesUserPassword) {
         _currentPasswordField = [AKFormFieldTextField fieldWithKey:@"currentPassword"
-                                                             title:@"Current Password"
+                                                             title:@"Old Password"
                                                        placeholder:@"required"
                                                           delegate:self
                                                      styleProvider:[GSFormStyleProvider styleProvider]];
@@ -109,7 +118,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     }
 
     _passwordField = [AKFormFieldTextField fieldWithKey:@"password"
-                                                  title:@"Password"
+                                                  title:@"New Password"
                                             placeholder:@"required"
                                                delegate:self
                                           styleProvider:[GSFormStyleProvider styleProvider]];
@@ -117,7 +126,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     [fields addObject:_passwordField];
 
     _passwordConfirmationField = [AKFormFieldTextField fieldWithKey:@"passwordConfirmation"
-                                                              title:@"Password Confirmation"
+                                                              title:@"Verify"
                                                         placeholder:@"required"
                                                            delegate:self
                                                       styleProvider:[GSFormStyleProvider styleProvider]];
@@ -125,13 +134,12 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     [fields addObject:_passwordConfirmationField];
 
     _setPasswordButton = [AKFormFieldButton fieldWithKey:@"savePassword"
-                                                   title:@"Save password"
+                                                   title:usesUserPassword ? @"Update password" : @"Save password"
                                                 subtitle:nil
                                                    image:nil
                                                 delegate:self
                                            styleProvider:[GSFormStyleProvider styleProvider]];
 
-    _setPasswordButton.value = [AKFormValue value:@([[GSPasswordManager manager] useUserPassword]) withType:AKFormValueBool];
     [fields addObject:_setPasswordButton];
 
 
@@ -140,7 +148,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     [fieldsToShowOnOn setObject:fields
                          forKey:section];
     
-    usePasswordField.fieldsToShowOnOn = fieldsToShowOnOn;
+    _usePasswordField.fieldsToShowOnOn = fieldsToShowOnOn;
     [self addSection:section];
 }
 
@@ -215,6 +223,10 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
             
             [GSProgressHUD showError:NSLocalizedString(@"Passwords do not match", @"Passwords do not match hud")];
         }
+
+        [self clearSections];
+        [self buildForm];
+        [self.tableView reloadData];
     }
 }
 

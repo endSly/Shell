@@ -75,9 +75,18 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     self.detailViewController = (GSTerminalViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadConnections:) name:kGSConnectionsListUpdated object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadConnections:) name:kGSUserHasLogged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:) name:kGSUserHasLogged object:nil];
 
     [self reloadConnections:nil];
+}
+
+- (void)userLoggedIn:(id)sender
+{
+    [self reloadConnections:sender];
+
+    if (_sections.count == 0) {
+        [self addConnectionAction:sender];
+    }
 }
 
 - (void)reloadConnections:(id)sender

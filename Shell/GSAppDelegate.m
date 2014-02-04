@@ -39,6 +39,7 @@ NSString * const kGSUserHasLogged = @"kGSUserHasLogged";
             }
 
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGSUserHasLogged object:self];
     }];
 }
 
