@@ -38,16 +38,6 @@
         webView.delegate = self;
         [self addSubview:webView];
         self.webView = webView;
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
     }
     
     return self;
@@ -58,11 +48,6 @@
     self.webView.frame = self.frame;
     NSURL *htmlURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"terminal" ofType:@"html"] isDirectory:NO];
     [self.webView loadRequest:[NSURLRequest requestWithURL:htmlURL]];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)terminalWrite:(NSString *)data
@@ -208,16 +193,18 @@
     [self.delegate terminalView:self didWrite:@"\e[D"];
 }
 
-#pragma mark - Remove keyboard
+#pragma mark - Keyboard accesory toolabar
 
-- (void)keyboardWillShow:(NSNotification *)note
+- (void)showAccessoryToolbar
 {
-    [self performSelector:@selector(addToolbar) withObject:nil afterDelay:0];
+    self.webFormToolbar.hidden = YES;
+    [self.keyboardView addSubview:self.terminalToolbar];
 }
 
-- (void)keyboardWillHide:(NSNotification *)note
+- (void)hideAccesoryToolbar
 {
-    [self performSelector:@selector(hideToolbar) withObject:nil afterDelay:0];
+    self.webFormToolbar.hidden = NO;
+    [self.terminalToolbar removeFromSuperview];
 }
 
 - (UIWindow *)keyboardWindow
@@ -263,37 +250,31 @@
         [ctrlButton setTitle:@"ctrl" forState:UIControlStateNormal];
         [ctrlButton setTitleColor:[[UIApplication sharedApplication].delegate window].tintColor forState:UIControlStateNormal];
         ctrlButton.layer.cornerRadius = 3;
+        ctrlButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:18.0f];
 
         self.ctrlButton = ctrlButton;
 
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.width, 44.0f)];
         toolbar.items = @[[[UIBarButtonItem alloc] initWithTitle:@"tab" style:UIBarButtonItemStylePlain target:self action:@selector(writeTab:)],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                           [[UIBarButtonItem alloc] initWithTitle:@"esc" style:UIBarButtonItemStylePlain target:self action:@selector(writeEsc:)],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                           [[UIBarButtonItem alloc] initWithCustomView:ctrlButton],
                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                           [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_left  target:self action:@selector(leftArrowAction:)],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                           [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_down  target:self action:@selector(downArrowAction:)],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                           [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_up    target:self action:@selector(upArrowAction:)],
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                           [[UIBarButtonItem alloc] initWithIcon:icon_ios7_arrow_thin_right target:self action:@selector(rightArrowAction:)],
                           ];
         toolbar.backgroundColor = [UIColor clearColor];
         _terminalToolbar = toolbar;
     }
     return _terminalToolbar;
-}
-
-- (void)addToolbar
-{
-    self.webFormToolbar.hidden = YES;
-    self.terminalToolbar.hidden = NO;
-    [self.keyboardView addSubview:self.terminalToolbar];
-}
-
-- (void)hideToolbar
-{
-    self.webFormToolbar.hidden = NO;
-    self.terminalToolbar.hidden = YES;
-    [self.terminalToolbar removeFromSuperview];
 }
 
 @end

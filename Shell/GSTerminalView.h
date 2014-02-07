@@ -21,6 +21,9 @@
 - (void)getScreenCols:(NSUInteger *)cols rows:(NSUInteger *)rows;
 - (void)adjustSizeToScreen;
 
+- (void)showAccessoryToolbar;
+- (void)hideAccesoryToolbar;
+
 @end
 
 @protocol GSTerminalViewDelegate <NSObject>

@@ -36,16 +36,6 @@
 
     self.terminalView.delegate = self;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backGestureRecognized:)];
     recognizer.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:recognizer];
@@ -71,15 +61,44 @@
 - (void)keyboardWillShow:(NSNotification *)note
 {
     [self hideNavigationBar:YES];
-    self.terminalView.scrollView.contentInsetTop = 20;
+
+    [self.terminalView performSelector:@selector(showAccessoryToolbar) withObject:nil afterDelay:0];
+
+    [UIView animateWithDuration:0.1 animations:^{
+        self.terminalView.scrollView.contentInsetTop = 20;
+    }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)note
 {
     [self showNavigationBar:YES];
-    self.terminalView.scrollView.contentInsetTop = 64;
+
+    [self.terminalView performSelector:@selector(hideAccesoryToolbar) withObject:nil afterDelay:0];
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        self.terminalView.scrollView.contentInsetTop = 64;
+    }];
+
     self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:22],
                                                                     NSForegroundColorAttributeName: [UIColor whiteColor]};
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 /*
