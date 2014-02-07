@@ -1,7 +1,6 @@
 pod 'ObjectiveRecord', '~> 1.4.0'
 
 # SSH lib
-
 pod 'OpenSSL', '~> 1.0.1' 
 pod 'libssh2', '~> 1.4.3' 
 pod 'NMSSH',   :git => 'https://github.com/endSly/NMSSH.git'
@@ -22,3 +21,5 @@ pod 'UIAlertView+Blocks'
 pod 'UAAppReviewManager', '~> 0.2.1'
 
 pod 'SQLCipher', '~> 3.0.1'
+
+pod 'NJKScrollFullScreen'

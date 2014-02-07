@@ -9,6 +9,7 @@
 #import "GSTerminalViewController.h"
 
 #import <FrameAccessor/FrameAccessor.h>
+#import <NJKScrollFullScreen/UIViewController+NJKFullScreenSupport.h>
 
 #import "UIBarButtonItem+IonIcons.h"
 
@@ -17,6 +18,7 @@
 #import "GSDyno.h"
 
 #import "GSTerminalView.h"
+#import "GSProgressHUD.h"
 
 #import "GSHerokuService.h"
 
@@ -68,12 +70,16 @@
 
 - (void)keyboardWillShow:(NSNotification *)note
 {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self hideNavigationBar:YES];
+    self.terminalView.scrollView.contentInsetTop = 20;
 }
 
 - (void)keyboardWillHide:(NSNotification *)note
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self showNavigationBar:YES];
+    self.terminalView.scrollView.contentInsetTop = 64;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:22],
+                                                                    NSForegroundColorAttributeName: [UIColor whiteColor]};
 }
 
 /*

@@ -23,7 +23,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                                           message:NSLocalizedString(@"Type your password for allow access to stored data", @"Password alert message")
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"Unlock", @"Unlock button")
-                                                otherButtonTitles:NSLocalizedString(@"Temp storage", @"Use temp storage button"), nil];
+                                                otherButtonTitles:NSLocalizedString(@"Guest", @"Guest button"), nil];
 
     accessAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     accessAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
@@ -77,7 +77,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                                                   message:NSLocalizedString(@"Wrong password inserted. Try again, reset database or use  temporal storage", @"Wrong password alert message")
                                                                  delegate:self
                                                         cancelButtonTitle:NSLocalizedString(@"Try again", @"Try again button")
-                                                        otherButtonTitles:/*NSLocalizedString(@"Reset database", @"Reset database button"),*/ NSLocalizedString(@"Temporal storage", @"Temporal storage button"), nil];
+                                                        otherButtonTitles:/*NSLocalizedString(@"Reset database", @"Reset database button"),*/ NSLocalizedString(@"Login as Guest", @"Temporal storage button"), nil];
             wrongPasswordAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
                 if (index == 0) { //  Try again
                     [self getPassword:callback];

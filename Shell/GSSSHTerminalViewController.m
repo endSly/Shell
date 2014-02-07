@@ -10,6 +10,8 @@
 
 #import "GSConnection.h"
 
+#import "GSProgressHUD.h"
+
 @interface GSSSHTerminalViewController ()
 
 @property (strong, nonatomic) NMSSHSession *session;
@@ -37,6 +39,8 @@
 
 - (void)connect
 {
+    [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
+
     [_queue addOperationWithBlock:^{
         NMSSHSession *session = [NMSSHSession connectToHost:self.connection.host
                                                        port:[self.connection.port integerValue]
@@ -63,6 +67,8 @@
 
             [session.channel startShell:&error];
 
+            [GSProgressHUD dismiss];
+
             if (error) {
                 [self closeWithError:error.description];
                 return;
@@ -73,18 +79,11 @@
 
 - (void)closeWithError:(NSString *)error
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:error
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-        [alert show];
+    [GSProgressHUD showError:@"Connection error"];
 
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.navigationController popViewControllerAnimated:YES];
     });
 }
 

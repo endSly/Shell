@@ -12,6 +12,8 @@
 #import "GSApplication.h"
 #import "GSDyno.h"
 
+#import "GSProgressHUD.h"
+
 @interface GSHerokuTerminalViewController ()
 
 @property (nonatomic, strong) GSRendezvous *rendezvous;
@@ -29,6 +31,8 @@
 
 - (void)connect
 {
+    [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
+
     NSUInteger cols, rows;
     [self.terminalView getScreenCols:&cols rows:&rows];
     
@@ -57,6 +61,10 @@
         self.rendezvous = rendezvous;
 
         [rendezvous start];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [GSProgressHUD dismiss];
+        });
     }];
 }
 

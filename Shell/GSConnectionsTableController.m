@@ -212,18 +212,25 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSDictionary *sectionInfo = _sections[section];
+    if ([sectionInfo[@"loading"] boolValue]) {
+        return 1;
+    }
     NSArray *items = sectionInfo[@"items"];
     return items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *sectionInfo = _sections[indexPath.section];
+    if ([sectionInfo[@"loading"] boolValue]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GSLoadingCell" forIndexPath:indexPath];
+        return cell;
+    }
+
     GSTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GSTableViewCell" forIndexPath:indexPath];
     [cell setCellHeight:64.0f];
     cell.containingTableView = tableView;
     cell.delegate = self;
-
-    NSDictionary *sectionInfo = _sections[indexPath.section];
 
     NSArray *items = sectionInfo[@"items"];
     NSString *sectionType = sectionInfo[@"type"];
