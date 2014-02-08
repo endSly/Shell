@@ -68,6 +68,34 @@
     return password;
 }
 
+- (NSString *)askPassword
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block NSString *password = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"User password", @"Alert title")
+                                                                message:NSLocalizedString(@"You need a password to connect to server", @"")
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                      otherButtonTitles:NSLocalizedString(@"Ok", @"Ok"), nil];
+
+        passwordAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+
+        passwordAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
+            if (index == 1) { // Cancel button
+                password = [alertView textFieldAtIndex:0].text;
+            }
+            dispatch_semaphore_signal(sema);
+        };
+
+        [passwordAlert show];
+    });
+
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return password;
+}
+
 - (void)connect
 {
     [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
@@ -87,31 +115,53 @@
 
         session.channel.environmentVariables = @{@"TERM": @"xterm"};
 
+        BOOL authenticated = NO;
+
         GSKeyPair *keyPair = self.connection.keyPair;
+
+        // Try to authenticate with Key Pair
         if (keyPair) {
-            BOOL success;
+            BOOL success = NO;
+            BOOL hasPassword = keyPair.hasPassword.boolValue;
             do {
                 NSString *password = nil;
-                if (keyPair.hasPassword.boolValue) {
+                if (hasPassword) {
                     password = [self askKeyPairPassword];
-                    if (!password) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [GSProgressHUD dismiss];
-                            [self.navigationController popViewControllerAnimated:YES];
-                        });
-                        return;
-                    }
+                    if (!password)
+                        break; // Cancel pressed
+
                 }
                 success = [session authenticateByPublicKey:keyPair.publicKeyPath
                                                 privateKey:keyPair.privateKeyPath
                                                andPassword:password];
-            } while (!success);
+            } while (!success && hasPassword);
 
+            authenticated = success;
         }
-        NSLog(@"-- %@", self.connection.keyPair);
-        NSLog(@"++ %@", self.connection.password);
 
-        [session authenticateByPassword:self.connection.password];
+        // Try to authenticate with stored password
+        if (!authenticated && self.connection.savePassword.boolValue) {
+            authenticated = [session authenticateByPassword:self.connection.password];
+        }
+
+        // Try to authenticate with interactive
+        if (!authenticated) {
+            do {
+                NSString *password = [self askKeyPairPassword];
+                if (!password)
+                    break; // Cancel pressed
+
+                authenticated = [session authenticateByPassword:password];
+            } while (!authenticated);
+        }
+
+        // Authentication Error
+        if (!authenticated) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self closeWithError:NSLocalizedString(@"Authentication failed", @"Auth failed HUD message")];
+            });
+            return;
+        }
 
         session.channel.ptyTerminalType = NMSSHChannelPtyTerminalXterm;
 
@@ -134,10 +184,11 @@
 
 - (void)closeWithError:(NSString *)error
 {
-    [GSProgressHUD showError:@"Connection error"];
+    [GSProgressHUD dismiss];
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [GSProgressHUD showError:error];
         [self.navigationController popViewControllerAnimated:YES];
     });
 }
@@ -193,11 +244,6 @@
 - (void)session:(NMSSHSession *)session didDisconnectWithError:(NSError *)error
 {
 
-}
-
-- (NSString *)session:(NMSSHSession *)session keyboardInteractiveRequest:(NSString *)request
-{
-    return @"";
 }
 
 #pragma mark - SSH Channel delegate
