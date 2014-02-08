@@ -13,6 +13,8 @@
 #import <ObjectiveRecord/ObjectiveRecord.h>
 #import "EncryptedStore.h"
 
+#import "GSProgressHUD.h"
+
 #import "NSData+AES256.h"
 
 NSString * const kGSUserHasLogged = @"kGSUserHasLogged";
@@ -27,12 +29,18 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 - (id)init
 {
     self = [super init];
-
     if (self) {
         _isGuest = YES;
     }
-
     return self;
+}
+
+- (NSURL *)databaseURL
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *applicationSupportURL = [[fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
+    [fileManager createDirectoryAtURL:applicationSupportURL withIntermediateDirectories:NO attributes:nil error:nil];
+    return [applicationSupportURL URLByAppendingPathComponent:@"db.sqlcipher"];
 }
 
 - (void)initializeDatabase
@@ -45,7 +53,10 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     [self getPassword:^(NSString *password) {
         if (password) {
             @try {
-                NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :password];
+                
+                NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStoreWithDatabaseURL:[self databaseURL]
+                                                                                      managedObjectModel:[CoreDataManager sharedManager].managedObjectModel
+                                                                                                passcode:password];
                 [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
                 _isGuest = NO;
             }
@@ -94,6 +105,40 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     return [[NSString alloc] initWithData:[passwordData AES256DecryptWithKey:key] encoding:NSUTF8StringEncoding];
 }
 
+- (void)resetDatabase:(void(^)(BOOL))callback
+{
+    UIAlertView *resetDatabaseAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Reset database", @"Alert title")
+                                                                 message:NSLocalizedString(@"All information stored will be removed. Type \"delete\" for confirm reset.", @"Remove database confirmation message")
+                                                                delegate:self
+                                                       cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                       otherButtonTitles:NSLocalizedString(@"Reset", @"Reset database button"), nil];
+
+    resetDatabaseAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+
+    resetDatabaseAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
+        if (index == 1) {
+            NSString *confirmText = [alertView textFieldAtIndex:0].text;
+            if ([confirmText isEqualToString:NSLocalizedString(@"delete", @"Remove database confirmation text (see message!!)")]) {
+                NSFileManager *fileManager = [NSFileManager defaultManager];
+                NSError *error;
+                BOOL result = [fileManager removeItemAtURL:[self databaseURL] error:&error];
+
+                // Reset config
+                [GSDatabaseManager buildDatabaseConfig];
+
+                callback (result);
+
+            } else {
+                [self resetDatabase:callback];
+            }
+        } else {
+            callback(NO);
+        }
+    };
+
+    [resetDatabaseAlert show];
+}
+
 - (void)getPassword:(void(^)(NSString *))callback
 {
     if (!self.useUserPassword) {
@@ -115,16 +160,26 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
         } else {
             // Wrong password
             UIAlertView *wrongPasswordAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Wrong password", @"Wrong password alert title")
-                                                                  message:NSLocalizedString(@"Wrong password inserted. Try again, reset database or use  temporal storage", @"Wrong password alert message")
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Try again", @"Try again button")
-                                                        otherButtonTitles:/*NSLocalizedString(@"Reset database", @"Reset database button"),*/ NSLocalizedString(@"Login as Guest", @"Temporal storage button"), nil];
+                                                                         message:NSLocalizedString(@"Wrong password inserted. Try again, reset database or use  temporal storage", @"Wrong password alert message")
+                                                                        delegate:self
+                                                               cancelButtonTitle:NSLocalizedString(@"Try again", @"Try again button")
+                                                               otherButtonTitles:NSLocalizedString(@"Reset database", @"Reset database button"), NSLocalizedString(@"Login as Guest", @"Temporal storage button"), nil];
             wrongPasswordAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
                 if (index == 0) { //  Try again
                     [self getPassword:callback];
-/*
+
                 } else if (index == 1) { // Reset Database
-*/
+                    [self resetDatabase:^(BOOL reset) {
+                        [self getPassword:callback];
+
+                        if (reset) {
+                            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+                            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                                [GSProgressHUD showSuccess:NSLocalizedString(@"Database reset", @"HUD message")];
+                            });
+                        }
+                    }];
+
                 } else { // Temp storage
                     callback(nil);
                 }
@@ -155,23 +210,27 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     return YES;
 }
 
++ (void)buildDatabaseConfig
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *password = [[NSProcessInfo processInfo] globallyUniqueString];
+    [userDefaults setBool:NO forKey:kGSUseCustomPassword];
+    [userDefaults setObject:password forKey:kGSDatabasePassword];
+}
+
 + (instancetype)manager
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
     // Initialize if password not set
     if (![userDefaults stringForKey:kGSDatabasePassword]) {
-        NSString *password = [[NSProcessInfo processInfo] globallyUniqueString];
-        [userDefaults setBool:NO forKey:kGSUseCustomPassword];
-        [userDefaults setObject:password forKey:kGSDatabasePassword];
+        [self buildDatabaseConfig];
     }
 
     static GSDatabaseManager *manager = nil;
 
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        manager = [[self alloc] init];
-    });
+    dispatch_once(&onceToken, ^{ manager = [[self alloc] init]; });
 
     return manager;
 }

@@ -12,16 +12,20 @@ extern NSString * const EncryptedStoreErrorDomain;
 extern NSString * const EncryptedStoreErrorMessageKey;
 
 @interface EncryptedStore : NSIncrementalStore
-+ (NSPersistentStoreCoordinator *)makeStore:(NSManagedObjectModel *) objModel
-                                           :(NSString *) passcode;
-+ (NSPersistentStoreCoordinator *)makeStoreWithDatabaseURL:(NSURL *)databaseURL managedObjectModel:(NSManagedObjectModel *)objModel :(NSString*)passcode;
+
++ (NSPersistentStoreCoordinator *)makeStore:(NSManagedObjectModel *)objModel
+                 passcode:(NSString *)passcode;
+
++ (NSPersistentStoreCoordinator *)makeStoreWithDatabaseURL:(NSURL *)databaseURL
+                      managedObjectModel:(NSManagedObjectModel *)objModel
+                                passcode:(NSString*)passcode;
 
 
 - (NSNumber *)maximumObjectIDInTable:(NSString *)table;
 - (NSDictionary *)whereClauseWithFetchRequest:(NSFetchRequest *)request;
 - (void)bindWhereClause:(NSDictionary *)clause toStatement:(sqlite3_stmt *)statement;
 - (NSString *)columnsClauseWithProperties:(NSArray *)properties;
-- (NSString *) joinedTableNameForComponents: (NSArray *) componentsArray;
+- (NSString *)joinedTableNameForComponents: (NSArray *) componentsArray;
 - (id)valueForProperty:(NSPropertyDescription *)property
            inStatement:(sqlite3_stmt *)statement
                atIndex:(int)index;
