@@ -22,15 +22,15 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     UIAlertView *accessAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Password", @"Password alert title")
                                                           message:NSLocalizedString(@"Type your password for allow access to stored data", @"Password alert message")
                                                          delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"Unlock", @"Unlock button")
-                                                otherButtonTitles:NSLocalizedString(@"Guest", @"Guest button"), nil];
+                                                cancelButtonTitle:NSLocalizedString(@"Guest", @"Guest button")
+                                                otherButtonTitles:NSLocalizedString(@"Unlock", @"Unlock button"), nil];
 
     accessAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     accessAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
-        if (index == 0) {
+        if (index == 1) { // Unlock
             callback([alertView textFieldAtIndex:0].text);
 
-        } else {
+        } else { // Guest
             callback(nil);
         }
     };
