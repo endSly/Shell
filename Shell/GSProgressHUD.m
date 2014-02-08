@@ -25,156 +25,136 @@
     BOOL _visible;
 }
 
-@synthesize window, spinner, image, label;
+@synthesize window, spinner, iconLabel, label;
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-+ (GSProgressHUD *)shared
-//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (instancetype)shared
 {
 	static dispatch_once_t once = 0;
 	static GSProgressHUD *progressHUD;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	dispatch_once(&once, ^{ progressHUD = [[GSProgressHUD alloc] init]; });
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	return progressHUD;
+
+    dispatch_once(&once, ^{ progressHUD = [[self alloc] init]; });
+
+    return progressHUD;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)dismiss
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[[self shared] dismiss];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)show:(NSString *)status
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[[self shared] show:status];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showSuccess:(NSString *)status
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[[self shared] showSuccess:status];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 + (void)showError:(NSString *)status
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[[self shared] showError:status];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
++ (void)show:(NSString *)status icon:(NSString *)icon spin:(BOOL)spin hide:(BOOL)hide
+{
+    [[self shared] show:status icon:icon spin:spin hide:hide];
+}
+
 - (void)dismiss
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self hudHide];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)show:(NSString *)status
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self hudMake:status imgage:nil spin:YES hide:NO];
+	[self show:status icon:nil spin:YES hide:NO];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)showSuccess:(NSString *)status
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self hudMake:status imgage:HUD_IMAGE_SUCCESS spin:NO hide:YES];
+	[self show:status icon:HUD_SUCCESS_ICON spin:NO hide:YES];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)showError:(NSString *)status
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self hudMake:status imgage:HUD_IMAGE_ERROR spin:NO hide:YES];
+	[self show:status icon:HUD_ERROR_ICON spin:NO hide:YES];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)init
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	self = [self initWithFrame:[[UIScreen mainScreen] bounds]];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([delegate respondsToSelector:@selector(window)])
-		window = [delegate performSelector:@selector(window)];
-	else window = [[UIApplication sharedApplication] keyWindow];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	return self;
+    id<UIApplicationDelegate> delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate respondsToSelector:@selector(window)])
+        window = [delegate performSelector:@selector(window)];
+	else
+        window = [[UIApplication sharedApplication] keyWindow];
+
+    return self;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+
     if (self) {
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-        spinner = nil; image = nil; label = nil;
-        //-----------------------------------------------------------------------------------------------------------------------------------------
         self.barTintColor = HUD_BACKGROUND_COLOR;
-        
+
 		self.translucent = YES;
 		self.layer.cornerRadius = 10;
 		self.layer.masksToBounds = YES;
         
-        self.alpha = 0;
+        self.layer.opacity = 0;
     }
     return self;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)hudMake:(NSString *)status imgage:(UIImage *)img spin:(BOOL)spin hide:(BOOL)hide
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)show:(NSString *)status icon:(NSString *)icon spin:(BOOL)spin hide:(BOOL)hide
 {
 	[self hudCreate];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	label.text = status;
-	label.hidden = (status == nil) ? YES : NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	image.image = img;
-	image.hidden = (img == nil) ? YES : NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (spin) [spinner startAnimating]; else [spinner stopAnimating];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[self hudOrient];
+    label.text = status;
+	label.hidden = !(status);
+
+    iconLabel.text = icon;
+	iconLabel.hidden = !(icon);
+
+    if (spin)
+        [spinner startAnimating];
+    else
+        [spinner stopAnimating];
+
+    [self hudOrient];
 	[self hudSize];
 	[self hudShow];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (hide) [NSThread detachNewThreadSelector:@selector(timedHide) toTarget:self withObject:nil];
+
+    if (hide)
+        [NSThread detachNewThreadSelector:@selector(timedHide) toTarget:self withObject:nil];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudCreate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (self.superview == nil){
+	if (self.superview == nil)
         [window addSubview:self];
-    }
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (spinner == nil)
-	{
+
+    if (spinner == nil) {
 		spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 		spinner.color = HUD_SPINNER_COLOR;
 		spinner.hidesWhenStopped = YES;
 	}
-	if (spinner.superview == nil) [self addSubview:spinner];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (image == nil)
-	{
-		image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
-	}
-	if (image.superview == nil) [self addSubview:image];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (label == nil)
-	{
+	if (spinner.superview == nil)
+        [self addSubview:spinner];
+
+    if (iconLabel == nil) {
+		iconLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        iconLabel.textAlignment = NSTextAlignmentCenter;
+        iconLabel.font = [UIFont iconicFontOfSize:36];
+    }
+
+	if (iconLabel.superview == nil)
+        [self addSubview:iconLabel];
+
+    if (label == nil) {
 		label = [[UILabel alloc] initWithFrame:CGRectZero];
 		label.font = HUD_STATUS_FONT;
 		label.textColor = HUD_STATUS_COLOR;
@@ -184,51 +164,38 @@
 		label.numberOfLines = 0;
 	}
 	if (label.superview == nil) [self addSubview:label];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudDestroy
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[label removeFromSuperview];	label = nil;
-	[image removeFromSuperview];	image = nil;
+    [label removeFromSuperview];	label = nil;
+	[iconLabel removeFromSuperview]; iconLabel = nil;
 	[spinner removeFromSuperview];	spinner = nil;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)rotate:(NSNotification *)notification
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self hudOrient];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudOrient
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	CGFloat rotate;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	UIInterfaceOrientation orient = [[UIApplication sharedApplication] statusBarOrientation];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (orient == UIInterfaceOrientationPortrait)			rotate = 0.0;
+    UIInterfaceOrientation orient = [[UIApplication sharedApplication] statusBarOrientation];
+    if (orient == UIInterfaceOrientationPortrait)			rotate = 0.0;
 	if (orient == UIInterfaceOrientationPortraitUpsideDown)	rotate = M_PI;
 	if (orient == UIInterfaceOrientationLandscapeLeft)		rotate = - M_PI_2;
 	if (orient == UIInterfaceOrientationLandscapeRight)		rotate = + M_PI_2;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.transform = CGAffineTransformMakeRotation(rotate);
+    self.transform = CGAffineTransformMakeRotation(rotate);
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudSize
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	CGRect labelRect = CGRectZero;
 	CGFloat hudWidth = 100, hudHeight = 100;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (label.text != nil)
+
+    if (label.text != nil)
 	{
 		NSDictionary *attributes = @{NSFontAttributeName:label.font};
 		NSInteger options = NSStringDrawingUsesFontLeading | NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin;
@@ -249,47 +216,41 @@
 	}
     
     
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-    CGSize superviewSize;
+	    CGSize superviewSize;
     if (self.superview) {
         superviewSize = self.superview.bounds.size;
-    }else{
+    } else {
         superviewSize = [UIScreen mainScreen].bounds.size;
     }
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.center = CGPointMake(superviewSize.width/2, superviewSize.height/2);
+
+    self.center = CGPointMake(superviewSize.width/2, superviewSize.height/2);
 	self.bounds = CGRectMake(0, 0, hudWidth, hudHeight);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CGFloat imagex = hudWidth/2;
+
+    CGFloat imagex = hudWidth/2;
 	CGFloat imagey = (label.text == nil) ? hudHeight/2 : 36;
-	image.center = spinner.center = CGPointMake(imagex, imagey);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	label.frame = labelRect;
+	iconLabel.center = spinner.center = CGPointMake(imagex, imagey);
+    label.frame = labelRect;
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudShow
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if (!_visible) {
         _visible = YES;
 
-		self.alpha = 0;
+		self.layer.opacity = 0;
 		self.transform = CGAffineTransformScale(self.transform, 1.4, 1.4);
 
 		NSUInteger options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
 
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
 			self.transform = CGAffineTransformScale(self.transform, 1/1.4, 1/1.4);
-			self.alpha = .8;
+			self.layer.opacity = .8;
 		}
 		completion:nil];
 	}
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)hudHide
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if (_visible) {
         _visible = NO;
@@ -298,18 +259,16 @@
 
 		[UIView animateWithDuration:0.15 delay:0 options:options animations:^{
 			self.transform = CGAffineTransformScale(self.transform, 0.7, 0.7);
-			self.alpha = 0;
+			self.layer.opacity = 0;
 
 		} completion:^(BOOL finished) {
 			[self hudDestroy];
-			self.alpha = 0;
+			self.layer.opacity = 0;
 		}];
 	}
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)timedHide
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	@autoreleasepool
 	{

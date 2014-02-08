@@ -19,50 +19,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-//#define sheme_white
-#define sheme_black
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+#import "UIFont+IonIcons.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-#define HUD_STATUS_FONT			[UIFont fontWithName:@"HelveticaNeue" size:13.0f]
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-#ifdef sheme_white
-#define HUD_STATUS_COLOR		[UIColor whiteColor]
-#define HUD_SPINNER_COLOR		[UIColor whiteColor]
-#define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.8]
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"SuccessWhite"]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ErrorWhite"]
-#endif
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-#ifdef sheme_black
-#define HUD_STATUS_COLOR		[UIColor blackColor]
-#define HUD_SPINNER_COLOR		[UIColor blackColor]
-#define HUD_BACKGROUND_COLOR	[UIColor colorWithWhite:0 alpha:0.2]
-#define HUD_IMAGE_SUCCESS		[UIImage imageNamed:@"SuccessBlack"]
-#define HUD_IMAGE_ERROR			[UIImage imageNamed:@"ErrorBlack"]
-#endif
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+#define HUD_STATUS_FONT         [UIFont fontWithName:@"HelveticaNeue" size:13.0f]
+#define HUD_STATUS_COLOR        [UIColor blackColor]
+#define HUD_SPINNER_COLOR       [UIColor blackColor]
+#define HUD_BACKGROUND_COLOR    [UIColor colorWithWhite:0.85 alpha:0.85]
+#define HUD_SUCCESS_ICON        icon_ios7_checkmark
+#define HUD_ERROR_ICON          icon_ios7_close
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface GSProgressHUD : UIToolbar
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 
-+ (GSProgressHUD *)shared;
++ (instancetype)shared;
 
 + (void)dismiss;
 + (void)show:(NSString *)status;
 + (void)showSuccess:(NSString *)status;
 + (void)showError:(NSString *)status;
++ (void)show:(NSString *)status icon:(NSString *)icon spin:(BOOL)spin hide:(BOOL)hide;
 
 @property (atomic, strong) UIWindow *window;
 @property (atomic, strong) UIActivityIndicatorView *spinner;
-@property (atomic, strong) UIImageView *image;
+@property (atomic, strong) UILabel *iconLabel;
 @property (atomic, strong) UILabel *label;
 
 - (void)dismiss;
 - (void)show:(NSString *)status;
 - (void)showSuccess:(NSString *)status;
 - (void)showError:(NSString *)status;
+- (void)show:(NSString *)status icon:(NSString *)icon spin:(BOOL)spin hide:(BOOL)hide;
 
 @end
