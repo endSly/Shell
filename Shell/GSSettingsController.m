@@ -14,7 +14,7 @@
 
 #import "UIBarButtonItem+IonIcons.h"
 
-#import "GSPasswordManager.h"
+#import "GSDatabaseManager.h"
 
 #import "GSKeyPair.h"
 #import "GSAWSCredentials.h"
@@ -45,7 +45,10 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 - (void)buildForm
 {
     [self addScreenSizeSection];
-    [self addPasswordSection];
+    
+    if(![GSDatabaseManager manager].isGuest)
+        [self addPasswordSection];
+
     [self addAccountsSection];
     [self addKeyPairsSection];
 }
@@ -93,7 +96,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 - (void)addPasswordSection
 {
-    BOOL usesUserPassword = [[GSPasswordManager manager] useUserPassword];
+    BOOL usesUserPassword = [[GSDatabaseManager manager] useUserPassword];
 
     _usePasswordField = [AKFormFieldSwitch fieldWithKey:@"usePassword"
                                                                     title:@"Use password"
@@ -202,7 +205,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
         NSString *newPassword = _passwordField.value.stringValue;
 
         if ([newPassword isEqualToString:_passwordConfirmationField.value.stringValue]) {
-            BOOL result = [[GSPasswordManager manager] updateCurrentKey:_currentPasswordField.value.stringValue newKey:newPassword];
+            BOOL result = [[GSDatabaseManager manager] updateCurrentKey:_currentPasswordField.value.stringValue newKey:newPassword];
 
             if (result) {
                 _passwordField.value = [AKFormValue value:@"" withType:AKFormValueString];

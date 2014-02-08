@@ -34,7 +34,7 @@
 
 #import "GSHerokuService.h"
 
-#import "GSAppDelegate.h"
+#import "GSDatabaseManager.h"
 
 NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 

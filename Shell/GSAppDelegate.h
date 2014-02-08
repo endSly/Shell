@@ -7,8 +7,6 @@
 //
 @import UIKit;
 
-extern NSString * const kGSUserHasLogged;
-
 @interface GSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

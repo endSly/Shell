@@ -6,16 +6,57 @@
 //  Copyright (c) 2014 Endika Gutiérrez Salas. All rights reserved.
 //
 
-#import "GSPasswordManager.h"
+#import "GSDatabaseManager.h"
 
 #import <UIAlertView+Blocks/UIAlertView+Blocks.h>
 
+#import <ObjectiveRecord/ObjectiveRecord.h>
+#import "EncryptedStore.h"
+
 #import "NSData+AES256.h"
+
+NSString * const kGSUserHasLogged = @"kGSUserHasLogged";
 
 static NSString * const kGSUseCustomPassword = @"kGSUseCustomPassword";
 static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
-@implementation GSPasswordManager
+@implementation GSDatabaseManager
+
+@synthesize isGuest = _isGuest;
+
+- (id)init
+{
+    self = [super init];
+
+    if (self) {
+        _isGuest = YES;
+    }
+
+    return self;
+}
+
+- (void)initializeDatabase
+{
+    [CoreDataManager sharedManager].modelName = @"DataModel";
+
+    // Set in memory store while not key
+    [[CoreDataManager sharedManager] useInMemoryStore];
+
+    [self getPassword:^(NSString *password) {
+        if (password) {
+            @try {
+                NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :password];
+                [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
+                _isGuest = NO;
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception);
+            }
+
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kGSUserHasLogged object:self];
+    }];
+}
 
 - (void)askForPassword:(void(^)(NSString *))callback
 {
@@ -125,10 +166,13 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
         [userDefaults setObject:password forKey:kGSDatabasePassword];
     }
 
-    static GSPasswordManager *manager = nil;
-    if (!manager) {
-        manager = [[GSPasswordManager alloc] init];
-    }
+    static GSDatabaseManager *manager = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [[self alloc] init];
+    });
+
     return manager;
 }
 

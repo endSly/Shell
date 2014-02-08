@@ -8,40 +8,15 @@
 
 #import "GSAppDelegate.h"
 
-#import <ObjectiveRecord/ObjectiveRecord.h>
-#import "EncryptedStore.h"
-
 #import <UAAppReviewManager/UAAppReviewManager.h>
 
 #import "GSConnectionsTableController.h"
 
-#import "GSPasswordManager.h"
+#import "GSDatabaseManager.h"
 
-NSString * const kGSUserHasLogged = @"kGSUserHasLogged";
+
 
 @implementation GSAppDelegate
-
-- (void)initializeDatabase
-{
-    [CoreDataManager sharedManager].modelName = @"DataModel";
-
-    // Set in memory store while not key
-    [[CoreDataManager sharedManager] useInMemoryStore];
-
-    [[GSPasswordManager manager] getPassword:^(NSString *password) {
-        if (password) {
-            @try {
-                NSPersistentStoreCoordinator *persistentStore = [EncryptedStore makeStore:[CoreDataManager sharedManager].managedObjectModel :password];
-                [CoreDataManager sharedManager].persistentStoreCoordinator = persistentStore;
-            }
-            @catch (NSException *exception) {
-                NSLog(@"%@", exception);
-            }
-
-        }
-        [[NSNotificationCenter defaultCenter] postNotificationName:kGSUserHasLogged object:self];
-    }];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -62,7 +37,7 @@ NSString * const kGSUserHasLogged = @"kGSUserHasLogged";
     }
 
     // Load database config
-    [self initializeDatabase];
+    [[GSDatabaseManager manager] initializeDatabase];
 
     [UAAppReviewManager showPromptIfNecessary];
 

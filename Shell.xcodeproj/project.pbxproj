@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D00407818A02444005D7FCC /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00407718A02444005D7FCC /* NSData+AES256.m */; };
-		0D00407B18A02D69005D7FCC /* GSPasswordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00407A18A02D69005D7FCC /* GSPasswordManager.m */; };
+		0D00407B18A02D69005D7FCC /* GSDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00407A18A02D69005D7FCC /* GSDatabaseManager.m */; };
 		0D09085F188742E20053A108 /* AWSEC2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D09085E188742E20053A108 /* AWSEC2.framework */; };
 		0D090863188743840053A108 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D090862188743840053A108 /* AWSRuntime.framework */; };
 		0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E6E50188082E300F693B4 /* GSRendezvous.m */; };
@@ -76,8 +76,8 @@
 /* Begin PBXFileReference section */
 		0D00407618A02444005D7FCC /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
 		0D00407718A02444005D7FCC /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
-		0D00407918A02D69005D7FCC /* GSPasswordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSPasswordManager.h; sourceTree = "<group>"; };
-		0D00407A18A02D69005D7FCC /* GSPasswordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSPasswordManager.m; sourceTree = "<group>"; };
+		0D00407918A02D69005D7FCC /* GSDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSDatabaseManager.h; sourceTree = "<group>"; };
+		0D00407A18A02D69005D7FCC /* GSDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSDatabaseManager.m; sourceTree = "<group>"; };
 		0D09085E188742E20053A108 /* AWSEC2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSEC2.framework; sourceTree = "<group>"; };
 		0D090862188743840053A108 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		0D0E6E4F188082E300F693B4 /* GSRendezvous.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSRendezvous.h; sourceTree = "<group>"; };
@@ -253,8 +253,8 @@
 				0D58EC5E186C5507008893E5 /* Controllers */,
 				0D58EC32186C5265008893E5 /* GSAppDelegate.h */,
 				0D58EC33186C5265008893E5 /* GSAppDelegate.m */,
-				0D00407918A02D69005D7FCC /* GSPasswordManager.h */,
-				0D00407A18A02D69005D7FCC /* GSPasswordManager.m */,
+				0D00407918A02D69005D7FCC /* GSDatabaseManager.h */,
+				0D00407A18A02D69005D7FCC /* GSDatabaseManager.m */,
 				0D58EC41186C5265008893E5 /* Images.xcassets */,
 				0D58EC2A186C5265008893E5 /* Supporting Files */,
 			);
@@ -582,7 +582,7 @@
 				0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */,
 				0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */,
 				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
-				0D00407B18A02D69005D7FCC /* GSPasswordManager.m in Sources */,
+				0D00407B18A02D69005D7FCC /* GSDatabaseManager.m in Sources */,
 				0D186F521884839900063E10 /* GSHerokuAccount.m in Sources */,
 				0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */,
 				0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */,
