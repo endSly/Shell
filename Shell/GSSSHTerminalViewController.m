@@ -9,8 +9,11 @@
 #import "GSSSHTerminalViewController.h"
 
 #import "GSConnection.h"
+#import "GSKeyPair.h"
 
 #import "GSProgressHUD.h"
+
+#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
 
 @interface GSSSHTerminalViewController ()
 
@@ -37,6 +40,34 @@
     }];
 }
 
+- (NSString *)askKeyPairPassword
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block NSString *password = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *passwordAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SSH Key password", @"Alert title")
+                                                                message:NSLocalizedString(@"You need a password to unlock the SSH key", @"")
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                      otherButtonTitles:NSLocalizedString(@"Ok", @"Ok"), nil];
+
+        passwordAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+
+        passwordAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
+            if (index == 1) { // Cancel button
+                password = [alertView textFieldAtIndex:0].text;
+            }
+            dispatch_semaphore_signal(sema);
+        };
+
+        [passwordAlert show];
+    });
+
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+
+    return password;
+}
+
 - (void)connect
 {
     [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
@@ -55,6 +86,30 @@
         session.channel.delegate = self;
 
         session.channel.environmentVariables = @{@"TERM": @"xterm"};
+
+        GSKeyPair *keyPair = self.connection.keyPair;
+        if (keyPair) {
+            BOOL success;
+            do {
+                NSString *password = nil;
+                if (keyPair.hasPassword.boolValue) {
+                    password = [self askKeyPairPassword];
+                    if (!password) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [GSProgressHUD dismiss];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        });
+                        return;
+                    }
+                }
+                success = [session authenticateByPublicKey:keyPair.publicKeyPath
+                                                privateKey:keyPair.privateKeyPath
+                                               andPassword:password];
+            } while (!success);
+
+        }
+        NSLog(@"-- %@", self.connection.keyPair);
+        NSLog(@"++ %@", self.connection.password);
 
         [session authenticateByPassword:self.connection.password];
 
@@ -95,6 +150,11 @@
             [self.navigationController popViewControllerAnimated:YES];
         });
     }];
+}
+
+- (BOOL)isConnected
+{
+    return self.session.connected;
 }
 
 - (void)adjustSizeToTerminalView

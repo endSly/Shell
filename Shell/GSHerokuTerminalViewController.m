@@ -68,6 +68,11 @@
     }];
 }
 
+- (BOOL)isConnected
+{
+    return self.rendezvous.isConnected;
+}
+
 #pragma mark - Terminal view delegate
 
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView

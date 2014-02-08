@@ -13,6 +13,7 @@
         <attribute name="port" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="savePassword" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="keyPair" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GSKeyPair" syncable="YES"/>
     </entity>
     <entity name="GSHerokuAccount" representedClassName="GSHerokuAccount" syncable="YES">
         <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,9 +32,9 @@
         <attribute name="publicKeyPath" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="GSAWSCredentials" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="GSConnection" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="GSHerokuAccount" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="GSKeyPair" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="GSAWSCredentials" positionX="-45" positionY="-90" width="128" height="90"/>
+        <element name="GSConnection" positionX="-18" positionY="45" width="128" height="163"/>
+        <element name="GSHerokuAccount" positionX="-272" positionY="-138" width="128" height="165"/>
+        <element name="GSKeyPair" positionX="-308" positionY="57" width="128" height="105"/>
     </elements>
 </model>

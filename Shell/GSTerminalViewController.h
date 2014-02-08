@@ -13,4 +13,7 @@
 @interface GSTerminalViewController : UIViewController <UISplitViewControllerDelegate, GSTerminalViewDelegate>
 
 @property (nonatomic, weak) IBOutlet GSTerminalView * terminalView;
+
+@property (nonatomic, readonly) BOOL isConnected;
+
 @end

@@ -60,6 +60,9 @@
 
 - (void)keyboardWillShow:(NSNotification *)note
 {
+    if (!self.isConnected)
+        return;
+
     [self hideNavigationBar:YES];
 
     [self.terminalView performSelector:@selector(showAccessoryToolbar) withObject:nil afterDelay:0];
@@ -71,6 +74,9 @@
 
 - (void)keyboardWillHide:(NSNotification *)note
 {
+    if (!self.isConnected)
+        return;
+    
     [self showNavigationBar:YES];
 
     [self.terminalView performSelector:@selector(hideAccesoryToolbar) withObject:nil afterDelay:0];
@@ -99,6 +105,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (BOOL)isConnected
+{
+    return NO;
 }
 
 /*

@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, weak) id <GSRendezvousDelegate> delegate;
 
+@property (nonatomic, readonly) BOOL isConnected;
+
 - (BOOL)start;
 
 - (BOOL)writeData:(NSData *)data;

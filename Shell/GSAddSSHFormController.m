@@ -35,6 +35,7 @@
 
     AKFormFieldExpandablePicker *_keypairField;
 
+    NSArray *_keyPairs;
 }
 
 - (void)viewDidLoad
@@ -129,27 +130,27 @@
 
 - (void)addSSHKeySection
 {
-    NSArray *keyPairs = [GSKeyPair all];
-    if (keyPairs.count == 0)
-        ; //return;
+    _keyPairs = [GSKeyPair all];
+    if (_keyPairs.count == 0)
+        return;
 
-    NSMutableArray *keysCollection = [NSMutableArray arrayWithCapacity:keyPairs.count + 1];
+    NSMutableArray *keysCollection = [NSMutableArray arrayWithCapacity:_keyPairs.count + 1];
 
     [keysCollection addObject:@{KEY_METADATA_ID: @"",
                                 KEY_METADATA_NAME: NSLocalizedString(@"<No key>", @"No SSH key option")}];
-    for (GSKeyPair *keyPair in keyPairs) {
-        [keysCollection addObject:@{KEY_METADATA_ID: keyPair,
+    for (GSKeyPair *keyPair in _keyPairs) {
+        [keysCollection addObject:@{KEY_METADATA_ID: [@([_keyPairs indexOfObject:keyPair]) stringValue],
                                     KEY_METADATA_NAME: keyPair.name}];
     }
 
     _keypairField = [AKFormFieldExpandablePicker fieldWithKey:@"privateKey"
-                                                        title:@"SSH Key"
+                                                        title:NSLocalizedString(@"SSH Key", @"SSH Key form field")
                                                   placeholder:@"optional"
                                            metadataCollection:[AKFormMetadataCollection metadataCollectionWithArray:keysCollection]
                                                 styleProvider:[GSFormStyleProvider styleProvider]];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_keypairField]];
-    section.headerTitle = @"SSH Key Pairs";
+    section.headerTitle = NSLocalizedString(@"SSH Key Pairs", @"SSH Key Pairs section title");
     [self addSection:section];
 }
 
@@ -181,6 +182,13 @@
                                    @"password": savePassword ? _passwordField.value.stringValue : [NSNull null]};
 
             GSConnection *connection = [GSConnection create:data];
+
+            NSString *keyPairIndex = _keypairField.value.metadataValue.serverID;
+            if (keyPairIndex.length) {
+                // Key pair selected
+                connection.keyPair = _keyPairs[keyPairIndex.integerValue];
+            }
+
             [connection save];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:@"kGSConnectionsListUpdated" object:nil];

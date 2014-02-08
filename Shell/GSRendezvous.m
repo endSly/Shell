@@ -56,6 +56,8 @@ static int createSocket(const char *hostname, int port) {
     dispatch_queue_t _readQueue;
 }
 
+@synthesize isConnected = _isConnected;
+
 + (void)initialize
 {
     // These function calls initialize openssl for correct work.
@@ -156,6 +158,8 @@ static int createSocket(const char *hostname, int port) {
         NSLog(@"read-end");
     });
 
+    _isConnected = YES;
+    
     return YES;
 }
 
