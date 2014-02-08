@@ -383,7 +383,15 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)item
 {
     if ([segue.identifier isEqualToString:@"GSSSHConnection"]) {
-        [segue.destinationViewController setConnection:item];
+        GSConnection *connection = item;
+        GSSSHTerminalViewController *sshTerminalController = segue.destinationViewController;
+
+        sshTerminalController.title = connection.name;
+        sshTerminalController.host = connection.host;
+        sshTerminalController.port = connection.port;
+        sshTerminalController.username = connection.username;
+        sshTerminalController.keyPair = connection.keyPair;
+        sshTerminalController.password = connection.savePassword.boolValue ? connection.password : nil;
 
     } else if ([segue.identifier isEqualToString:@"GSHerokuConnection"]) {
         NSDictionary *params = item;

@@ -30,7 +30,6 @@
     [super viewDidLoad];
 
     _queue = [[NSOperationQueue mainQueue] init];
-    self.title = self.connection.name;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -101,9 +100,9 @@
     [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
 
     [_queue addOperationWithBlock:^{
-        NMSSHSession *session = [NMSSHSession connectToHost:self.connection.host
-                                                       port:[self.connection.port integerValue]
-                                               withUsername:self.connection.username];
+        NMSSHSession *session = [NMSSHSession connectToHost:self.host
+                                                       port:[self.port integerValue]
+                                               withUsername:self.username];
 
         if (!session.rawSession) {
             [self closeWithError:@"Unable to connect to host."];
@@ -117,12 +116,10 @@
 
         BOOL authenticated = NO;
 
-        GSKeyPair *keyPair = self.connection.keyPair;
-
         // Try to authenticate with Key Pair
-        if (keyPair) {
+        if (self.keyPair) {
             BOOL success = NO;
-            BOOL hasPassword = keyPair.hasPassword.boolValue;
+            BOOL hasPassword = self.keyPair.hasPassword.boolValue;
             do {
                 NSString *password = nil;
                 if (hasPassword) {
@@ -131,8 +128,8 @@
                         break; // Cancel pressed
 
                 }
-                success = [session authenticateByPublicKey:keyPair.publicKeyPath
-                                                privateKey:keyPair.privateKeyPath
+                success = [session authenticateByPublicKey:self.keyPair.publicKeyPath
+                                                privateKey:self.keyPair.privateKeyPath
                                                andPassword:password];
             } while (!success && hasPassword);
 
@@ -140,8 +137,8 @@
         }
 
         // Try to authenticate with stored password
-        if (!authenticated && self.connection.savePassword.boolValue) {
-            authenticated = [session authenticateByPassword:self.connection.password];
+        if (!authenticated && self.password) {
+            authenticated = [session authenticateByPassword:self.password];
         }
 
         // Try to authenticate with interactive

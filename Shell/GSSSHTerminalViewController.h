@@ -10,10 +10,18 @@
 
 #import <NMSSH/NMSSH.h>
 
-@class GSConnection;
+@class GSKeyPair;
 
 @interface GSSSHTerminalViewController : GSTerminalViewController <NMSSHSessionDelegate, NMSSHChannelDelegate>
 
-@property (nonatomic, strong) GSConnection * connection;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *host;
+@property (nonatomic, strong) NSNumber *port;
+
+@property (nonatomic, strong) NSString *password;
+
+@property (nonatomic, strong) GSKeyPair * keyPair;
+
+@property (nonatomic) BOOL shouldUSeKeyPair;
 
 @end
