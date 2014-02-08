@@ -51,18 +51,18 @@
 
 - (void)addNameSection
 {
-    AKFormValidator *requiredValidator = [AKFormValidator requiredValidator:@"Please enter a value"];
+    AKFormValidator *requiredValidator = [AKFormValidator requiredValidator:NSLocalizedString(@"Please enter a value", @"Error message")];
 
     _nameField = [AKFormFieldTextField fieldWithKey:@"name"
-                                              title:@"Name"
-                                        placeholder:@"My server"
+                                              title:NSLocalizedString(@"Name", @"Form field")
+                                        placeholder:NSLocalizedString(@"My server", @"Name field placeholder")
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
 
     _nameField.validators = @[requiredValidator];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_nameField]];
-    section.headerTitle = @"Name";
+    section.headerTitle = NSLocalizedString(@"Name", @"Form section header");
 
     [self addSection:section];
 }
@@ -70,7 +70,7 @@
 - (void)addServerSection
 {
     _hostField = [AKFormFieldTextField fieldWithKey:@"host"
-                                              title:@"Host"
+                                              title:NSLocalizedString(@"Host", @"Form field")
                                         placeholder:@"myserver.com"
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
@@ -79,7 +79,7 @@
     _hostField.validators = @[requiredValidator];
 
     _portField = [AKFormFieldTextField fieldWithKey:@"port"
-                                              title:@"Port"
+                                              title:NSLocalizedString(@"Port", @"Form field")
                                         placeholder:@"22"
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
@@ -88,7 +88,7 @@
     _portField.validators = @[requiredValidator];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_hostField, _portField]];
-    section.headerTitle = @"Server";
+    section.headerTitle = NSLocalizedString(@"Server", @"Form section title");
 
     [self addSection:section];
 }
@@ -96,14 +96,14 @@
 - (void)addUserAndPasswordSection
 {
     _savePasswordField = [AKFormFieldSwitch fieldWithKey:@"savePassword"
-                                                   title:@"Save password"
+                                                   title:NSLocalizedString(@"Save password", @"Form button")
                                                 delegate:self
                                            styleProvider:[GSFormStyleProvider styleProvider]];
 
     _savePasswordField.value = [AKFormValue value:@YES withType:AKFormValueBool];
 
     _passwordField = [AKFormFieldTextField fieldWithKey:@"password"
-                                                  title:@"Password"
+                                                  title:NSLocalizedString(@"Password", @"Form field")
                                             placeholder:@"password"
                                                delegate:self
                                           styleProvider:[GSFormStyleProvider styleProvider]];
@@ -111,7 +111,7 @@
 
 
     _usernameField = [AKFormFieldTextField fieldWithKey:@"username"
-                                                  title:@"Username"
+                                                  title:NSLocalizedString(@"Username", @"Form field")
                                             placeholder:@"root"
                                                delegate:self
                                           styleProvider:[GSFormStyleProvider styleProvider]];
