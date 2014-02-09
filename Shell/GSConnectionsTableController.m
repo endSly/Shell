@@ -59,6 +59,8 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 {
     [super viewDidLoad];
 
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_gear_outline
                                                                      target:self
                                                                      action:@selector(settingsAction:)];
@@ -387,7 +389,16 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     if ([segue.identifier isEqualToString:@"GSSSHConnection"]) {
         GSSSHTerminalViewController *sshTerminalController = segue.destinationViewController;
 
-        if ([item isKindOfClass:[GSConnection class]]) {
+        if ([item isKindOfClass:[EC2Instance class]]) {
+            EC2Instance *instance = item;
+            EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
+
+            sshTerminalController.title = nameTag.value;
+            sshTerminalController.host = instance.publicDnsName;
+            sshTerminalController.keyPair = [[GSKeyPair all] find:^BOOL(GSKeyPair *keyPair) {
+                return [keyPair.name isEqualToString:instance.keyName];
+            }];
+        } else /*if ([item isKindOfClass:[GSConnection class]])*/ {
             GSConnection *connection = item;
 
             sshTerminalController.title = connection.name;
@@ -397,15 +408,6 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
             sshTerminalController.keyPair = connection.keyPair;
             sshTerminalController.password = connection.savePassword.boolValue ? connection.password : nil;
 
-        } else if ([item isKindOfClass:[EC2Instance class]]) {
-            EC2Instance *instance = item;
-            EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
-
-            sshTerminalController.title = nameTag.value;
-            sshTerminalController.host = instance.publicDnsName;
-            sshTerminalController.keyPair = [[GSKeyPair all] find:^BOOL(GSKeyPair *keyPair) {
-                return [keyPair.name isEqualToString:instance.keyName];
-            }];
         }
 
     } else if ([segue.identifier isEqualToString:@"GSHerokuConnection"]) {

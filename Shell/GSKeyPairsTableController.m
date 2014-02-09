@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
 
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
     self.title = NSLocalizedString(@"SSH keys", @"SSH keys table title");
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_plus_outline
                                                                             target:self

@@ -28,6 +28,8 @@
 {
     [super viewDidLoad];
 
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
     self.title = @"Heroku";
 
     self.webView.delegate = self;

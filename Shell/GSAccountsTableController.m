@@ -25,6 +25,8 @@
 {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"Accounts", @"Navigation title");
+
     _herokuAccounts = [[GSHerokuAccount all] mutableCopy];
     _awsAccounts = [[GSAWSCredentials all] mutableCopy];
 }

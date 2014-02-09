@@ -28,11 +28,22 @@
 {
     [super viewDidLoad];
 
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.title = NSLocalizedString(@"New SSH Key", @"New SSH Key form title");
 
     [self addNameSection];
     [self addSecuritySection];
     [self addSaveSection];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"Button")
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(importKeyPairAction:)];
+}
+
+- (void)importKeyPairAction:(id)sender
+{
+
 }
 
 - (void)didReceiveMemoryWarning
