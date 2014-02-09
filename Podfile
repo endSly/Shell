@@ -17,6 +17,7 @@ pod 'SWTableViewCell', '~> 0.2.2'
 pod 'DCModalSegue'
 
 pod 'UIAlertView+Blocks'
+pod 'UIActionSheet+Blocks'
 
 pod 'UAAppReviewManager', '~> 0.2.1'
 

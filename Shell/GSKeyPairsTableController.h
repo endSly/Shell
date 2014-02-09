@@ -7,9 +7,10 @@
 //
 
 @import UIKit;
+@import MessageUI;
 
 #import <SWTableViewCell/SWTableViewCell.h>
 
-@interface GSKeyPairsTableController : UITableViewController <SWTableViewCellDelegate>
+@interface GSKeyPairsTableController : UITableViewController <MFMailComposeViewControllerDelegate, SWTableViewCellDelegate>
 
 @end

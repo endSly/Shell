@@ -9,10 +9,13 @@
 #import "GSKeyPairsTableController.h"
 
 #import <UIAlertView+Blocks/UIAlertView+Blocks.h>
+#import <UIActionSheet+Blocks/UIActionSheet+Blocks.h>
 #import <ObjectiveRecord/ObjectiveRecord.h>
 #import "GSKeyPair.h"
 
 #import "GSKeyPairCell.h"
+
+#import "GSProgressHUD.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 #import "UIButton+IonIcons.h"
@@ -76,6 +79,74 @@
     cell.rightUtilityButtons = @[removeButton];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GSKeyPair *keyPair = self.keyPairs[indexPath.row];
+
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:keyPair.name
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:NSLocalizedString(@"Copy public key", @"Sheet action"), NSLocalizedString(@"Copy private key", @"Sheet action"), NSLocalizedString(@"Send by mail", @"Sheet action"), nil];
+
+    sheet.tapBlock = ^(UIActionSheet *actionSheet, NSInteger index) {
+        switch (index) {
+            case 0: {
+                // Copy public key
+                NSError *error;
+                NSString *keyfile = [NSString stringWithContentsOfFile:keyPair.publicKeyPath
+                                                              encoding:NSUTF8StringEncoding
+                                                                 error:&error];
+
+                [[UIPasteboard generalPasteboard] setString:keyfile];
+
+                [GSProgressHUD showSuccess:NSLocalizedString(@"Copied", @"Copied")];
+                break;
+            }
+            case 1: {
+                // Copy private key
+                NSError *error;
+                NSString *keyfile = [NSString stringWithContentsOfFile:keyPair.privateKeyPath
+                                                              encoding:NSUTF8StringEncoding
+                                                                 error:&error];
+
+                [[UIPasteboard generalPasteboard] setString:keyfile];
+
+                [GSProgressHUD showSuccess:NSLocalizedString(@"Copied", @"Copied")];
+
+                break;
+            }
+            case 2: {
+                // Send by email
+                MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
+
+                [controller setSubject:keyPair.name];
+                controller.mailComposeDelegate = self;
+
+                [controller addAttachmentData:[NSData dataWithContentsOfFile:keyPair.privateKeyPath]
+                                     mimeType:@"application/x-pem-file"
+                                     fileName:[NSString stringWithFormat:@"%@.pem", keyPair.name]];
+
+                [self presentViewController:controller animated:YES completion:nil];
+
+                break;
+            }
+            case 3:
+                // Cancel button
+                break;
+        }
+    };
+
+    [sheet showInView:self.view];
+}
+
+#pragma mark - Mail compose delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Cell delegate

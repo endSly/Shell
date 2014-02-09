@@ -11,7 +11,6 @@ PODS:
   - FrameAccessor (1.3.2)
   - GKImagePicker@arkuana (0.0.3)
   - HexColors (2.2.1)
-  - JustType (1.0.0)
   - libssh2 (1.4.3):
     - OpenSSL
   - NJKScrollFullScreen (0.2)
@@ -32,6 +31,7 @@ PODS:
   - TenzingCore/RESTService (0.2.1):
     - TenzingCore/Core
   - UAAppReviewManager (0.2.1)
+  - UIActionSheet+Blocks (0.8)
   - UIAlertView+Blocks (0.8)
   - UIDevice-Hardware@arkuana (0.0.1)
   - UIImage-Resize (1.0.1)
@@ -46,7 +46,6 @@ DEPENDENCIES:
   - AKForm (~> 0.0.6)
   - DCModalSegue
   - FrameAccessor
-  - JustType
   - libssh2 (~> 1.4.3)
   - NJKScrollFullScreen
   - NMSSH (from `https://github.com/endSly/NMSSH.git`)
@@ -57,6 +56,7 @@ DEPENDENCIES:
   - TenzingCore (~> 0.2.1)
   - TenzingCore/RESTService (~> 0.2.1)
   - UAAppReviewManager (~> 0.2.1)
+  - UIActionSheet+Blocks
   - UIAlertView+Blocks
 
 EXTERNAL SOURCES:
@@ -70,7 +70,6 @@ SPEC CHECKSUMS:
   FrameAccessor: 1c383c4dc298925749fb2a6b9c05cd45be0d8857
   GKImagePicker@arkuana: a5a0dca241c616cf4aba31ffa81be8dcb0638eef
   HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
-  JustType: da1a6fa847b78d6128649e96dc9a9cd6ce8a6c97
   libssh2: 5b5dd5358289b45816bae212e7f2e9689d777603
   NJKScrollFullScreen: e6afddd7f9c33d43126e3b547b39cd99fa2ee0a3
   NMSSH: db9f1cd823abf18341f9638d4ead0dc5fd7f0f86
@@ -82,6 +81,7 @@ SPEC CHECKSUMS:
   SWTableViewCell: b20432962d410c45c25b69e7c519a1296ecce70b
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999
   UAAppReviewManager: 5951542f163e9964ce0e5bd6543f512dfc0efd51
+  UIActionSheet+Blocks: d3c7515281a4c5c5b9fbf127d8a9220982d4392c
   UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
   UIDevice-Hardware@arkuana: a5ad224939dba974634574e68ad6a7533499ba4f
   UIImage-Resize: 575381c9746383a5f557bc584a538a2d2ff53c76
