@@ -10,6 +10,8 @@ pod 'TenzingCore/RESTService', '~> 0.2.1'
 
 pod 'AKForm', '~> 0.0.6'
 
+pod "RMPickerViewController", "~> 1.0.0"
+
 pod 'FrameAccessor'
 
 pod 'SWTableViewCell', '~> 0.2.2'

@@ -395,9 +395,11 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
             sshTerminalController.title = nameTag.value;
             sshTerminalController.host = instance.publicDnsName;
+            sshTerminalController.shouldUSeKeyPair = YES;
             sshTerminalController.keyPair = [[GSKeyPair all] find:^BOOL(GSKeyPair *keyPair) {
                 return [keyPair.name isEqualToString:instance.keyName];
             }];
+
         } else /*if ([item isKindOfClass:[GSConnection class]])*/ {
             GSConnection *connection = item;
 

@@ -21,6 +21,7 @@ PODS:
     - ObjectiveSugar
   - ObjectiveSugar (1.1.0)
   - OpenSSL (1.0.1)
+  - RMPickerViewController (1.0.0)
   - SQLCipher (3.0.1):
     - SQLCipher/standard
   - SQLCipher/standard (3.0.1)
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - NMSSH (from `https://github.com/endSly/NMSSH.git`)
   - ObjectiveRecord (~> 1.4.0)
   - OpenSSL (~> 1.0.1)
+  - RMPickerViewController (~> 1.0.0)
   - SQLCipher (~> 3.0.1)
   - SWTableViewCell (~> 0.2.2)
   - TenzingCore (~> 0.2.1)
@@ -77,6 +79,7 @@ SPEC CHECKSUMS:
   ObjectiveRecord: 109a6c583284c2c9af1dc0d6ccc1dfc84e826c45
   ObjectiveSugar: e90d09b348ec0d1739d6d93bdcee385cf0a96036
   OpenSSL: 9b85178853701b1e9bbf70df695a4c149799e772
+  RMPickerViewController: 730a83547b0624f7e182eb50ecfdcf9efcec8ea5
   SQLCipher: 006f125d9b85e32ee6242b41adb68f0f5cbc4aa9
   SWTableViewCell: b20432962d410c45c25b69e7c519a1296ecce70b
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999

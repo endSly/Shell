@@ -10,9 +10,11 @@
 
 #import <NMSSH/NMSSH.h>
 
+#import <RMPickerViewController/RMPickerViewController.h>
+
 @class GSKeyPair;
 
-@interface GSSSHTerminalViewController : GSTerminalViewController <NMSSHSessionDelegate, NMSSHChannelDelegate>
+@interface GSSSHTerminalViewController : GSTerminalViewController <NMSSHSessionDelegate, NMSSHChannelDelegate, RMPickerViewControllerDelegate>
 
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *host;

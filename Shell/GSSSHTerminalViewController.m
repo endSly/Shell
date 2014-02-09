@@ -8,12 +8,14 @@
 
 #import "GSSSHTerminalViewController.h"
 
+#import <FrameAccessor/FrameAccessor.h>
+#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
+#import <ObjectiveRecord/ObjectiveRecord.h>
+
 #import "GSConnection.h"
 #import "GSKeyPair.h"
 
 #import "GSProgressHUD.h"
-
-#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
 
 @interface GSSSHTerminalViewController ()
 
@@ -23,6 +25,8 @@
 
 @implementation GSSSHTerminalViewController {
     NSOperationQueue *_queue;
+
+    NSArray *_keyPairs;
 }
 
 - (void)viewDidLoad
@@ -30,6 +34,8 @@
     [super viewDidLoad];
 
     _queue = [[NSOperationQueue mainQueue] init];
+
+    _keyPairs = [GSKeyPair all];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -95,6 +101,34 @@
     return password;
 }
 
+- (GSKeyPair *)askForKeyPair
+{
+    __block GSKeyPair *keyPair;
+
+    RMPickerViewController *keyPairPicker = [RMPickerViewController pickerController];
+
+    keyPairPicker.delegate = self;
+
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [GSProgressHUD dismiss];
+        [keyPairPicker showWithSelectionHandler:^(RMPickerViewController *vc, NSArray *selectedRows) {
+            NSNumber *index = selectedRows.firstObject;
+
+            keyPair = _keyPairs[index.integerValue];
+
+            [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
+
+            dispatch_semaphore_signal(sema);
+        }];
+    });
+
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+
+    return keyPair;
+}
+
 - (void)connect
 {
     [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
@@ -118,7 +152,6 @@
 
         // Try to authenticate with Key Pair
         if (self.keyPair) {
-            BOOL success = NO;
             BOOL hasPassword = self.keyPair.hasPassword.boolValue;
             do {
                 NSString *password = nil;
@@ -128,12 +161,28 @@
                         break; // Cancel pressed
 
                 }
-                success = [session authenticateByPublicKey:self.keyPair.publicKeyPath
-                                                privateKey:self.keyPair.privateKeyPath
-                                               andPassword:password];
-            } while (!success && hasPassword);
+                authenticated = [session authenticateByPublicKey:self.keyPair.publicKeyPath
+                                                      privateKey:self.keyPair.privateKeyPath
+                                                     andPassword:password];
+            } while (!authenticated && hasPassword);
+        }
 
-            authenticated = success;
+        if (!authenticated && self.shouldUSeKeyPair) {
+            do {
+                GSKeyPair *keyPair = [self askForKeyPair];
+
+                BOOL hasPassword = self.keyPair.hasPassword.boolValue;
+                NSString *password = nil;
+                if (hasPassword) {
+                    password = [self askKeyPairPassword];
+                }
+
+                authenticated = [session authenticateByPublicKey:keyPair.publicKeyPath
+                                                      privateKey:keyPair.privateKeyPath
+                                                     andPassword:password];
+
+            } while (!authenticated);
+
         }
 
         // Try to authenticate with stored password
@@ -253,6 +302,31 @@
 - (void)channel:(NMSSHChannel *)channel didReadError:(NSString *)error
 {
 
+}
+
+#pragma mark - Picker view data source
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return _keyPairs.count;
+}
+
+#pragma mark - Picker view delegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    GSKeyPair *keyPair = _keyPairs[row];
+    return keyPair.name;
+}
+
+- (void)pickerViewController:(RMPickerViewController *)vc didSelectRows:(NSArray *)selectedRows
+{
+    
 }
 
 @end
