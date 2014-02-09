@@ -307,7 +307,8 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
                                                                         @"service": account.service}];
 
     } else if ([sectionType isEqualToString:@"aws"]) {
-
+        EC2Instance *instance = items[indexPath.row];
+        [self performSegueWithIdentifier:@"GSSSHConnection" sender:instance];
     }
 
 }
@@ -383,15 +384,26 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)item
 {
     if ([segue.identifier isEqualToString:@"GSSSHConnection"]) {
-        GSConnection *connection = item;
         GSSSHTerminalViewController *sshTerminalController = segue.destinationViewController;
 
-        sshTerminalController.title = connection.name;
-        sshTerminalController.host = connection.host;
-        sshTerminalController.port = connection.port;
-        sshTerminalController.username = connection.username;
-        sshTerminalController.keyPair = connection.keyPair;
-        sshTerminalController.password = connection.savePassword.boolValue ? connection.password : nil;
+        if ([item isKindOfClass:[GSConnection class]]) {
+            GSConnection *connection = item;
+
+            sshTerminalController.title = connection.name;
+            sshTerminalController.host = connection.host;
+            sshTerminalController.port = connection.port;
+            sshTerminalController.username = connection.username;
+            sshTerminalController.keyPair = connection.keyPair;
+            sshTerminalController.password = connection.savePassword.boolValue ? connection.password : nil;
+
+        } else if ([item isKindOfClass:[EC2Instance class]]) {
+            EC2Instance *instance = item;
+            EC2Tag *nameTag = [instance.tags find:^BOOL(EC2Tag *tag) { return [tag.key isEqualToString:@"Name"]; }];
+
+            sshTerminalController.title = nameTag.value;
+            sshTerminalController.host = instance.publicDnsName;
+
+        }
 
     } else if ([segue.identifier isEqualToString:@"GSHerokuConnection"]) {
         NSDictionary *params = item;

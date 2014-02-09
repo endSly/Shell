@@ -101,7 +101,7 @@
 
     [_queue addOperationWithBlock:^{
         NMSSHSession *session = [NMSSHSession connectToHost:self.host
-                                                       port:[self.port integerValue]
+                                                       port:[(self.port ?: @22) integerValue]
                                                withUsername:self.username];
 
         if (!session.rawSession) {
