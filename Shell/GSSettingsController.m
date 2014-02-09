@@ -160,7 +160,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 - (void)addKeyPairsSection
 {
     AKFormFieldButton *showAccountsButton = [AKFormFieldButton fieldWithKey:@"editKeyPairs"
-                                                                      title:@"Edit Key Pairs"
+                                                                      title:@"Edit SSH Keys"
                                                                    subtitle:[NSString stringWithFormat:@"%lu keys", [[GSKeyPair all] count]]
                                                                       image:nil
                                                                    delegate:self
