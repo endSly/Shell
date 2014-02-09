@@ -29,6 +29,7 @@
 
 #import "GSHerokuAccount.h"
 #import "GSAWSCredentials.h"
+#import "GSKeyPair.h"
 
 #import "UIBarButtonItem+IonIcons.h"
 
@@ -402,7 +403,9 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
 
             sshTerminalController.title = nameTag.value;
             sshTerminalController.host = instance.publicDnsName;
-
+            sshTerminalController.keyPair = [[GSKeyPair all] find:^BOOL(GSKeyPair *keyPair) {
+                return [keyPair.name isEqualToString:instance.keyName];
+            }];
         }
 
     } else if ([segue.identifier isEqualToString:@"GSHerokuConnection"]) {
