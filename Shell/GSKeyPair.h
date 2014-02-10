@@ -21,4 +21,6 @@
  */
 + (instancetype)createKeyPair:(NSString *)name size:(NSInteger)size password:(NSString *)password;
 
++ (instancetype)createKeyPrivateKey:(NSString *)privateKey;
+
 @end

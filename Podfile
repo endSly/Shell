@@ -26,3 +26,5 @@ pod 'UAAppReviewManager', '~> 0.2.1'
 pod 'SQLCipher', '~> 3.0.1'
 
 pod 'NJKScrollFullScreen'
+
+pod 'MZFormSheetController', '~> 2.3.1'

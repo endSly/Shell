@@ -10,6 +10,8 @@
 
 #import "GSFormStyleProvider.h"
 
+#import <MZFormSheetController/MZFormSheetController.h>
+
 #import <ObjectiveRecord/ObjectiveRecord.h>
 #import "GSKeyPair.h"
 
@@ -32,18 +34,9 @@
     self.title = NSLocalizedString(@"New SSH Key", @"New SSH Key form title");
 
     [self addNameSection];
+    [self addImportSection];
     [self addSecuritySection];
     [self addSaveSection];
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"Button")
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(importKeyPairAction:)];
-}
-
-- (void)importKeyPairAction:(id)sender
-{
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +59,21 @@
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_nameField]];
     section.headerTitle = @"Name";
+
+    [self addSection:section];
+}
+
+- (void)addImportSection
+{
+    AKFormFieldButton *importButton = [AKFormFieldButton fieldWithKey:@"import"
+                                                                title:NSLocalizedString(@"Import", @"Import")
+                                                             subtitle:NSLocalizedString(@"Copy parte key", @"")
+                                                                image:nil
+                                                             delegate:self
+                                                        styleProvider:[GSFormStyleProvider styleProvider]];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[importButton]];
+    section.headerTitle = NSLocalizedString(@"Import", @"Import");
 
     [self addSection:section];
 }
@@ -129,22 +137,35 @@
 
 - (void)didPressButtonCell:(AKFormCellButton *)cell
 {
-    if (self.validateForm) {
-        AKFormMetadata *sizeValue = _sizeSelectField.value.metadataValue;
+    AKFormFieldButton *button = cell.valueDelegate;
+    if ([button.key isEqualToString:@"import"]) {
 
-        NSString *password = _savePasswordField.value.boolValue
-        ? _passwordField.value.stringValue
-        : nil;
+        UIViewController *importController = [self.storyboard instantiateViewControllerWithIdentifier:@"GSImportKeyPairController"];
 
-        GSKeyPair *keyPair = [GSKeyPair createKeyPair:_nameField.value.stringValue
-                                                 size:sizeValue.serverID.integerValue
-                                             password:password];
+        [self mz_presentFormSheetWithViewController:importController animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+            
+        }];
 
-        [keyPair save];
 
-        [self.navigationController popViewControllerAnimated:YES];
+    } else if ([button.key isEqualToString:@"save"]) {
+        if (self.validateForm) {
+            AKFormMetadata *sizeValue = _sizeSelectField.value.metadataValue;
 
+            NSString *password = _savePasswordField.value.boolValue
+            ? _passwordField.value.stringValue
+            : nil;
+
+            GSKeyPair *keyPair = [GSKeyPair createKeyPair:_nameField.value.stringValue
+                                                     size:sizeValue.serverID.integerValue
+                                                 password:password];
+
+            [keyPair save];
+
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
     }
+
 }
 
 @end

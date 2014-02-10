@@ -13,6 +13,9 @@ PODS:
   - HexColors (2.2.1)
   - libssh2 (1.4.3):
     - OpenSSL
+  - MZAppearance (1.1.1)
+  - MZFormSheetController (2.3.1):
+    - MZAppearance (~> 1.1.1)
   - NJKScrollFullScreen (0.2)
   - NMSSH (1.1.0):
     - libssh2
@@ -48,6 +51,7 @@ DEPENDENCIES:
   - DCModalSegue
   - FrameAccessor
   - libssh2 (~> 1.4.3)
+  - MZFormSheetController (~> 2.3.1)
   - NJKScrollFullScreen
   - NMSSH (from `https://github.com/endSly/NMSSH.git`)
   - ObjectiveRecord (~> 1.4.0)
@@ -73,6 +77,8 @@ SPEC CHECKSUMS:
   GKImagePicker@arkuana: a5a0dca241c616cf4aba31ffa81be8dcb0638eef
   HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
   libssh2: 5b5dd5358289b45816bae212e7f2e9689d777603
+  MZAppearance: 8b02683f0019f725557ae9839ed6cab153fff669
+  MZFormSheetController: 3e0cfaead6d3354e1bde9cb028a333352169b25d
   NJKScrollFullScreen: e6afddd7f9c33d43126e3b547b39cd99fa2ee0a3
   NMSSH: db9f1cd823abf18341f9638d4ead0dc5fd7f0f86
   NSDate+Helper: 3015cb57778256bce7c549fca172474308740059

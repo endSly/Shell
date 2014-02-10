@@ -60,6 +60,7 @@
 		0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E318831EA40083EE00 /* GSSSHTerminalViewController.m */; };
 		0DE583E71883202D0083EE00 /* GSHerokuTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */; };
 		0DE583EC18833B950083EE00 /* GSHerokuLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */; };
+		0DE7517618A97713009C99AD /* GSImportKeyPairController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE7517518A97713009C99AD /* GSImportKeyPairController.m */; };
 		A669840BA28A4E978853907C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 452999260EAF4259AFCB14D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +164,8 @@
 		0DE583E61883202D0083EE00 /* GSHerokuTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuTerminalViewController.m; sourceTree = "<group>"; };
 		0DE583EA18833B950083EE00 /* GSHerokuLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSHerokuLoginController.h; sourceTree = "<group>"; };
 		0DE583EB18833B950083EE00 /* GSHerokuLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSHerokuLoginController.m; sourceTree = "<group>"; };
+		0DE7517418A97713009C99AD /* GSImportKeyPairController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSImportKeyPairController.h; sourceTree = "<group>"; };
+		0DE7517518A97713009C99AD /* GSImportKeyPairController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSImportKeyPairController.m; sourceTree = "<group>"; };
 		452999260EAF4259AFCB14D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C7AC5A9FDC47F7B00CB3C7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -379,6 +382,8 @@
 				0DC7EA72189D881000D36E3A /* GSAddKeyPairController.m */,
 				0D380A13189EA29C009D33C9 /* GSAccountsTableController.h */,
 				0D380A14189EA29C009D33C9 /* GSAccountsTableController.m */,
+				0DE7517418A97713009C99AD /* GSImportKeyPairController.h */,
+				0DE7517518A97713009C99AD /* GSImportKeyPairController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				0D58EC3D186C5265008893E5 /* GSConnectionsTableController.m in Sources */,
 				0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */,
 				0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */,
+				0DE7517618A97713009C99AD /* GSImportKeyPairController.m in Sources */,
 				0D0E6E5418816CAD00F693B4 /* GSDyno.m in Sources */,
 				0D559131187F403C004ECB99 /* DataModel.xcdatamodeld in Sources */,
 				0D00407B18A02D69005D7FCC /* GSDatabaseManager.m in Sources */,

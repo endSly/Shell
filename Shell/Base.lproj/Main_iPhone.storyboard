@@ -427,6 +427,63 @@
             </objects>
             <point key="canvasLocation" x="2096" y="1586"/>
         </scene>
+        <!--Import Key Pair Controller-->
+        <scene sceneID="IM4-nd-h8W">
+            <objects>
+                <viewController storyboardIdentifier="GSImportKeyPairController" id="sVU-KN-QhO" customClass="GSImportKeyPairController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RmL-X8-FTl"/>
+                        <viewControllerLayoutGuide type="bottom" id="hWR-76-ec1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Yg-MU-fOc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="yah-vH-FzG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zK-AB-pUQ">
+                                <rect key="frame" x="192" y="532" width="108" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Import">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Loe-4x-z87">
+                                <rect key="frame" x="20" y="532" width="108" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="yah-vH-FzG" secondAttribute="bottom" constant="44" id="0ce-iB-fww"/>
+                            <constraint firstAttribute="bottom" secondItem="9zK-AB-pUQ" secondAttribute="bottom" constant="6" id="1pW-8F-1DN"/>
+                            <constraint firstItem="yah-vH-FzG" firstAttribute="top" secondItem="2Yg-MU-fOc" secondAttribute="top" id="53a-q0-c8t"/>
+                            <constraint firstItem="Loe-4x-z87" firstAttribute="leading" secondItem="2Yg-MU-fOc" secondAttribute="leading" constant="20" id="LiA-ej-opU"/>
+                            <constraint firstAttribute="trailing" secondItem="9zK-AB-pUQ" secondAttribute="trailing" constant="20" id="QIc-rF-Zcy"/>
+                            <constraint firstItem="yah-vH-FzG" firstAttribute="leading" secondItem="2Yg-MU-fOc" secondAttribute="leading" id="dsF-so-yrY"/>
+                            <constraint firstAttribute="bottom" secondItem="Loe-4x-z87" secondAttribute="bottom" constant="6" id="leS-Dz-Hrv"/>
+                            <constraint firstAttribute="trailing" secondItem="yah-vH-FzG" secondAttribute="trailing" id="wHc-Z0-715"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="textView" destination="yah-vH-FzG" id="rih-Ui-Rfl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wet-q4-IO4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3124" y="738"/>
+        </scene>
         <!--Key Pairs Table Controller-->
         <scene sceneID="jqw-rD-g15">
             <objects>
@@ -506,6 +563,9 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="CNU-kz-C3y"/>
+                    <connections>
+                        <segue destination="sVU-KN-QhO" kind="modal" identifier="GSKeyPairImportSegue" id="DGX-bk-n4d"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZAn-xi-OHg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

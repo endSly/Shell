@@ -13,6 +13,10 @@
 #import <OpenSSL/rsa.h>
 #import <OpenSSL/pem.h>
 
+int pemPasswordCallback(char *buf, int size, int rwflag, void *userdata) {
+    return 0;
+}
+
 @implementation GSKeyPair
 
 @dynamic name;
@@ -71,6 +75,45 @@
                           @"publicKeyPath": publicKeyPath,
                           @"privateKeyPath": privateKeyPath,
                           @"hasPassword": @(password != nil)}];
+}
+
++ (instancetype)createKeyPrivateKey:(NSString *)privateKey
+{
+    NSString *keysPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    keysPath = [keysPath stringByAppendingString:@"/key_pairs"];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:keysPath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:keysPath withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+
+    NSString *keyIdentifier = [[NSProcessInfo processInfo] globallyUniqueString];
+    NSString *publicKeyPath = [NSString stringWithFormat:@"%@/%@.pub", keysPath, keyIdentifier];
+    NSString *privateKeyPath = [NSString stringWithFormat:@"%@/%@.pem", keysPath, keyIdentifier];
+
+    NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat: @"%@.pem", [NSProcessInfo processInfo].globallyUniqueString]];
+
+    NSError *error;
+    [privateKey writeToFile:tempFile
+                 atomically:YES
+                   encoding:NSUTF8StringEncoding
+                      error:&error];
+
+    FILE *privateKeyFile = fopen([tempFile cStringUsingEncoding:NSUTF8StringEncoding], "r");
+
+    RSA *temp = NULL;
+    RSA *rsa = PEM_read_RSAPrivateKey(privateKeyFile, &temp, pemPasswordCallback, "User data");
+
+    int ret;
+    FILE *publicFile = fopen([publicKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "w+");
+    ret = PEM_write_RSAPublicKey(publicFile, rsa);
+    fclose(publicFile);
+
+    FILE *privateFile = fopen([privateKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "w+");
+    ret = PEM_write_RSAPrivateKey(privateFile, rsa, NULL, NULL, 0, NULL, NULL);
+
+    return [self create:@{@"publicKeyPath": publicKeyPath,
+                          @"privateKeyPath": privateKeyPath,
+                          @"hasPassword": @YES}];
 }
 
 @end
