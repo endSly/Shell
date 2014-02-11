@@ -446,32 +446,38 @@
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9zK-AB-pUQ">
-                                <rect key="frame" x="192" y="532" width="108" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Import">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Loe-4x-z87">
-                                <rect key="frame" x="20" y="532" width="108" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WX5-P0-k87">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="yP1-wW-dgb"/>
+                                    <barButtonItem title="Cancel" id="jK6-YH-sGh">
+                                        <connections>
+                                            <action selector="cancelAction:" destination="sVU-KN-QhO" id="L9Q-SE-n4I"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="lVA-Ow-MtH"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="yia-0C-cVr"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ezp-e5-d5X"/>
+                                    <barButtonItem title="Import" style="done" id="lgu-xJ-7G4">
+                                        <connections>
+                                            <action selector="importAction:" destination="sVU-KN-QhO" id="uXC-mu-oLq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vQb-iP-RoI"/>
+                                </items>
+                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="yah-vH-FzG" secondAttribute="bottom" constant="44" id="0ce-iB-fww"/>
-                            <constraint firstAttribute="bottom" secondItem="9zK-AB-pUQ" secondAttribute="bottom" constant="6" id="1pW-8F-1DN"/>
-                            <constraint firstItem="yah-vH-FzG" firstAttribute="top" secondItem="2Yg-MU-fOc" secondAttribute="top" id="53a-q0-c8t"/>
-                            <constraint firstItem="Loe-4x-z87" firstAttribute="leading" secondItem="2Yg-MU-fOc" secondAttribute="leading" constant="20" id="LiA-ej-opU"/>
-                            <constraint firstAttribute="trailing" secondItem="9zK-AB-pUQ" secondAttribute="trailing" constant="20" id="QIc-rF-Zcy"/>
-                            <constraint firstItem="yah-vH-FzG" firstAttribute="leading" secondItem="2Yg-MU-fOc" secondAttribute="leading" id="dsF-so-yrY"/>
-                            <constraint firstAttribute="bottom" secondItem="Loe-4x-z87" secondAttribute="bottom" constant="6" id="leS-Dz-Hrv"/>
-                            <constraint firstAttribute="trailing" secondItem="yah-vH-FzG" secondAttribute="trailing" id="wHc-Z0-715"/>
+                            <constraint firstItem="yah-vH-FzG" firstAttribute="top" secondItem="2Yg-MU-fOc" secondAttribute="top" id="05m-U0-asm"/>
+                            <constraint firstItem="yah-vH-FzG" firstAttribute="leading" secondItem="2Yg-MU-fOc" secondAttribute="leading" id="091-YI-gW8"/>
+                            <constraint firstAttribute="bottom" secondItem="WX5-P0-k87" secondAttribute="bottom" id="WBB-dB-CXn"/>
+                            <constraint firstItem="WX5-P0-k87" firstAttribute="leading" secondItem="2Yg-MU-fOc" secondAttribute="leading" id="ZWM-cu-kY1"/>
+                            <constraint firstAttribute="trailing" secondItem="WX5-P0-k87" secondAttribute="trailing" id="jeQ-dJ-FI7"/>
+                            <constraint firstAttribute="bottom" secondItem="yah-vH-FzG" secondAttribute="bottom" constant="44" id="lIp-87-eBW"/>
+                            <constraint firstAttribute="trailing" secondItem="yah-vH-FzG" secondAttribute="trailing" id="s2o-6r-liP"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>

@@ -15,6 +15,10 @@
 #import <ObjectiveRecord/ObjectiveRecord.h>
 #import "GSKeyPair.h"
 
+#import "GSImportKeyPairController.h"
+
+#import "GSProgressHUD.h"
+
 @implementation GSAddKeyPairController {
     AKFormFieldTextField *_nameField;
 
@@ -24,6 +28,8 @@
     AKFormFieldExpandablePicker *_sizeSelectField;
 
     AKFormFieldButton *_saveField;
+
+    GSKeyPair *_keyPair;
 }
 
 - (void)viewDidLoad
@@ -135,31 +141,78 @@
     [self addSection:section];
 }
 
+- (void)addSaveImportedSection
+{
+    _saveField = [AKFormFieldButton fieldWithKey:@"save"
+                                           title:NSLocalizedString(@"Save", @"Save")
+                                        subtitle:nil
+                                           image:nil
+                                        delegate:self
+                                   styleProvider:[GSFormStyleProvider styleProvider]];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_saveField]];
+
+    [self addSection:section];
+}
+
 - (void)didPressButtonCell:(AKFormCellButton *)cell
 {
     AKFormFieldButton *button = cell.valueDelegate;
     if ([button.key isEqualToString:@"import"]) {
 
-        UIViewController *importController = [self.storyboard instantiateViewControllerWithIdentifier:@"GSImportKeyPairController"];
+        GSImportKeyPairController *importController = [self.storyboard instantiateViewControllerWithIdentifier:@"GSImportKeyPairController"];
 
-        [self mz_presentFormSheetWithViewController:importController animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-            
-        }];
+        [self mz_presentFormSheetWithViewController:importController animated:YES completionHandler:nil];
+
+        importController.importHandler = ^(GSImportKeyPairController *controller) {
+
+            GSKeyPair *keyPair = [GSKeyPair createKeyPairWithRawPrivateKey:controller.textView.text];
+
+            if (!keyPair) {
+                [GSProgressHUD showError:NSLocalizedString(@"Invalid key", @"Invalid key")];
+            } else {
+                [GSProgressHUD showSuccess:NSLocalizedString(@"Key readed", @"Key readed")];
+                _keyPair = keyPair;
+
+                [self.tableView beginUpdates];
+                [self clearSections];
+                [self addNameSection];
+                [self addSaveImportedSection];
+
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)]
+                              withRowAnimation:UITableViewRowAnimationFade];
+
+                [self.tableView reloadData];
+                [self.tableView endUpdates];
+            }
+
+            [controller mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        };
+
+        importController.cancelHandler = ^(GSImportKeyPairController *controller) {
+            [controller mz_dismissFormSheetControllerAnimated:YES completionHandler:nil];
+        };
 
 
     } else if ([button.key isEqualToString:@"save"]) {
         if (self.validateForm) {
             AKFormMetadata *sizeValue = _sizeSelectField.value.metadataValue;
 
-            NSString *password = _savePasswordField.value.boolValue
-            ? _passwordField.value.stringValue
-            : nil;
+            if (_keyPair) {
+                [_keyPair update:@{@"name": _nameField.value.stringValue}];
 
-            GSKeyPair *keyPair = [GSKeyPair createKeyPair:_nameField.value.stringValue
-                                                     size:sizeValue.serverID.integerValue
-                                                 password:password];
+            } else {
+                NSString *password = _savePasswordField.value.boolValue
+                ? _passwordField.value.stringValue
+                : nil;
 
-            [keyPair save];
+                GSKeyPair *keyPair = [GSKeyPair createKeyPair:_nameField.value.stringValue
+                                                         size:sizeValue.serverID.integerValue
+                                                     password:password];
+                _keyPair = keyPair;
+            }
+
+            [_keyPair save];
 
             [self.navigationController popViewControllerAnimated:YES];
             

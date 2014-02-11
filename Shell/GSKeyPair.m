@@ -77,7 +77,7 @@ int pemPasswordCallback(char *buf, int size, int rwflag, void *userdata) {
                           @"hasPassword": @(password != nil)}];
 }
 
-+ (instancetype)createKeyPrivateKey:(NSString *)privateKey
++ (instancetype)createKeyPairWithRawPrivateKey:(NSString *)privateKey
 {
     NSString *keysPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     keysPath = [keysPath stringByAppendingString:@"/key_pairs"];
@@ -90,30 +90,29 @@ int pemPasswordCallback(char *buf, int size, int rwflag, void *userdata) {
     NSString *publicKeyPath = [NSString stringWithFormat:@"%@/%@.pub", keysPath, keyIdentifier];
     NSString *privateKeyPath = [NSString stringWithFormat:@"%@/%@.pem", keysPath, keyIdentifier];
 
-    NSString *tempFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat: @"%@.pem", [NSProcessInfo processInfo].globallyUniqueString]];
-
     NSError *error;
-    [privateKey writeToFile:tempFile
+    [privateKey writeToFile:privateKeyPath
                  atomically:YES
                    encoding:NSUTF8StringEncoding
                       error:&error];
 
-    FILE *privateKeyFile = fopen([tempFile cStringUsingEncoding:NSUTF8StringEncoding], "r");
+    FILE *privateKeyFile = fopen([privateKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "r");
 
-    RSA *temp = NULL;
-    RSA *rsa = PEM_read_RSAPrivateKey(privateKeyFile, &temp, pemPasswordCallback, "User data");
+    RSA *rsa = PEM_read_RSAPrivateKey(privateKeyFile, NULL, pemPasswordCallback, "User data");
 
-    int ret;
-    FILE *publicFile = fopen([publicKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "w+");
-    ret = PEM_write_RSAPublicKey(publicFile, rsa);
+    if (!rsa)
+        return nil;
+
+    FILE *publicFile = fopen([publicKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "w");
+    int ret = PEM_write_RSAPublicKey(publicFile, rsa);
     fclose(publicFile);
 
-    FILE *privateFile = fopen([privateKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "w+");
-    ret = PEM_write_RSAPrivateKey(privateFile, rsa, NULL, NULL, 0, NULL, NULL);
+    if (!ret)
+        return nil;
 
     return [self create:@{@"publicKeyPath": publicKeyPath,
                           @"privateKeyPath": privateKeyPath,
-                          @"hasPassword": @YES}];
+                          @"hasPassword": @NO}];
 }
 
 @end

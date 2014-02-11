@@ -8,10 +8,6 @@
 
 #import "GSImportKeyPairController.h"
 
-@interface GSImportKeyPairController ()
-
-@end
-
 @implementation GSImportKeyPairController
 
 - (void)viewDidLoad
@@ -29,6 +25,22 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Actions
+
+- (IBAction)importAction:(id)sender
+{
+    if (self.importHandler) {
+        self.importHandler(self);
+    }
+}
+
+- (IBAction)cancelAction:(id)sender
+{
+    if (self.cancelHandler) {
+        self.cancelHandler(self);
+    }
 }
 
 @end

@@ -12,4 +12,10 @@
 
 @property (nonatomic, weak) IBOutlet UITextView *textView;
 
+@property (nonatomic, copy) void (^importHandler)(GSImportKeyPairController *controller);
+@property (nonatomic, copy) void (^cancelHandler)(GSImportKeyPairController *controller);
+
+- (IBAction)importAction:(id)sender;
+- (IBAction)cancelAction:(id)sender;
+
 @end
