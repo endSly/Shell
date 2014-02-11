@@ -22,6 +22,8 @@
 
 #import "GSProgressHUD.h"
 
+#import "GSSettingsManager.h"
+
 static NSString * const kGSUseCustomPassword = @"kGSUseCustomPassword";
 static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
@@ -67,7 +69,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                              delegate:self
                                         styleProvider:[GSFormStyleProvider styleProvider]];
 
-    _forceSizeField.value = [AKFormValue value:@YES
+    _forceSizeField.value = [AKFormValue value:@([GSSettingsManager manager].forceScreenSize)
                                       withType:AKFormValueBool];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField]];
@@ -78,6 +80,9 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                         placeholder:@"24"
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
+
+    _rowsField.value = [AKFormValue value:[NSString stringWithFormat:@"%li", [GSSettingsManager manager].screenRows]
+                                 withType:AKFormValueString];
     _rowsField.keyboardType = UIKeyboardTypeDecimalPad;
 
     _colsField = [AKFormFieldTextField fieldWithKey:@"cols"
@@ -85,6 +90,9 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                         placeholder:@"80"
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
+
+    _colsField.value = [AKFormValue value:[NSString stringWithFormat:@"%li", [GSSettingsManager manager].screenCols]
+                                 withType:AKFormValueString];
     _colsField.keyboardType = UIKeyboardTypeDecimalPad;
 
 
@@ -194,9 +202,16 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 - (void)saveAction:(id)sender
 {
-    _
+    if ([self validateForm]) {
+        [GSSettingsManager manager].forceScreenSize = _forceSizeField.value.boolValue;
+        [GSSettingsManager manager].screenCols = _colsField.value.stringValue.integerValue;
+        [GSSettingsManager manager].screenRows = _rowsField.value.stringValue.integerValue;
 
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+
+        [GSProgressHUD showSuccess:NSLocalizedString(@"Saved", @"Saved")];
+    }
+
 }
 
 #pragma mark - Button Cell Delegate

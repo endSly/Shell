@@ -53,6 +53,7 @@
 		0DC7EA73189D881000D36E3A /* GSAddKeyPairController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DC7EA72189D881000D36E3A /* GSAddKeyPairController.m */; };
 		0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC767188872A0001810E6 /* GSAWSCredentials.m */; };
 		0DCBC76E18887873001810E6 /* GSAWSAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */; };
+		0DCE7CA318AAD1BE00B3CDA5 /* GSSettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE7CA218AAD1BE00B3CDA5 /* GSSettingsManager.m */; };
 		0DCE7F6D188C5CFC00C69124 /* GSProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DCE7F6C188C5CFC00C69124 /* GSProgressHUD.m */; };
 		0DE3388B18796F3A00A5F50C /* UIFont+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388818796F3A00A5F50C /* UIFont+IonIcons.m */; };
 		0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE3388A18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m */; };
@@ -151,6 +152,8 @@
 		0DCBC767188872A0001810E6 /* GSAWSCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSCredentials.m; sourceTree = "<group>"; };
 		0DCBC76C18887873001810E6 /* GSAWSAccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSAWSAccountFormController.h; sourceTree = "<group>"; };
 		0DCBC76D18887873001810E6 /* GSAWSAccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSAWSAccountFormController.m; sourceTree = "<group>"; };
+		0DCE7CA118AAD1BE00B3CDA5 /* GSSettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSettingsManager.h; sourceTree = "<group>"; };
+		0DCE7CA218AAD1BE00B3CDA5 /* GSSettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSettingsManager.m; sourceTree = "<group>"; };
 		0DCE7F6B188C5CFC00C69124 /* GSProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSProgressHUD.h; sourceTree = "<group>"; };
 		0DCE7F6C188C5CFC00C69124 /* GSProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSProgressHUD.m; sourceTree = "<group>"; };
 		0DE3388718796F3900A5F50C /* UIFont+IonIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+IonIcons.h"; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				0D58EC33186C5265008893E5 /* GSAppDelegate.m */,
 				0D00407918A02D69005D7FCC /* GSDatabaseManager.h */,
 				0D00407A18A02D69005D7FCC /* GSDatabaseManager.m */,
+				0DCE7CA118AAD1BE00B3CDA5 /* GSSettingsManager.h */,
+				0DCE7CA218AAD1BE00B3CDA5 /* GSSettingsManager.m */,
 				0D58EC41186C5265008893E5 /* Images.xcassets */,
 				0D58EC2A186C5265008893E5 /* Supporting Files */,
 			);
@@ -593,6 +598,7 @@
 				0DCBC768188872A0001810E6 /* GSAWSCredentials.m in Sources */,
 				0DB9E8F01876E5E700B09E28 /* GSAddSSHFormController.m in Sources */,
 				0D0E6E51188082E300F693B4 /* GSRendezvous.m in Sources */,
+				0DCE7CA318AAD1BE00B3CDA5 /* GSSettingsManager.m in Sources */,
 				0DE3388C18796F3A00A5F50C /* UIBarButtonItem+IonIcons.m in Sources */,
 				0D58EC34186C5265008893E5 /* GSAppDelegate.m in Sources */,
 				0DE583E418831EA40083EE00 /* GSSSHTerminalViewController.m in Sources */,
