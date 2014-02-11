@@ -13,7 +13,9 @@
 #import <OpenSSL/rsa.h>
 #import <OpenSSL/pem.h>
 
-int pemPasswordCallback(char *buf, int size, int rwflag, void *userdata) {
+int pemPasswordCallback(char *buf, int size, int rwflag, NSMutableDictionary **userdata) {
+    NSMutableDictionary *keyInfo = *userdata;
+
     return 0;
 }
 
@@ -98,7 +100,8 @@ int pemPasswordCallback(char *buf, int size, int rwflag, void *userdata) {
 
     FILE *privateKeyFile = fopen([privateKeyPath cStringUsingEncoding:NSUTF8StringEncoding], "r");
 
-    RSA *rsa = PEM_read_RSAPrivateKey(privateKeyFile, NULL, pemPasswordCallback, "User data");
+    NSMutableDictionary *keyInfo = [NSMutableDictionary dictionary];
+    RSA *rsa = PEM_read_RSAPrivateKey(privateKeyFile, NULL, (pem_password_cb *) pemPasswordCallback, &keyInfo);
 
     if (!rsa)
         return nil;

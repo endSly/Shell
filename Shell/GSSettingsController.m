@@ -26,6 +26,10 @@ static NSString * const kGSUseCustomPassword = @"kGSUseCustomPassword";
 static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 @implementation GSSettingsController {
+    AKFormFieldSwitch *_forceSizeField;
+    AKFormFieldTextField *_rowsField;
+    AKFormFieldTextField *_colsField;
+
     AKFormFieldSwitch *_usePasswordField;
     AKFormFieldButton *_setPasswordButton;
     AKFormFieldTextField *_currentPasswordField;
@@ -42,6 +46,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     [self buildForm];
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_ios7_close_outline target:self action:@selector(cancelAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveAction:)];
 }
 
 - (void)buildForm
@@ -57,42 +62,38 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 - (void)addScreenSizeSection
 {
-    AKFormFieldSwitch *forceSizeField = [AKFormFieldSwitch fieldWithKey:@"autoSize"
-                                                                  title:@"Adjust size to Screen"
-                                                               delegate:self
-                                                          styleProvider:[GSFormStyleProvider styleProvider]];
+    _forceSizeField = [AKFormFieldSwitch fieldWithKey:@"autoSize"
+                                                title:@"Adjust size to Screen"
+                                             delegate:self
+                                        styleProvider:[GSFormStyleProvider styleProvider]];
 
-    forceSizeField.value = [AKFormValue value:@YES withType:AKFormValueBool];
+    _forceSizeField.value = [AKFormValue value:@YES
+                                      withType:AKFormValueBool];
 
-    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[forceSizeField]];
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField]];
     section.headerTitle = @"Screen Size";
 
-    NSMutableArray *fields = [NSMutableArray array];
+    _rowsField = [AKFormFieldTextField fieldWithKey:@"rows"
+                                              title:@"Rows"
+                                        placeholder:@"24"
+                                           delegate:self
+                                      styleProvider:[GSFormStyleProvider styleProvider]];
+    _rowsField.keyboardType = UIKeyboardTypeDecimalPad;
 
-    //Number Field
-    AKFormFieldTextField *rowsField = [AKFormFieldTextField fieldWithKey:@"rows"
-                                                                   title:@"Rows"
-                                                             placeholder:@"24"
-                                                                delegate:self
-                                                           styleProvider:[GSFormStyleProvider styleProvider]];
-    rowsField.keyboardType = UIKeyboardTypeDecimalPad;
-    [fields addObject:rowsField];
-
-    AKFormFieldTextField *colsField = [AKFormFieldTextField fieldWithKey:@"cols"
-                                                                   title:@"Columns"
-                                                             placeholder:@"80"
-                                                                delegate:self
-                                                           styleProvider:[GSFormStyleProvider styleProvider]];
-    rowsField.keyboardType = UIKeyboardTypeDecimalPad;
-    [fields addObject:colsField];
+    _colsField = [AKFormFieldTextField fieldWithKey:@"cols"
+                                              title:@"Columns"
+                                        placeholder:@"80"
+                                           delegate:self
+                                      styleProvider:[GSFormStyleProvider styleProvider]];
+    _colsField.keyboardType = UIKeyboardTypeDecimalPad;
 
 
     NSMapTable *fieldsToShowOnOn = [NSMapTable mapTableWithKeyOptions:NSMapTableStrongMemory
                                                          valueOptions:NSMapTableStrongMemory];
-    [fieldsToShowOnOn setObject:fields
+    [fieldsToShowOnOn setObject:@[_rowsField, _colsField]
                          forKey:section];
 
-    forceSizeField.fieldsToHideOnOn = fieldsToShowOnOn;
+    _forceSizeField.fieldsToHideOnOn = fieldsToShowOnOn;
     [self addSection:section];
 }
 
@@ -188,6 +189,13 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 - (void)cancelAction:(id)sender
 {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)saveAction:(id)sender
+{
+    _
+
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
