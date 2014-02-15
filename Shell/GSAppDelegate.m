@@ -25,7 +25,7 @@
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:18]}
                                                 forState:UIControlStateNormal];
 
-    [UAAppReviewManager setAppID:@"12345678"];
+    [UAAppReviewManager setAppID:@"822190190"];
 
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
