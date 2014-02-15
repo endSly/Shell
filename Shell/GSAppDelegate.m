@@ -36,9 +36,6 @@
 
     }
 
-    // Load database config
-    [[GSDatabaseManager manager] initializeDatabase];
-
     [UAAppReviewManager showPromptIfNecessary];
 
     return YES;

@@ -80,6 +80,9 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadConnections:) name:kGSConnectionsListUpdated object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoggedIn:) name:kGSUserHasLogged object:nil];
 
+    // Load database config
+    [[GSDatabaseManager manager] initializeDatabase];
+    
     [self reloadConnections:nil];
 }
 
