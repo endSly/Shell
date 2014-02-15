@@ -66,12 +66,12 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 
 - (void)addScreenSizeSection
 {
-    _forceSizeField = [AKFormFieldSwitch fieldWithKey:@"autoSize"
-                                                title:@"Adjust size to Screen"
+    _forceSizeField = [AKFormFieldSwitch fieldWithKey:@"forceSize"
+                                                title:@"Set terminal size"
                                              delegate:self
                                         styleProvider:[GSFormStyleProvider styleProvider]];
 
-    _forceSizeField.value = [AKFormValue value:@([GSSettingsManager manager].forceScreenSize ?: 9)
+    _forceSizeField.value = [AKFormValue value:@([GSSettingsManager manager].forceScreenSize)
                                       withType:AKFormValueBool];
 
     AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField]];
@@ -103,7 +103,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     [fieldsToShowOnOn setObject:@[_rowsField, _colsField]
                          forKey:section];
 
-    _forceSizeField.fieldsToHideOnOn = fieldsToShowOnOn;
+    _forceSizeField.fieldsToShowOnOn = fieldsToShowOnOn;
     [self addSection:section];
 }
 

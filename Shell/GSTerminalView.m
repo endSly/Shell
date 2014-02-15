@@ -81,7 +81,9 @@
 - (void)getScreenCols:(NSUInteger *)cols rows:(NSUInteger *)rows
 {
     NSString *sizeJSON = [self.webView stringByEvaluatingJavaScriptFromString:@"JSON.stringify(getSize());"];
-    NSDictionary *size = [NSJSONSerialization JSONObjectWithData:[sizeJSON dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    NSDictionary *size = [NSJSONSerialization JSONObjectWithData:[sizeJSON dataUsingEncoding:NSUTF8StringEncoding]
+                                                         options:0
+                                                           error:nil];
 
     *cols = [size[@"cols"] integerValue];
     *rows = [size[@"rows"] integerValue];
