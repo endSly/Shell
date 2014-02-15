@@ -48,7 +48,7 @@
     recognizer.direction = UISwipeGestureRecognizerDirectionDown;
     [self.view addGestureRecognizer:recognizer];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_eject target:self action:@selector(disconnect)];
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:icon_eject target:self action:@selector(disconnect)];
 }
 
 - (void)didReceiveMemoryWarning
