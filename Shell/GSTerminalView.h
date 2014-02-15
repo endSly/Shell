@@ -16,6 +16,8 @@
 
 @property (nonatomic, weak) id <GSTerminalViewDelegate> delegate;
 
+@property (nonatomic) NSUInteger fontSize;
+
 - (void)terminalWrite:(NSString *)string;
 - (void)setCols:(NSUInteger)cols rows:(NSUInteger)rows;
 - (void)getScreenCols:(NSUInteger *)cols rows:(NSUInteger *)rows;

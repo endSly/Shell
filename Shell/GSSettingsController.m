@@ -55,6 +55,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
 - (void)buildForm
 {
     [self addScreenSizeSection];
+    [self addFontSizeSection];
     
     if(![GSDatabaseManager manager].isGuest)
         [self addPasswordSection];
@@ -73,21 +74,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     _forceSizeField.value = [AKFormValue value:@([GSSettingsManager manager].forceScreenSize ?: 9)
                                       withType:AKFormValueBool];
 
-    NSMutableArray *sizeOptions = [NSMutableArray array];
-    for (NSInteger size = 7; size < 19; ++size) {
-        [sizeOptions addObject:@{KEY_METADATA_ID: @(size).stringValue, KEY_METADATA_NAME: @(size).stringValue}];
-    }
-
-    _sizeSelectField = [AKFormFieldExpandablePicker fieldWithKey:@"fontSize"
-                                                           title:NSLocalizedString(@"Font Size", @"Font size")
-                                                     placeholder:nil
-                                              metadataCollection:[AKFormMetadataCollection metadataCollectionWithArray:[NSArray arrayWithArray:sizeOptions]]
-                                                   styleProvider:[GSFormStyleProvider styleProvider]];
-
-    _sizeSelectField.value = [AKFormValue value:[AKFormMetadata metadataWithDictionary:sizeOptions[1]]
-                                       withType:AKFormValueMetadata];
-
-    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField, _sizeSelectField]];
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField]];
     section.headerTitle = @"Screen Size";
 
     _rowsField = [AKFormFieldTextField fieldWithKey:@"rows"
@@ -117,6 +104,31 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                          forKey:section];
 
     _forceSizeField.fieldsToHideOnOn = fieldsToShowOnOn;
+    [self addSection:section];
+}
+
+- (void)addFontSizeSection
+{
+    NSMutableArray *sizeOptions = [NSMutableArray array];
+    for (NSInteger size = 7; size < 19; ++size) {
+        [sizeOptions addObject:@{KEY_METADATA_ID: @(size).stringValue, KEY_METADATA_NAME: @(size).stringValue}];
+    }
+
+    _sizeSelectField = [AKFormFieldExpandablePicker fieldWithKey:@"fontSize"
+                                                           title:NSLocalizedString(@"Font Size", @"Font size")
+                                                     placeholder:nil
+                                              metadataCollection:[AKFormMetadataCollection metadataCollectionWithArray:[NSArray arrayWithArray:sizeOptions]]
+                                                   styleProvider:[GSFormStyleProvider styleProvider]];
+
+    NSDictionary *selectedOption = @{KEY_METADATA_ID: @([GSSettingsManager manager].fontSize ?: 10).stringValue,
+                                     KEY_METADATA_NAME: @([GSSettingsManager manager].fontSize ?: 10).stringValue};
+
+    _sizeSelectField.value = [AKFormValue value:[AKFormMetadata metadataWithDictionary:selectedOption]
+                                       withType:AKFormValueMetadata];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_sizeSelectField]];
+    section.headerTitle = @"Font Size";
+
     [self addSection:section];
 }
 
@@ -221,7 +233,10 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
         [GSSettingsManager manager].forceScreenSize = _forceSizeField.value.boolValue;
         [GSSettingsManager manager].screenCols = _colsField.value.stringValue.integerValue;
         [GSSettingsManager manager].screenRows = _rowsField.value.stringValue.integerValue;
+        [GSSettingsManager manager].fontSize = _sizeSelectField.value.metadataValue.serverID.integerValue;
 
+        [[GSSettingsManager manager] synchronize];
+        
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
         [GSProgressHUD showSuccess:NSLocalizedString(@"Saved", @"Saved")];

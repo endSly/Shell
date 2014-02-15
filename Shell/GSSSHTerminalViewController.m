@@ -269,6 +269,8 @@
 
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView
 {
+    [super terminalViewDidLoad:terminalView];
+
     [self adjustSizeToTerminalView];
 
     [self connect];

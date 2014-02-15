@@ -22,6 +22,8 @@
 
 #import "GSHerokuService.h"
 
+#import "GSSettingsManager.h"
+
 @interface GSTerminalViewController ()
 
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -136,7 +138,7 @@
 
 - (void)terminalViewDidLoad:(GSTerminalView *)terminalView
 {
-
+    self.terminalView.fontSize = [GSSettingsManager manager].fontSize ?: 10;
 }
 
 - (void)terminalViewDidResize:(GSTerminalView *)terminalView

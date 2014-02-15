@@ -50,6 +50,14 @@
     [self.webView loadRequest:[NSURLRequest requestWithURL:htmlURL]];
 }
 
+- (void)setFontSize:(NSUInteger)fontSize
+{
+    _fontSize = fontSize;
+
+    NSString *js = [NSString stringWithFormat:@"document.getElementById('terminal').style.fontSize = \"%lupx\";", fontSize];
+    [self.webView stringByEvaluatingJavaScriptFromString:js];
+}
+
 - (void)terminalWrite:(NSString *)data
 {
     dispatch_async(dispatch_get_main_queue(), ^{

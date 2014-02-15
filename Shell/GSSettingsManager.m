@@ -71,4 +71,9 @@
     return manager;
 }
 
+- (void)synchronize
+{
+    [_settingsDefaults synchronize];
+}
+
 @end

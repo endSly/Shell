@@ -17,4 +17,6 @@
 
 + (instancetype)manager;
 
+- (void)synchronize;
+
 @end
