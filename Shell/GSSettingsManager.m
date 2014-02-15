@@ -51,6 +51,16 @@
     [_settingsDefaults setInteger:screenRows forKey:@"GSScreenRows"];
 }
 
+- (NSInteger)fontSize
+{
+    return [_settingsDefaults integerForKey:@"GSFontSize"];
+}
+
+- (void)setFontSize:(NSInteger)fontSize
+{
+    [_settingsDefaults setInteger:fontSize forKey:@"GSFontSize"];
+}
+
 + (instancetype)manager
 {
     static GSSettingsManager *manager = nil;

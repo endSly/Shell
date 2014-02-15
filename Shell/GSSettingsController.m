@@ -31,6 +31,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
     AKFormFieldSwitch *_forceSizeField;
     AKFormFieldTextField *_rowsField;
     AKFormFieldTextField *_colsField;
+    AKFormFieldExpandablePicker *_sizeSelectField;
 
     AKFormFieldSwitch *_usePasswordField;
     AKFormFieldButton *_setPasswordButton;
@@ -69,10 +70,24 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                              delegate:self
                                         styleProvider:[GSFormStyleProvider styleProvider]];
 
-    _forceSizeField.value = [AKFormValue value:@([GSSettingsManager manager].forceScreenSize)
+    _forceSizeField.value = [AKFormValue value:@([GSSettingsManager manager].forceScreenSize ?: 9)
                                       withType:AKFormValueBool];
 
-    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField]];
+    NSMutableArray *sizeOptions = [NSMutableArray array];
+    for (NSInteger size = 7; size < 19; ++size) {
+        [sizeOptions addObject:@{KEY_METADATA_ID: @(size).stringValue, KEY_METADATA_NAME: @(size).stringValue}];
+    }
+
+    _sizeSelectField = [AKFormFieldExpandablePicker fieldWithKey:@"fontSize"
+                                                           title:NSLocalizedString(@"Font Size", @"Font size")
+                                                     placeholder:nil
+                                              metadataCollection:[AKFormMetadataCollection metadataCollectionWithArray:[NSArray arrayWithArray:sizeOptions]]
+                                                   styleProvider:[GSFormStyleProvider styleProvider]];
+
+    _sizeSelectField.value = [AKFormValue value:[AKFormMetadata metadataWithDictionary:sizeOptions[1]]
+                                       withType:AKFormValueMetadata];
+
+    AKFormSection *section = [[AKFormSection alloc] initWithFields:@[_forceSizeField, _sizeSelectField]];
     section.headerTitle = @"Screen Size";
 
     _rowsField = [AKFormFieldTextField fieldWithKey:@"rows"

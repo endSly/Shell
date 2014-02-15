@@ -13,6 +13,7 @@
 @property (nonatomic) BOOL forceScreenSize;
 @property (nonatomic) NSInteger screenRows;
 @property (nonatomic) NSInteger screenCols;
+@property (nonatomic) NSInteger fontSize;
 
 + (instancetype)manager;
 
