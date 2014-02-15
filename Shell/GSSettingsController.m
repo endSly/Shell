@@ -83,7 +83,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
 
-    _rowsField.value = [AKFormValue value:[NSString stringWithFormat:@"%li", [GSSettingsManager manager].screenRows]
+    _rowsField.value = [AKFormValue value:[NSString stringWithFormat:@"%li", [GSSettingsManager manager].screenRows ?: 24]
                                  withType:AKFormValueString];
     _rowsField.keyboardType = UIKeyboardTypeDecimalPad;
 
@@ -93,7 +93,7 @@ static NSString * const kGSDatabasePassword = @"kGSDatabasePassword";
                                            delegate:self
                                       styleProvider:[GSFormStyleProvider styleProvider]];
 
-    _colsField.value = [AKFormValue value:[NSString stringWithFormat:@"%li", [GSSettingsManager manager].screenCols]
+    _colsField.value = [AKFormValue value:[NSString stringWithFormat:@"%li", [GSSettingsManager manager].screenCols ?: 80]
                                  withType:AKFormValueString];
     _colsField.keyboardType = UIKeyboardTypeDecimalPad;
 

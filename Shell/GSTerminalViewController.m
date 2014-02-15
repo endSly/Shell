@@ -71,6 +71,10 @@
 
     [self.terminalView performSelector:@selector(showAccessoryToolbar) withObject:nil afterDelay:0];
 
+    // Scroll to bottom
+    //CGPoint bottomOffset = CGPointMake(0, self.terminalView.scrollView.contentSize.height - self.terminalView.scrollView.bounds.size.height);
+    //[self.terminalView.scrollView setContentOffset:bottomOffset animated:YES];
+
     [UIView animateWithDuration:0.1 animations:^{
         self.terminalView.scrollView.contentInsetTop = 20;
     }];

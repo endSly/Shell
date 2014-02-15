@@ -17,6 +17,8 @@
 
 #import "GSProgressHUD.h"
 
+#import "GSSettingsManager.h"
+
 @interface GSSSHTerminalViewController ()
 
 @property (strong, nonatomic) NMSSHSession *session;
@@ -257,12 +259,19 @@
 - (void)adjustSizeToTerminalView
 {
     NSUInteger cols, rows;
-    [self.terminalView getScreenCols:&cols rows:&rows];
+    if ([GSSettingsManager manager].forceScreenSize) {
+        rows = [GSSettingsManager manager].screenRows;
+        cols = [GSSettingsManager manager].screenCols;
 
+    } else {
+        [self.terminalView getScreenCols:&cols rows:&rows];
+    }
     rows = MAX(rows, 20);
+    cols = MAX(cols, 40);
 
     [self.terminalView setCols:cols rows:rows];
     [self.session.channel requestSizeWidth:cols height:rows];
+
 }
 
 #pragma mark - Terminal view delegate
