@@ -335,6 +335,11 @@
     [self.session.channel write:data error:&error];
 }
 
+- (void)terminalView:(GSTerminalView *)terminalView didUpdateTitle:(NSString *)title
+{
+    self.title = title;
+}
+
 #pragma mark - SSH Session delegate
 
 - (void)session:(NMSSHSession *)session didDisconnectWithError:(NSError *)error
