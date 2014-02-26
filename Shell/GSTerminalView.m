@@ -145,7 +145,8 @@
 
     if ([request.URL.scheme isEqualToString:@"term-title"]) {
         NSString *data = [request.URL.fragment stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        //[self.delegate terminalView:self didWrite:data];
+        if ([self.delegate respondsToSelector:@selector(terminalView:didUpdateTitle:)])
+            [self.delegate terminalView:self didUpdateTitle:data];
         return NO;
     }
 

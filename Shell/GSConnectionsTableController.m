@@ -134,11 +134,11 @@ NSString * const kGSConnectionsListUpdated = @"kGSConnectionsListUpdated";
     // Add AWS accounts
     NSArray *awsAccounts = [GSAWSCredentials all];
     for (GSAWSCredentials *credentials in awsAccounts) {
+        AmazonEC2Client *client = credentials.client;
 
         NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         [queue addOperationWithBlock:^{
             @try {
-                AmazonEC2Client *client = credentials.client;
                 EC2DescribeRegionsResponse *response = [client describeRegions:[[EC2DescribeRegionsRequest alloc] init]];
 
                 for (EC2Region *region in response.regions) {

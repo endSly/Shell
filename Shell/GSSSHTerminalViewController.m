@@ -75,6 +75,34 @@
     return password;
 }
 
+- (NSString *)askUsername
+{
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block NSString *value = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *inputAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Username", @"Alert title")
+                                                             message:NSLocalizedString(@"You need user", @"")
+                                                            delegate:self
+                                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                   otherButtonTitles:NSLocalizedString(@"Ok", @"Ok"), nil];
+
+        inputAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+
+        inputAlert.tapBlock = ^(UIAlertView *alertView, NSInteger index) {
+            if (index == 1) { // Cancel button
+                value = [alertView textFieldAtIndex:0].text;
+            }
+            dispatch_semaphore_signal(sema);
+        };
+
+        [inputAlert show];
+    });
+
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+
+    return value;
+}
+
 - (NSString *)askPassword
 {
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -136,6 +164,17 @@
     [GSProgressHUD show:NSLocalizedString(@"Connecting...", @"Connecting hud")];
 
     [_queue addOperationWithBlock:^{
+        if (!self.username) {
+            self.username = [self askUsername];
+            
+            if (!self.username) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self closeWithError:NSLocalizedString(@"Authentication failed", @"Auth failed HUD message")];
+                });
+                return;
+            }
+        }
+
         NMSSHSession *session = [NMSSHSession connectToHost:self.host
                                                        port:[(self.port ?: @22) integerValue]
                                                withUsername:self.username];
@@ -163,7 +202,7 @@
                         break; // Cancel pressed
 
                 }
-                authenticated = [session authenticateByPublicKey:self.keyPair.publicKeyPath
+                authenticated = [session authenticateByPublicKey:nil
                                                       privateKey:self.keyPair.privateKeyPath
                                                      andPassword:password];
             } while (!authenticated && hasPassword);
