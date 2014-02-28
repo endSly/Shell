@@ -53,7 +53,12 @@
 
 - (NSInteger)fontSize
 {
-    return [_settingsDefaults integerForKey:@"GSFontSize"];
+    NSInteger fontSize = [_settingsDefaults integerForKey:@"GSFontSize"];
+    if (fontSize)
+        return fontSize;
+
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad
+    ? 12 : 10;
 }
 
 - (void)setFontSize:(NSInteger)fontSize
