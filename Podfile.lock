@@ -13,30 +13,32 @@ PODS:
   - HexColors (2.2.1)
   - libssh2 (1.4.3):
     - OpenSSL
-  - MZAppearance (1.1.1)
-  - MZFormSheetController (2.3.1):
-    - MZAppearance (~> 1.1.1)
-  - NJKScrollFullScreen (0.2)
+  - MZAppearance (1.1.2)
+  - MZFormSheetController (2.3.4):
+    - MZAppearance (~> 1.1.2)
+  - NJKScrollFullScreen (0.2.1)
   - NMSSH (1.1.0):
     - libssh2
-  - NSDate+Helper (0.0.1)
+  - NSDate+Helper (1.0.0)
   - ObjectiveRecord (1.4.0):
     - ObjectiveSugar
   - ObjectiveSugar (1.1.0)
-  - OpenSSL (1.0.1)
+  - OpenSSL (1.0.1g)
   - RMPickerViewController (1.0.0)
   - SQLCipher (3.0.1):
     - SQLCipher/standard
-  - SQLCipher/standard (3.0.1)
-  - SWTableViewCell (0.2.2)
+  - SQLCipher/common (3.0.1)
+  - SQLCipher/standard (3.0.1):
+    - SQLCipher/common
+  - SWTableViewCell (0.2.7)
   - TenzingCore (0.2.1):
     - TenzingCore/Core
   - TenzingCore/Core (0.2.1)
   - TenzingCore/RESTService (0.2.1):
     - TenzingCore/Core
   - UAAppReviewManager (0.2.1)
-  - UIActionSheet+Blocks (0.8)
-  - UIAlertView+Blocks (0.8)
+  - UIActionSheet+Blocks (0.8.1)
+  - UIAlertView+Blocks (0.8.1)
   - UIDevice-Hardware@arkuana (0.0.1)
   - UIImage-Resize (1.0.1)
   - UIImageEffects (0.0.1)
@@ -55,7 +57,7 @@ DEPENDENCIES:
   - NJKScrollFullScreen
   - NMSSH (from `https://github.com/endSly/NMSSH.git`)
   - ObjectiveRecord (~> 1.4.0)
-  - OpenSSL (~> 1.0.1)
+  - OpenSSL (= 1.0.1g)
   - RMPickerViewController (~> 1.0.0)
   - SQLCipher (~> 3.0.1)
   - SWTableViewCell (~> 0.2.2)
@@ -71,31 +73,31 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AKForm: 5571877ce4580825c7bd24d7ed71a99c3e77d014
-  CJStringValidator: f6b1226a0d995dd36af145595ba7c2c18437a9b9
-  DCModalSegue: dbec9bde298bdb92c4d15b2e4a10b6f43bc0977e
+  CJStringValidator: 4c322e8cf8a850c2477376a33d0134bcc0cf9255
+  DCModalSegue: 1393836d5e72b6ec04299b20bdc122bba6b730e3
   FrameAccessor: 1c383c4dc298925749fb2a6b9c05cd45be0d8857
   GKImagePicker@arkuana: a5a0dca241c616cf4aba31ffa81be8dcb0638eef
-  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
+  HexColors: 99211502e17904af7891fc8f687d0e4958a6d66e
   libssh2: 5b5dd5358289b45816bae212e7f2e9689d777603
-  MZAppearance: 8b02683f0019f725557ae9839ed6cab153fff669
-  MZFormSheetController: 3e0cfaead6d3354e1bde9cb028a333352169b25d
-  NJKScrollFullScreen: e6afddd7f9c33d43126e3b547b39cd99fa2ee0a3
+  MZAppearance: 75bc6c786025c311ebc247b01e1dead5cd29f7c5
+  MZFormSheetController: e14169b86864f515905e3f2775b4d81a2fa836ac
+  NJKScrollFullScreen: 84d945679349777458c1c612697ca52409825dd3
   NMSSH: db9f1cd823abf18341f9638d4ead0dc5fd7f0f86
-  NSDate+Helper: 3015cb57778256bce7c549fca172474308740059
+  NSDate+Helper: 6f6ab03e05037127c85c2e1f5f6c27021ed2887c
   ObjectiveRecord: 109a6c583284c2c9af1dc0d6ccc1dfc84e826c45
-  ObjectiveSugar: e90d09b348ec0d1739d6d93bdcee385cf0a96036
-  OpenSSL: 9b85178853701b1e9bbf70df695a4c149799e772
+  ObjectiveSugar: fed588577bcf9733546aeaa089de444e4bab9a52
+  OpenSSL: 0c9c299346c12384ad9c26d15b7eceb014c219e9
   RMPickerViewController: 730a83547b0624f7e182eb50ecfdcf9efcec8ea5
-  SQLCipher: 006f125d9b85e32ee6242b41adb68f0f5cbc4aa9
-  SWTableViewCell: b20432962d410c45c25b69e7c519a1296ecce70b
+  SQLCipher: 9dc260ec6becc4d05cd73f1346d4bba9dc086560
+  SWTableViewCell: cb58ca308c311391844c44aede3dc6b3a636d37b
   TenzingCore: efca489afeb24a421eeb5d3cc11c1f86c88d7999
   UAAppReviewManager: 5951542f163e9964ce0e5bd6543f512dfc0efd51
-  UIActionSheet+Blocks: d3c7515281a4c5c5b9fbf127d8a9220982d4392c
-  UIAlertView+Blocks: 39a1aee8ea75c4f9f877ff0b3734d84bf2009d1f
+  UIActionSheet+Blocks: e95422625426ae57ab83193f1523c6d1e4d5fad8
+  UIAlertView+Blocks: bac565670861210aff25f574638f0c552648a0a8
   UIDevice-Hardware@arkuana: a5ad224939dba974634574e68ad6a7533499ba4f
-  UIImage-Resize: 575381c9746383a5f557bc584a538a2d2ff53c76
+  UIImage-Resize: b71ddbd27e5a29c2776df5c55b766928050437b2
   UIImageEffects: e1059bcd4c1766f72a78ae6ade359e3f9ee31063
-  UIView-JTViewToImage: 5ce1a48e2d3966e5c0dc0b2c00960b7da6fbaffd
+  UIView-JTViewToImage: 4bd97ea2f0bdec566343472af301a304cc0218ff
   URBMediaFocusViewController@arkuana: 5e08c48ef8ab32f7a873a5ddab3220e660723df3
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.31.1
